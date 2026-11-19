@@ -142,6 +142,21 @@ Ebenfalls fertig:
 - Nicht lösbar: Ein vor dieser Änderung in der Kampagne entstandener Rekord bleibt stehen (es ist nicht gespeichert,
   woher er kam).
 
+**Fertig (19.11.2026, mehr Jump-&-Run-Gefühl, Wunsch aus dem Test):**
+- **Abgründe statt „Blöcke auf Bodenhöhe“:** Lücken im Boden sahen aus wie flache Blöcke (darunter war nur der
+  Hintergrund in Bodenfarbe). Jetzt sind sie fast schwarz, mit Felskanten an den Rändern.
+- **Boden aus Blöcken** (oben eine Reihe Quader, darunter versetzte Ziegel), **Mauern als Ziegeltürme**; vom Schild
+  zerschlagene Mauern fliegen in Brocken auseinander.
+- **Notenblöcke** ( in ): schweben über manchen Hindernissen statt einer Notenmünze. Wer hoch genug
+  springt, stößt mit dem Kopf dagegen: +100, der Block fliegt weg. Coach-Tipp mit der nötigen Resonanz (),
+  Ansage beim ersten Block. Test: in der Simulation ab der genannten Resonanz immer erreichbar.
+- **Notenmünzen** drehen sich, **Punkte** steigen dort auf, wo man sie verdient (+100, +50).
+- **Geräusche** (): Sprung, Doppelsprung, Landung, Münze, Notenblock, Gegner, Mauer, Treffer, Absturz,
+  Fanfare. Alle aus Akkordtönen des gerade klingenden Akkords, damit sie zur Musik passen; sie zählen nicht für die
+  Resonanz. Eigene Lautstärke „Geräusche“ in den Pause-Einstellungen.
+- **Staubwolken** beim Landen, **Ziel-Tor** mit Notenschlüssel am Ende jedes Kampagnen-Levels.
+- Alles nur mit Tests und Typprüfung abgesichert, nicht angesehen oder angehört.
+
 ## Nächste Schritte (Vorschlag)
 
 1. **Im Browser anhören:** neue Bassdrum, leise/laute Klavier- und Saxophon-Töne, Hip-Hop- und House-Band,

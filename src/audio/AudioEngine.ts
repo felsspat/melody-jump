@@ -2,6 +2,7 @@
 
 const MUSIC_GAIN = 0.55;
 const PLAYER_GAIN = 0.9;
+const SFX_GAIN = 0.8;
 
 export class AudioEngine {
   readonly ctx: AudioContext;
@@ -12,6 +13,8 @@ export class AudioEngine {
   readonly reverbSend: GainNode;
   /** Reverb send of the player's instrument (separate, so both volumes can be set on their own) */
   readonly playerReverb: GainNode;
+  /** Game sounds (jump, coin …) */
+  readonly sfxBus: GainNode;
   readonly noise: AudioBuffer;
   /** Additional player-adjustable latency correction in seconds. */
   userOffset = 0;
@@ -50,6 +53,9 @@ export class AudioEngine {
     this.playerReverb = ctx.createGain();
     this.playerReverb.gain.value = 1;
     this.playerReverb.connect(reverb);
+    this.sfxBus = ctx.createGain();
+    this.sfxBus.gain.value = SFX_GAIN;
+    this.sfxBus.connect(this.master);
 
     this.noise = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
     const data = this.noise.getChannelData(0);
@@ -67,7 +73,8 @@ export class AudioEngine {
   }
 
   /** Volume of the band and of the player's instrument (1 = the default mix), including their reverb. */
-  setVolumes(band: number, player: number): void {
+  setVolumes(band: number, player: number, sfx = 1): void {
+    this.sfxBus.gain.value = SFX_GAIN * sfx;
     this.musicBus.gain.value = MUSIC_GAIN * band;
     this.reverbSend.gain.value = band;
     this.playerBus.gain.value = PLAYER_GAIN * player;

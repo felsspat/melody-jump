@@ -73,6 +73,7 @@ export interface PauseSettings {
   /** Volume factors (1 = 100 %) */
   band: number;
   player: number;
+  sfx: number;
   /** Selected game speed; undefined = not adjustable (tutorial) */
   tempo?: string;
   sound: string;
@@ -1143,7 +1144,7 @@ export class Hud {
     const lineH = 18;
     const rowH = 42;
     const optH = 34;
-    const rows = settings ? (settings.tempo ? 4 : 3) : 0;
+    const rows = settings ? (settings.tempo ? 5 : 4) : 0;
     const settingsH = rows ? rows * rowH + 6 : 0;
     const ph = 44 + hint.length * lineH + 12 + settingsH + bh + 14;
     const px = w / 2 - pw / 2;
@@ -1185,7 +1186,7 @@ export class Hud {
         buttons.push({ id, x, y, w: bw, h: optH });
       };
       let ry = py + 44 + hint.length * lineH + 8;
-      for (const which of ['band', 'player'] as const) {
+      for (const which of ['band', 'player', 'sfx'] as const) {
         label(t(`pause.settings.${which}`), ry);
         option(`pause:vol:${which}:-`, '−', cx, ry, 48, false);
         ctx.font = `800 15px ${FONT}`;

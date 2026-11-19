@@ -4,7 +4,7 @@ import { MELODIES } from '../music/melodies';
 import { Section, SectionDef } from '../music/Song';
 import { StyleId } from '../music/styles';
 import { ChordSpec, Key } from '../music/theory';
-import { MONSTER_GRID, Obstacle, PX_PER_BEAT, jumpShape, minResonanceFor, takeoffBeat } from './physics';
+import { MONSTER_GRID, Obstacle, PLAYER_H, PX_PER_BEAT, TILE, jumpShape, minResonanceFor, takeoffBeat } from './physics';
 
 /** A section that accompanies a well-known melody (chords and length come from the melody). */
 export function melodySection(id: string, key: Key, bpm: number, passes: number, difficulty: number): SectionDef {
@@ -280,6 +280,27 @@ export interface Coin {
   taken: boolean;
 }
 
+/**
+ * A floating note block above an obstacle. A high enough jump bumps it with the
+ * runner's head: it flies up and gives a note coin (+100).
+ */
+export interface NoteBlock {
+  /** Center position in beats */
+  beat: number;
+  /** Height of its bottom edge above the ground (px) */
+  bottom: number;
+  /** About this much resonance is needed to reach it */
+  minResonance: number;
+  bumped: boolean;
+  bumpedAt: number;
+}
+
+/** Half the width of a note block in beats (for the head-bump check). */
+export const BLOCK_HALF_BEATS = TILE / 2 / PX_PER_BEAT;
+
+/** Share of the rewards above obstacles that are note blocks instead of floating note coins. */
+export const BLOCK_CHANCE = 0.4;
+
 /** Target resonance band per difficulty. */
 function resonanceBand(difficulty: number): [number, number] {
   const lo = Math.min(55, 12 + difficulty * 8);
@@ -292,6 +313,7 @@ export const MONSTER_CHANCE = 0.25;
 export class LevelGen {
   readonly obstacles: Obstacle[] = [];
   readonly coins: Coin[] = [];
+  readonly blocks: NoteBlock[] = [];
 
   constructor(private rnd: () => number) {}
 
@@ -311,12 +333,19 @@ export class LevelGen {
       const o = this.makeObstacle(beat, lo, hi, this.rnd() < MONSTER_CHANCE);
       this.obstacles.push(o);
       lastEnd = o.beat + o.width;
-    // Collectible notes above some obstacles, only reachable with a better melody
+      // Rewards above some obstacles, only reachable with a better melody:
+      // a floating note coin, or a note block to bump with the head
       if (this.rnd() < 0.55) {
         const r = Math.min(100, o.minResonance + 22 + this.rnd() * 10);
         const shape = jumpShape(r);
         const start = takeoffBeat(o, shape);
-        this.coins.push({ beat: start + shape.duration / 2, height: shape.height * 0.92, taken: false });
+        const apex = start + shape.duration / 2;
+        if (this.rnd() < BLOCK_CHANCE && r < 100) {
+          // The head touches the block's bottom at the top of a jump with resonance r
+          this.blocks.push({ beat: apex, bottom: Math.round(shape.height + PLAYER_H - 4), minResonance: Math.ceil(r), bumped: false, bumpedAt: 0 });
+        } else {
+          this.coins.push({ beat: apex, height: shape.height * 0.92, taken: false });
+        }
       }
     }
   }
@@ -383,5 +412,6 @@ export class LevelGen {
   prune(beat: number): void {
     while (this.obstacles.length && this.obstacles[0].beat + this.obstacles[0].width < beat - 16) this.obstacles.shift();
     while (this.coins.length && this.coins[0].beat < beat - 16) this.coins.shift();
+    while (this.blocks.length && this.blocks[0].beat < beat - 16) this.blocks.shift();
   }
 }

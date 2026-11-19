@@ -172,6 +172,7 @@ export class Player {
         if (overlap && this.y < o.height) {
           if (this.shield) {
             o.broken = true;
+            o.brokenAt = now;
             this.shield = false;
             events.push('shieldBreak');
           } else {

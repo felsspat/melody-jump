@@ -59,6 +59,9 @@ Pro Ton (`src/music/HarmonyJudge.ts`):
 - **Muster**: 3 verschiedene Akkordtöne in einem Schlag = Schild, Oktavsprung = Doppelsprung,
   3 schiefe Töne hintereinander = ein „Misston“-Gegner taucht auf.
 
+Über manchen Hindernissen schweben **Notenmünzen** oder **Notenblöcke** (♪). Nur wer mit hoher Resonanz springt,
+erreicht sie (Notenblöcke stößt man mit dem Kopf an); der Coach sagt vorher, wie viel Resonanz nötig ist.
+
 Die Resonanz (0–100) ist die gewichtete Summe der letzten zwei Takte. Vier Takte mit Resonanz ≥ 70 geben ein Leben zurück.
 
 ## Aufbau

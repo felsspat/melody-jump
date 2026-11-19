@@ -4,20 +4,30 @@ import { AudioEngine } from '../audio/AudioEngine';
 import { Backing } from '../audio/Backing';
 import { Clock } from '../audio/Clock';
 import { PLAYER_INSTRUMENTS, SampleBank } from '../audio/SampleBank';
+import { Sfx } from '../audio/Sfx';
 import { Synth } from '../audio/Synth';
 import { LOCALES, Locale, getLocale, setLocale, t } from '../i18n/i18n';
 import { InputMapper, NoteRequest, setLaneRange } from '../input/InputMapper';
 import { MidiInput } from '../input/MidiInput';
-import { NoteExplanation, diagnose, explainNote, monsterTip, summarize } from '../music/explain';
+import { NoteExplanation, blockTip, diagnose, explainNote, monsterTip, summarize } from '../music/explain';
 import { GUIDE_HIT_BONUS, HarmonyJudge, JudgedNote } from '../music/HarmonyJudge';
 import { Section, SectionDef, Song, describeSection, sectionName } from '../music/Song';
 import { Chord, pcName, pitchClass } from '../music/theory';
 import { Button, Flash, Hud, HudView, STYLE_GRID_COLS } from '../render/Hud';
 import { NoteParticles } from '../render/NoteParticles';
-import { Renderer, groundY, playerScreenX } from '../render/Renderer';
+import { Popup, Renderer, groundY, playerScreenX } from '../render/Renderer';
 import { Enemies } from '../world/Enemies';
-import { ENDLESS_STYLES, EndlessStyle, LevelGen, endlessIntro, isEndlessStyle, makeRng, makeSectionGenerator } from '../world/Level';
-import { PLAYER_H, PX_PER_BEAT } from '../world/physics';
+import {
+  BLOCK_HALF_BEATS,
+  ENDLESS_STYLES,
+  EndlessStyle,
+  LevelGen,
+  endlessIntro,
+  isEndlessStyle,
+  makeRng,
+  makeSectionGenerator,
+} from '../world/Level';
+import { PLAYER_H, PLAYER_W, PX_PER_BEAT } from '../world/physics';
 import { Player, PlayerEvent } from '../world/Player';
 import { CreditsPanel } from '../ui/CreditsPanel';
 import { TheoryPanel } from '../ui/TheoryPanel';
@@ -99,6 +109,7 @@ export class Game {
 
   private engine?: AudioEngine;
   private synth?: Synth;
+  private sfx?: Sfx;
   private clock?: Clock;
   private backing?: Backing;
 
@@ -146,6 +157,11 @@ export class Game {
   /** Volume of the band and of the player's own instrument (1 = default mix) */
   private bandVolume = loadVolume('vol-band');
   private playerVolume = loadVolume('vol-player');
+  private sfxVolume = loadVolume('vol-sfx');
+  /** Score numbers floating up in the world (+100 …) */
+  private popups: Popup[] = [];
+  /** The first note block of a run is announced */
+  private blockSeen = false;
   /** The pause banner shows the settings (volume, speed, sound) */
   private pauseSettingsOpen = false;
   /** People who asked their system for less motion get no screen shake */
@@ -255,6 +271,8 @@ export class Game {
     this.lastEnemyBeat = -99;
     this.obstaclesCleared = 0;
     this.monsterSeen = false;
+    this.blockSeen = false;
+    this.popups = [];
     this.flashes = [];
     this.held.clear();
     this.pendingGlides.clear();
@@ -273,8 +291,9 @@ export class Game {
       this.engine = new AudioEngine();
       const offset = Number(load('latency-offset', '0'));
       this.engine.userOffset = Number.isFinite(offset) ? Math.max(-0.2, Math.min(0.3, offset)) : 0;
-      this.engine.setVolumes(this.bandVolume, this.playerVolume);
+      this.engine.setVolumes(this.bandVolume, this.playerVolume, this.sfxVolume);
       this.synth = new Synth(this.engine);
+      this.sfx = new Sfx(this.engine);
       this.sampleBank = new SampleBank(this.engine.ctx);
       this.synth.samples = this.sampleBank;
       // In "samples" mode the player plays the instrument that fits the current style
@@ -462,6 +481,7 @@ export class Game {
     recordResult(this.progress, level.id, this.lastStars, this.score);
     saveProgress(this.progress);
     this.review = this.makeReview();
+    this.sfx?.fanfare(this.song.positionAt(Math.max(0, this.song.endBeat - 0.5)).chord);
     this.state = 'levelComplete';
     this.clock?.stop();
     this.synth?.allOff();
@@ -512,11 +532,14 @@ export class Game {
     if (which === 'band') {
       this.bandVolume = step(this.bandVolume);
       save('vol-band', String(this.bandVolume));
+    } else if (which === 'sfx') {
+      this.sfxVolume = step(this.sfxVolume);
+      save('vol-sfx', String(this.sfxVolume));
     } else {
       this.playerVolume = step(this.playerVolume);
       save('vol-player', String(this.playerVolume));
     }
-    this.engine?.setVolumes(this.bandVolume, this.playerVolume);
+    this.engine?.setVolumes(this.bandVolume, this.playerVolume, this.sfxVolume);
   }
 
   private get tutorialReading(): boolean {
@@ -874,7 +897,7 @@ export class Game {
         if (!o.hit) this.obstaclesCleared++;
         if (o.monster && !o.hit) {
           this.score += 50;
-          this.flash(t('flash.monsterCleared'), '#b0ffb0');
+          this.popup(o.beat + o.width / 2, o.height + 20, '+50', '#b0ffb0');
         }
       }
 
@@ -892,7 +915,29 @@ export class Game {
         if (Math.abs(this.player.y - c.height) < 36) {
           c.taken = true;
           this.score += 100;
-          this.flash(t('flash.coin'), '#ffd75a');
+          this.popup(c.beat, c.height + PLAYER_H, '+100', '#ffd75a');
+          this.sfx?.coin(pos.chord);
+        }
+      }
+
+      // Note blocks: bumped when the runner's head reaches their bottom edge underneath them
+      for (const b of this.level.blocks) {
+        if (b.bumped || Math.abs(b.beat - beat) > BLOCK_HALF_BEATS + PLAYER_W / 2 / PX_PER_BEAT) continue;
+        if (this.player.state === 'jump' && this.player.y + PLAYER_H >= b.bottom) {
+          b.bumped = true;
+          b.bumpedAt = now;
+          this.score += 100;
+          this.popup(b.beat, b.bottom + 40, '♪ +100', '#ffd75a');
+          this.sfx?.bump(pos.chord);
+        }
+      }
+
+      // Announce the first note block of a run
+      if (!this.blockSeen && this.mode !== 'tutorial') {
+        const ahead = (this.width - playerScreenX(this.width)) / PX_PER_BEAT;
+        if (this.level.blocks.some((b) => b.beat > beat && b.beat - beat < ahead)) {
+          this.blockSeen = true;
+          this.flash(t('flash.block'), '#ffd75a');
         }
       }
 
@@ -912,7 +957,9 @@ export class Game {
         // Re-evaluate the coach tip once per bar (not during the count-in)
         // A pixel monster in the next two bars has priority: how much resonance does the jump need?
         const monster = this.level.obstacles.find((o) => o.monster && !o.hit && o.beat > beat && o.beat - beat < bpb * 2);
+        const block = this.level.blocks.find((b) => !b.bumped && b.beat > beat && b.beat - beat < bpb * 2);
         if (monster && this.mode !== 'tutorial') this.coachTip = monsterTip(monster.minResonance, this.resonance);
+        else if (block && this.mode !== 'tutorial') this.coachTip = blockTip(block.minResonance, this.resonance);
         else this.coachTip = this.mode !== 'tutorial' && pos.bar >= 1 ? diagnose(this.judge.history, beat, bpb, this.resonance) : undefined;
       }
 
@@ -947,22 +994,44 @@ export class Game {
     this.level.addObstacleAt(Math.ceil(start), 10, 35);
   }
 
+  /** A score number that floats up from a point in the world. */
+  private popup(beat: number, height: number, text: string, color: string): void {
+    this.popups.push({ beat, height, text, color, born: this.now });
+    if (this.popups.length > 12) this.popups.shift();
+  }
+
   private onPlayerEvent(ev: PlayerEvent): void {
+    const chord = this.song.positionAt(this.currentBeat()).chord;
+    switch (ev) {
+      case 'jump':
+        this.sfx?.jump(chord);
+        break;
+      case 'land':
+        this.sfx?.land();
+        break;
+      case 'fall':
+        this.sfx?.fall();
+        break;
+    }
     switch (ev) {
       case 'hurt':
+        this.sfx?.hurt();
         this.livesLost++;
         this.flash(t(this.mode === 'tutorial' ? 'flash.hurtTutorial' : 'flash.hurt'), '#ff5a6e');
         this.shakeUntil = this.now + 0.3;
         break;
       case 'shieldBreak':
+        this.sfx?.smash();
         this.flash(t('flash.shieldHolds'), '#78dcff');
         break;
       case 'doubleJump':
+        this.sfx?.doubleJump(chord);
         this.flash(t('flash.doubleJump'), '#c8f0ff');
         break;
       case 'stomp':
         this.score += 50;
-        this.flash(t('flash.stomp'), '#b0ffb0');
+        this.sfx?.stomp(chord);
+        this.popup(this.currentBeat(), this.player.y + PLAYER_H + 10, '+50', '#b0ffb0');
         break;
     }
   }
@@ -1049,6 +1118,8 @@ export class Game {
       guide: this.state === 'playing' && this.guideActive ? this.guide.targets : [],
       keyLabel: (m) => this.input.keyLabel(m),
       pressed: [...this.held.values()],
+      popups: this.popups,
+      goalBeat: this.mode === 'campaign' ? this.song.endBeat : undefined,
       markers:
         this.state === 'playing' && this.mode === 'tutorial' && !this.tutorial.complete && this.tutorial.step.markers
           ? this.tutorial.step.markers(pos.chord, pos.section.key)
@@ -1111,6 +1182,7 @@ export class Game {
         ? {
             band: this.bandVolume,
             player: this.playerVolume,
+            sfx: this.sfxVolume,
             tempo: this.mode === 'tutorial' ? undefined : this.tempo,
             sound: this.soundMode,
           }

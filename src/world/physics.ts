@@ -47,7 +47,12 @@ export interface Obstacle {
    * rules), drawn as a creature of 12×12 sprite pixels, each `scale` screen pixels.
    */
   monster?: { shape: number; color: number; scale: number };
+  /** When the shield smashed this wall (seconds), for the flying bricks */
+  brokenAt?: number;
 }
+
+/** Edge length of one ground / brick / note block on screen (px): five per beat. */
+export const TILE = PX_PER_BEAT / 5;
 
 /** Monsters are 12×12 sprite pixels. */
 export const MONSTER_GRID = 12;

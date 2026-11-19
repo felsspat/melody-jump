@@ -230,6 +230,12 @@ export function summarize(notes: JudgedNote[], beats: number): RunSummary {
   return { notes: notes.length, chordPct: Math.round(chord * 100), onGridPct: Math.round(onGrid * 100), tip };
 }
 
+/** Coach tip when a note block is coming: how much resonance the jump needs to bump it with the head. */
+export function blockTip(needed: number, resonance: number): string {
+  const params = { need: Math.ceil(needed), now: Math.round(resonance) };
+  return t(resonance >= needed ? 'explain.block.enough' : 'explain.block.tooLow', params);
+}
+
 /** What is the biggest problem right now? Returns a tip or undefined. */
 export function diagnose(history: JudgedNote[], nowBeat: number, beatsPerBar: number, resonance: number): string | undefined {
   if (resonance >= 55) return undefined;

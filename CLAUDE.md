@@ -59,11 +59,11 @@ wsl -e bash -lc "source ~/.nvm/nvm.sh && cd /mnt/c/Users/devri/git/melody-jump &
 
 | Bereich | Dateien |
 |---|---|
-| Audio | `src/audio/AudioEngine.ts` (Mixer, Latenz), `Clock.ts` (Lookahead-Scheduler, Achtel-Schritte, Tempowechsel), `Synth.ts` (Spielerstimme), `Backing.ts` (Band, ein Muster pro Stil) |
+| Audio | `src/audio/AudioEngine.ts` (Mixer, Latenz), `Clock.ts` (Lookahead-Scheduler, Achtel-Schritte, Tempowechsel), `Synth.ts` (Spielerstimme), `Sfx.ts` (Spielgeräusche aus Akkordtönen), `Backing.ts` (Band, ein Muster pro Stil) |
 | Musik | `theory.ts` (Skalen, Dreiklänge, Septakkorde, `chordFromSpec("VI7")`), `Song.ts` (Abschnitte; endlos mit Generator oder endlich ohne → `endBeat`; ein Takt der Akkordfolge kann eine Liste sein, z.B. `['I', 'V7']` = halber Takt je Akkord), `melodies.ts` (Melodien als `[Halbtöne ab Grundton | null, Beats]`, optional mit Auftakt `pickup`)\| null, Beats]`), `styles.ts` (Stilregeln: Swing, Blue Notes, Timing-Gewichte, Betonungen), `HarmonyJudge.ts` (Bewertung pro Ton → Resonanz), `explain.ts` (Coach-Texte, Diagnose, Zwischendominanten) |
 | Spiel | `src/game/Game.ts` (Zustände `title`/`map`/`styles`/`playing`/`paused`/`gameover`/`levelComplete`; Modi `run`/`tutorial`/`campaign`), `Tutorial.ts` (11 Schritte mit Lesepause), `Guide.ts` (Hilfe-Ringe: bekannte Melodie oder Akkordtöne) |
 | Kampagne | `src/campaign/chapters.ts` (11 Kapitel × 3–4 Level; `styleLevels()` mit optionaler zweiter Melodie `<stil>-tune2`), `progress.ts` (Sterne, `localStorage` mit `try/catch`) |
-| Welt | `src/world/physics.ts` (Sprünge in Beat-Zeit), `Level.ts` (Hindernis-Generator inkl. Pixelmonster, Endlos-Stile `RECIPES`, `INTRO_SECTIONS`, `melodySection()`), `Player.ts`, `Enemies.ts` |
+| Welt | `src/world/physics.ts` (Sprünge in Beat-Zeit), `Level.ts` (Hindernis-Generator inkl. Pixelmonster, Notenmünzen und Notenblöcke, Endlos-Stile `RECIPES`, `INTRO_SECTIONS`, `melodySection()`), `Player.ts`, `Enemies.ts` |
 | Darstellung | `src/render/Renderer.ts` (Klaviertasten-Spuren, Welt, Pixel-Mädchen aus `sprites.ts`), `Hud.ts` (HUD, Titel, Karte, Level-Ende, Flaggen), `NoteParticles.ts` |
 | UI | `src/ui/TheoryPanel.ts` (HTML-Overlay „Musik verstehen“, Taste I), `CreditsPanel.ts` (Lizenzen & Quellen der Samples) |
 

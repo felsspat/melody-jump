@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { Song } from '../src/music/Song';
-import { INTRO_SECTIONS, LevelGen, makeRng, makeSectionGenerator } from '../src/world/Level';
-import { MONSTER_GRID, Obstacle, PX_PER_BEAT, canClear, jumpShape, minResonanceFor } from '../src/world/physics';
+import { BLOCK_HALF_BEATS, INTRO_SECTIONS, LevelGen, NoteBlock, makeRng, makeSectionGenerator } from '../src/world/Level';
+import { Player } from '../src/world/Player';
+import { chordTone } from '../src/audio/Sfx';
+import { diatonicChord } from '../src/music/theory';
+import { MONSTER_GRID, Obstacle, PLAYER_H, PLAYER_W, PX_PER_BEAT, canClear, jumpShape, minResonanceFor } from '../src/world/physics';
 import { MONSTER_SHAPES, MONSTER_W, monsterPalette, monsterRows } from '../src/render/sprites';
 
 describe('Jump physics', () => {
@@ -94,5 +97,58 @@ describe('Pixel monsters', () => {
         }
       }
     }
+  });
+});
+
+describe('Note blocks', () => {
+  /** Runs the runner through a generated level at a constant resonance; returns the blocks it bumped. */
+  function run(resonance: number, seed: number) {
+    const rnd = makeRng(seed);
+    const level = new LevelGen(rnd);
+    const song = new Song(INTRO_SECTIONS, makeSectionGenerator(rnd));
+    song.onAdd((s) => level.addSection(s));
+    song.positionAt(300);
+    const player = new Player();
+    const bumped = new Set<NoteBlock>();
+    for (let beat = 0; beat < 280; beat += 0.01) {
+      player.update(beat, beat, resonance, level);
+      player.lives = 5;
+      for (const b of level.blocks) {
+        if (Math.abs(b.beat - beat) > BLOCK_HALF_BEATS + PLAYER_W / 2 / PX_PER_BEAT) continue;
+        if (player.state === 'jump' && player.y + PLAYER_H >= b.bottom) bumped.add(b);
+      }
+    }
+    return { blocks: level.blocks.filter((b) => b.beat < 270), bumped };
+  }
+
+  it('are placed above obstacles and can be reached with the resonance they ask for', () => {
+    let total = 0;
+    for (const seed of [3, 4, 5]) {
+      const { blocks, bumped } = run(100, seed);
+      total += blocks.length;
+      for (const b of blocks) {
+        expect(b.minResonance).toBeLessThanOrEqual(100);
+        expect(b.bottom).toBeLessThanOrEqual(jumpShape(100).height + PLAYER_H);
+        expect(bumped.has(b)).toBe(true);
+      }
+    }
+    expect(total).toBeGreaterThan(5);
+  });
+
+  it('stay out of reach for weak jumps', () => {
+    const { blocks, bumped } = run(5, 3);
+    const hard = blocks.filter((b) => b.minResonance > 30);
+    expect(hard.length).toBeGreaterThan(0);
+    for (const b of hard) expect(bumped.has(b)).toBe(false);
+  });
+});
+
+describe('Game sounds', () => {
+  it('play chord tones, so they fit the music', () => {
+    const c = diatonicChord({ tonic: 0, mode: 'major' }, 5); // G major: G B D
+    expect(chordTone(c, 0, 60)).toBe(67);
+    expect(chordTone(c, 1, 60)).toBe(71);
+    expect(chordTone(c, 2, 60)).toBe(62);
+    expect(chordTone(c, 3, 60)).toBe(79);
   });
 });

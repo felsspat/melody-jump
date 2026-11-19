@@ -87,6 +87,16 @@
         "en": "👾 A pixel monster is coming – your resonance ({now}) is enough to jump over it (needed: {need}). Keep it up!"
       }
     },
+    "block": {
+      "tooLow": {
+        "de": "♪ Ein Notenblock schwebt über dem nächsten Hindernis! Spring so hoch, dass du mit dem Kopf dagegen stößt – dafür brauchst du etwa {need} Resonanz, du hast {now}. Akkordtöne auf dem Schlag lassen sie steigen.",
+        "en": "♪ A note block floats above the next obstacle! Jump high enough to bump it with your head – that takes about {need} resonance, you have {now}. Chord tones on the beat make it rise."
+      },
+      "enough": {
+        "de": "♪ Notenblock voraus – deine Resonanz ({now}) reicht, um mit dem Kopf dagegen zu stoßen (nötig: etwa {need}). Halt sie oben!",
+        "en": "♪ Note block ahead – your resonance ({now}) is enough to bump it with your head (needed: about {need}). Keep it up!"
+      }
+    },
     "intervals": {
       "de": [
         "Tonwiederholung", "Halbton-Schritt", "Ganzton-Schritt", "kleine Terz", "große Terz", "Quarte",
@@ -1148,6 +1158,7 @@
     "settings": {
       "band": { "de": "Band:", "en": "Band:" },
       "player": { "de": "Dein Instrument:", "en": "Your instrument:" },
+      "sfx": { "de": "Geräusche:", "en": "Game sounds:" },
       "percent": { "de": "{n} %", "en": "{n}%" }
     }
   },
@@ -1200,6 +1211,7 @@
     "stomp": { "de": "Misston besiegt +50", "en": "Sour note defeated +50" },
     "monster": { "de": "👾 Pixelmonster! Spring mit Resonanz drüber", "en": "👾 Pixel monster! Jump over it with resonance" },
     "midi": { "de": "🎹 MIDI-Keyboard: {name}", "en": "🎹 MIDI keyboard: {name}" },
+    "block": { "de": "♪ Notenblock! Spring hoch genug und stoß mit dem Kopf dagegen", "en": "♪ Note block! Jump high enough to bump it with your head" },
     "monsterCleared": { "de": "👾 Monster übersprungen +50", "en": "👾 Monster cleared +50" }
   }
 }

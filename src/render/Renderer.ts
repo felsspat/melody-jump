@@ -8,7 +8,7 @@ import { t } from '../i18n/i18n';
 import { noteName, pcName, pitchClass, pitchHue, scalePitchClasses } from '../music/theory';
 import { ENEMY_SIZE, Enemies } from '../world/Enemies';
 import { LevelGen } from '../world/Level';
-import { Obstacle, PLAYER_H, PLAYER_W, PX_PER_BEAT } from '../world/physics';
+import { Obstacle, PLAYER_H, PLAYER_W, PX_PER_BEAT, TILE } from '../world/physics';
 import { Player } from '../world/Player';
 import { MONSTER_W, SPRITE_H, SPRITE_PALETTE, SPRITE_W, SpriteFrame, monsterPalette, monsterRows, spriteRows } from './sprites';
 
@@ -34,6 +34,20 @@ export interface WorldView {
   markers: Marker[];
   /** MIDI notes currently held down (drawn as pressed keys) */
   pressed: number[];
+  /** Score numbers floating up in the world */
+  popups: Popup[];
+  /** End of a campaign level (goal gate); undefined in endless runs */
+  goalBeat?: number;
+}
+
+/** "+100" and the like, rising from where they were earned. */
+export interface Popup {
+  beat: number;
+  /** Height above the ground (px) */
+  height: number;
+  text: string;
+  color: string;
+  born: number;
 }
 
 export const KEYSTRIP_H = 24;
@@ -435,7 +449,7 @@ export class Renderer {
     const r = v.resonance / 100;
     const beatPulse = Math.max(0, 1 - (((v.beat % 1) + 1) % 1) * 3);
 
-    // Ground with gaps
+    // Ground: a row of blocks on top of earth, with pits that really look deep
     const gaps = v.level.obstacles
       .filter((o) => o.kind === 'gap')
       .map((o) => [this.sx(v, o.beat), this.sx(v, o.beat + o.width)] as const)
@@ -448,49 +462,97 @@ export class Renderer {
     }
     if (cur < v.width) segs.push([cur, v.width]);
     const hue = pitchHue(v.pos.chord.root);
+
+    // Pits: almost black, getting darker towards the bottom
+    const pit = ctx.createLinearGradient(0, gy, 0, v.height);
+    pit.addColorStop(0, 'rgba(6,4,12,0.97)');
+    pit.addColorStop(1, '#000');
+    ctx.fillStyle = pit;
+    ctx.fillRect(0, gy, v.width, v.height - gy);
+
+    // World x of the screen's left edge, so the block joints scroll with the runner
+    const worldLeft = (v.beat * PX_PER_BEAT - playerScreenX(v.width)) % (TILE * 2);
     for (const [a, b] of segs) {
-      ctx.fillStyle = `hsl(${hue}, ${20 + 30 * r}%, ${14 + 6 * r}%)`;
-      ctx.fillRect(a, gy, b - a, v.height - gy);
+      const w = b - a;
+      // Earth
+      ctx.fillStyle = `hsl(${hue}, ${18 + 22 * r}%, ${11 + 5 * r}%)`;
+      ctx.fillRect(a, gy, w, v.height - gy);
+      // Top row of blocks
+      ctx.fillStyle = `hsl(${hue}, ${30 + 30 * r}%, ${22 + 8 * r}%)`;
+      ctx.fillRect(a, gy, w, TILE);
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(a, gy, w, v.height - gy);
+      ctx.clip();
+      // Block joints: one row of square blocks, then bricks (half offset) below
+      ctx.fillStyle = 'rgba(0,0,0,0.35)';
+      for (let x = -worldLeft - TILE * 2; x < v.width + TILE; x += TILE) {
+        ctx.fillRect(Math.round(x), gy, 2, TILE);
+        ctx.fillRect(Math.round(x + TILE / 2), gy + TILE, 2, TILE / 2);
+        ctx.fillRect(Math.round(x), gy + TILE * 1.5, 2, TILE / 2);
+      }
+      ctx.fillRect(a, gy + TILE - 2, w, 2);
+      ctx.fillRect(a, gy + TILE * 1.5 - 1, w, 2);
+      // Light top edge of each block
+      ctx.fillStyle = 'rgba(255,255,255,0.10)';
+      ctx.fillRect(a, gy + 3, w, 2);
+      ctx.restore();
+      // Glowing rim on top that pulses with the beat (the music's floor)
       ctx.fillStyle = `hsla(${hue}, 80%, ${50 + 20 * beatPulse}%, ${0.6 + 0.4 * beatPulse})`;
-      ctx.fillRect(a, gy, b - a, 4 + 3 * beatPulse);
+      ctx.fillRect(a, gy, w, 4 + 3 * beatPulse);
+      // Cliff faces at the edges of a pit
+      if (a > 0) {
+        ctx.fillStyle = 'rgba(0,0,0,0.45)';
+        ctx.fillRect(a, gy, 5, v.height - gy);
+      }
+      if (b < v.width) {
+        ctx.fillStyle = 'rgba(0,0,0,0.45)';
+        ctx.fillRect(b - 5, gy, 5, v.height - gy);
+      }
     }
 
-    // Walls
+    // Walls: stacked bricks
     for (const o of v.level.obstacles) {
       if (o.kind !== 'wall') continue;
       const x = this.sx(v, o.beat);
       const w = o.width * PX_PER_BEAT;
-      if (x > v.width || x + w < 0) continue;
-      if (o.broken) continue;
+      if (x > v.width + 60 || x + w < -60) continue;
+      if (o.broken) {
+        this.drawDebris(ctx, v, o, x, w, gy);
+        continue;
+      }
       if (o.monster) {
         this.drawMonster(ctx, v, o, x, gy);
         continue;
       }
       ctx.globalAlpha = o.hit ? 0.35 : 1;
-      ctx.fillStyle = '#3a2f4f';
-      ctx.fillRect(x, gy - o.height, w, o.height);
-      ctx.fillStyle = '#6f5c96';
-      ctx.fillRect(x, gy - o.height, w, 5);
-      // "Staff lines" on the wall
-      ctx.fillStyle = 'rgba(255,255,255,0.08)';
-      for (let yy = gy - o.height + 14; yy < gy; yy += 14) ctx.fillRect(x + 3, yy, w - 6, 1);
+      this.drawBricks(ctx, x, gy - o.height, w, o.height);
       ctx.globalAlpha = 1;
     }
 
-    // Collectible notes
-    ctx.font = '26px serif';
-    ctx.textAlign = 'center';
+    // Note blocks floating above obstacles (bumped ones fly up and fade)
+    for (const b of v.level.blocks) {
+      const x = this.sx(v, b.beat) - TILE / 2;
+      if (x < -TILE * 2 || x > v.width + TILE) continue;
+      const age = b.bumped ? v.now - b.bumpedAt : 0;
+      if (b.bumped && age > 0.6) continue;
+      const y = gy - b.bottom - TILE - (b.bumped ? 900 * age * age + 450 * age : 0);
+      ctx.globalAlpha = b.bumped ? Math.max(0, 1 - age / 0.6) : 1;
+      this.drawNoteBlock(ctx, x, y, v.now, b.beat, b.bumped);
+      ctx.globalAlpha = 1;
+    }
+
+    // Collectible note coins: spinning golden coins with a note on them
     for (const c of v.level.coins) {
       if (c.taken) continue;
       const x = this.sx(v, c.beat);
       if (x < -30 || x > v.width + 30) continue;
       const y = gy - c.height - PLAYER_H / 2 + Math.sin(v.now * 4 + c.beat) * 4;
-      ctx.shadowColor = 'rgba(255,215,90,0.9)';
-      ctx.shadowBlur = 14;
-      ctx.fillStyle = '#ffd75a';
-      ctx.fillText('♫', x, y + 9);
-      ctx.shadowBlur = 0;
+      this.drawCoin(ctx, x, y, v.now + c.beat);
     }
+
+    // Goal of a campaign level: a gate with a treble clef on top
+    if (v.goalBeat !== undefined && Number.isFinite(v.goalBeat)) this.drawGoal(ctx, v, this.sx(v, v.goalBeat), gy);
 
     // Sour notes (enemies)
     for (const e of v.enemies.list) {
@@ -521,6 +583,152 @@ export class Renderer {
       ctx.fillRect(3, -4, 4, 3);
       ctx.restore();
     }
+
+    this.drawPopups(ctx, v, gy);
+  }
+
+  /** A wall as a stack of bricks, rows offset by half a brick. */
+  private drawBricks(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number): void {
+    const bh = TILE / 2;
+    ctx.fillStyle = '#7a4a3a';
+    ctx.fillRect(x, y, w, h);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x, y, w, h);
+    ctx.clip();
+    ctx.fillStyle = 'rgba(30,12,8,0.55)';
+    let row = 0;
+    for (let yy = y + h; yy > y - bh; yy -= bh, row++) {
+      ctx.fillRect(x, Math.round(yy - 2), w, 2);
+      const off = row % 2 ? TILE / 2 : 0;
+      for (let xx = x + off; xx < x + w; xx += TILE) ctx.fillRect(Math.round(xx), yy - bh, 2, bh);
+    }
+    // Light top edge of every brick row
+    ctx.fillStyle = 'rgba(255,220,190,0.14)';
+    for (let yy = y + h - bh; yy > y - bh; yy -= bh) ctx.fillRect(x, Math.round(yy), w, 2);
+    ctx.restore();
+    // Cap stone
+    ctx.fillStyle = '#b07a5c';
+    ctx.fillRect(x - 2, y, w + 4, 5);
+    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(x, y, w, h);
+  }
+
+  /** Bricks of a wall the shield smashed, flying apart. */
+  private drawDebris(ctx: CanvasRenderingContext2D, v: WorldView, o: Obstacle, x: number, w: number, gy: number): void {
+    const age = v.now - (o.brokenAt ?? -10);
+    if (age > 0.9) return;
+    ctx.globalAlpha = 1 - age / 0.9;
+    ctx.fillStyle = '#7a4a3a';
+    for (let i = 0; i < 8; i++) {
+      const dir = (i % 4) - 1.5;
+      const px = x + w / 2 + dir * 30 * age * 4;
+      const py = gy - o.height * (0.3 + 0.18 * (i % 3)) - 260 * age + 700 * age * age;
+      const size = TILE / 2 - (i % 3) * 3;
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(age * 8 * dir);
+      ctx.fillRect(-size / 2, -size / 2, size, size);
+      ctx.restore();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /** A floating note block: golden, with a ♪, and gently bobbing until it is bumped. */
+  private drawNoteBlock(ctx: CanvasRenderingContext2D, x: number, y: number, now: number, seed: number, bumped: boolean): void {
+    const bob = bumped ? 0 : Math.sin(now * 3 + seed) * 2;
+    const yy = Math.round(y + bob);
+    ctx.fillStyle = bumped ? '#8a6a3a' : '#e0a030';
+    ctx.fillRect(x, yy, TILE, TILE);
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.fillRect(x, yy, TILE, 3);
+    ctx.fillRect(x, yy, 3, TILE);
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
+    ctx.fillRect(x, yy + TILE - 3, TILE, 3);
+    ctx.fillRect(x + TILE - 3, yy, 3, TILE);
+    // Rivets in the corners
+    ctx.fillStyle = 'rgba(90,50,10,0.8)';
+    for (const [dx, dy] of [[5, 5], [TILE - 8, 5], [5, TILE - 8], [TILE - 8, TILE - 8]]) ctx.fillRect(x + dx, yy + dy, 3, 3);
+    ctx.textAlign = 'center';
+    ctx.font = '800 20px system-ui, sans-serif';
+    ctx.fillStyle = `rgba(255,250,220,${bumped ? 0.4 : 0.75 + 0.25 * Math.sin(now * 5 + seed)})`;
+    ctx.fillText('♪', x + TILE / 2, yy + TILE / 2 + 7);
+  }
+
+  /** A golden coin with a note on it, spinning around its vertical axis. */
+  private drawCoin(ctx: CanvasRenderingContext2D, x: number, y: number, t: number): void {
+    const spin = Math.cos(t * 4);
+    const rx = Math.max(2, 11 * Math.abs(spin));
+    ctx.shadowColor = 'rgba(255,215,90,0.9)';
+    ctx.shadowBlur = 12;
+    ctx.fillStyle = spin > 0 ? '#ffd75a' : '#e0a830';
+    ctx.beginPath();
+    ctx.ellipse(x, y, rx, 14, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = '#a0701a';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    if (rx > 7) {
+      ctx.textAlign = 'center';
+      ctx.font = '800 15px system-ui, sans-serif';
+      ctx.fillStyle = '#8a5a10';
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(rx / 11, 1);
+      ctx.fillText('♪', 0, 5);
+      ctx.restore();
+    }
+  }
+
+  /** Goal gate at the end of a campaign level: two posts, a banner and a treble clef. */
+  private drawGoal(ctx: CanvasRenderingContext2D, v: WorldView, x: number, gy: number): void {
+    if (x < -120 || x > v.width + 120) return;
+    const h = 190;
+    const w = 70;
+    ctx.fillStyle = '#d8d0e8';
+    ctx.fillRect(x - 4, gy - h, 8, h);
+    ctx.fillRect(x + w - 4, gy - h, 8, h);
+    // Banner waving gently
+    const wave = Math.sin(v.now * 4) * 4;
+    ctx.fillStyle = '#ffd75a';
+    ctx.beginPath();
+    ctx.moveTo(x, gy - h + 6);
+    ctx.quadraticCurveTo(x + w / 2, gy - h + 6 + wave, x + w, gy - h + 6);
+    ctx.lineTo(x + w, gy - h + 40);
+    ctx.quadraticCurveTo(x + w / 2, gy - h + 40 + wave, x, gy - h + 40);
+    ctx.closePath();
+    ctx.fill();
+    ctx.textAlign = 'center';
+    ctx.font = '700 30px serif';
+    ctx.fillStyle = '#5a3a10';
+    ctx.fillText('𝄞', x + w / 2, gy - h + 36 + wave / 2);
+    // Golden glow between the posts
+    const glow = ctx.createLinearGradient(0, gy - h, 0, gy);
+    glow.addColorStop(0, 'rgba(255,215,90,0.0)');
+    glow.addColorStop(1, `rgba(255,215,90,${0.18 + 0.08 * Math.sin(v.now * 3)})`);
+    ctx.fillStyle = glow;
+    ctx.fillRect(x + 4, gy - h + 40, w - 8, h - 40);
+  }
+
+  /** Score numbers rising from where they were earned. */
+  private drawPopups(ctx: CanvasRenderingContext2D, v: WorldView, gy: number): void {
+    ctx.textAlign = 'center';
+    ctx.font = '900 18px system-ui, sans-serif';
+    for (const p of v.popups) {
+      const age = v.now - p.born;
+      if (age > 1) continue;
+      const x = this.sx(v, p.beat);
+      const y = gy - p.height - age * 50;
+      ctx.globalAlpha = 1 - age;
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+      ctx.strokeText(p.text, x, y);
+      ctx.fillStyle = p.color;
+      ctx.fillText(p.text, x, y);
+    }
+    ctx.globalAlpha = 1;
   }
 
   /**
@@ -590,6 +798,18 @@ export class Renderer {
       const k = Math.max(-1, Math.min(1, p.vyVisual / 8));
       sx = 1 - 0.1 * Math.abs(k);
       sy = 1 + 0.12 * Math.abs(k);
+    }
+    // Dust puffs when landing
+    if (p.state === 'ground' && sinceLand < 0.35) {
+      const k = sinceLand / 0.35;
+      ctx.fillStyle = `rgba(230,225,240,${0.5 * (1 - k)})`;
+      for (const dir of [-1, 1]) {
+        for (let i = 0; i < 3; i++) {
+          ctx.beginPath();
+          ctx.arc(x + dir * (8 + 26 * k + i * 7), gy - 4 - i * 3 * k, 4 + 4 * k - i, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
     }
     const bob = p.state === 'ground' ? Math.abs(Math.sin(v.beat * Math.PI)) * 3 : 0;
     const baseY = gy - p.y - bob;
