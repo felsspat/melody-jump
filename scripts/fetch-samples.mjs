@@ -12,7 +12,7 @@
 //   node scripts/fetch-samples.mjs
 
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -197,6 +197,13 @@ for (const [id, inst] of Object.entries(MELODIC)) {
     // Velocity layers go next to the normal recording: piano/soft-60.mp3, piano/loud-60.mp3
     const file = note.layer ? `${id}/${note.layer}-${midi}.mp3` : `${id}/${midi}.mp3`;
     encode(src, join(OUT, file), inst.maxSeconds);
+    // Very quiet recordings can be cut away completely by the silence filter: the MP3 then
+    // has only a header, does not decode in the browser and must not end up in the manifest
+    if (statSync(join(OUT, file)).size < 2000) {
+      rmSync(join(OUT, file));
+      problems.push(`${id}: ${note.layer ?? ''} ${midi} is empty after trimming silence (too quiet), skipped`);
+      continue;
+    }
     if (note.layer) {
       const layers = (manifest.instruments[id].layers ??= {});
       (layers[note.layer] ??= {})[midi] = file;

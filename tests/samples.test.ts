@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { PLAYER_INSTRUMENTS, SampleBank, layerFor, nearestSample } from '../src/audio/SampleBank';
 import { CHAPTERS } from '../src/campaign/chapters';
@@ -17,6 +17,16 @@ describe('sample files', () => {
     ];
     expect(files.length).toBeGreaterThan(100);
     for (const f of files) expect(existsSync(`public/samples/${f}`), f).toBe(true);
+  });
+
+  it('no file is empty (an MP3 with only a header does not decode)', () => {
+    const m = JSON.parse(readFileSync('public/samples/manifest.json', 'utf8'));
+    const files: string[] = [...Object.values(m.drums as Record<string, string>)];
+    for (const inst of Object.values(m.instruments) as { notes: Record<string, string>; layers?: Record<string, Record<string, string>> }[]) {
+      files.push(...Object.values(inst.notes));
+      for (const layer of Object.values(inst.layers ?? {})) files.push(...Object.values(layer));
+    }
+    for (const f of files) expect(statSync(`public/samples/${f}`).size, f).toBeGreaterThan(2000);
   });
 
   it('every instrument the game uses is in the manifest, with a free license', () => {
@@ -74,6 +84,25 @@ describe('SampleBank', () => {
     expect(await bank.load()).toBe(true);
     expect(bank.state).toBe('ready');
     expect(bank.progress).toBe(1);
+  });
+
+  it('skips a single broken file instead of giving up on all samples', async () => {
+    const ctx = {
+      decodeAudioData: async (b: ArrayBuffer) => {
+        if (b.byteLength === 0) throw new Error('Unable to decode audio data');
+        return { duration: 2 };
+      },
+    } as unknown as BaseAudioContext;
+    const manifestData = { instruments: { piano: { notes: { 48: 'piano/48.mp3', 60: 'piano/60.mp3' } } }, drums: {} };
+    globalThis.fetch = (async (url: string) => ({
+      ok: true,
+      status: 200,
+      json: async () => manifestData,
+      arrayBuffer: async () => new ArrayBuffer(url.endsWith('48.mp3') ? 0 : 8),
+    })) as unknown as typeof fetch;
+    const bank = new SampleBank(ctx, 'y/');
+    expect(await bank.load()).toBe(true);
+    expect(bank.state).toBe('ready');
   });
 
   it('falls back (state "failed") when samples are missing', async () => {

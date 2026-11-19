@@ -95,16 +95,25 @@ export class SampleBank {
       }
       for (const [id, file] of Object.entries(manifest.drums)) jobs.push({ file, store: (b) => this.drums.set(id, b) });
 
+      // A single broken file must not switch off all instruments: it is skipped, and that
+      // note is then played from the nearest other sample (or the synthesizer)
       let done = 0;
+      const broken: string[] = [];
       await Promise.all(
         jobs.map(async (job) => {
-          const r = await fetch(this.baseUrl + job.file);
-          if (!r.ok) throw new Error(`${job.file}: ${r.status}`);
-          job.store(await this.ctx.decodeAudioData(await r.arrayBuffer()));
+          try {
+            const r = await fetch(this.baseUrl + job.file);
+            if (!r.ok) throw new Error(String(r.status));
+            job.store(await this.ctx.decodeAudioData(await r.arrayBuffer()));
+          } catch (e) {
+            broken.push(`${job.file} (${e instanceof Error ? e.message : String(e)})`);
+          }
           done++;
           this.progress = done / jobs.length;
         }),
       );
+      if (broken.length) console.warn(`Skipped ${broken.length} sample(s) that could not be loaded:`, broken);
+      if (broken.length === jobs.length) throw new Error('no sample could be loaded');
       this.state = 'ready';
       return true;
     } catch (e) {

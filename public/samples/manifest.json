@@ -15,13 +15,11 @@
       },
       "layers": {
         "soft": {
-          "48": "piano/soft-48.mp3",
           "55": "piano/soft-55.mp3",
           "60": "piano/soft-60.mp3",
           "67": "piano/soft-67.mp3",
           "72": "piano/soft-72.mp3",
-          "79": "piano/soft-79.mp3",
-          "84": "piano/soft-84.mp3"
+          "79": "piano/soft-79.mp3"
         },
         "loud": {
           "48": "piano/loud-48.mp3",
