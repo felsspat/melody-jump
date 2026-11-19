@@ -29,6 +29,8 @@ wsl -e bash -lc "source ~/.nvm/nvm.sh && cd /mnt/c/Users/devri/git/melody-jump &
 - Repository seit 19.11.2026. Autor im Repo (lokal gesetzt): `felsspat` mit der GitHub-noreply-Adresse.
   **Nie den echten Namen oder die Gmail-Adresse** in Commits oder Dateien schreiben.
 - `.gitattributes` hält alle Zeilenenden auf LF (bearbeitet wird aus Windows und aus WSL).
+- Remote: `origin` = https://github.com/felsspat/melody-jump (Branch `main`), Zugriff per SSH-Schlüssel aus Windows
+  (`git push` aus Git Bash funktioniert ohne Rückfrage).
 - Commits nur, wenn der Mensch es möchte oder es zum Auftrag gehört; vorher Typprüfung, Tests und Build.
 
 ## Samples („Echte Instrumente“)
