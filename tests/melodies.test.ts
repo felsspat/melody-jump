@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { Guide } from '../src/game/Guide';
 import { GUIDE_HIT_BONUS, HarmonyJudge } from '../src/music/HarmonyJudge';
+import { CHAPTERS } from '../src/campaign/chapters';
 import { MELODIES, melodyTimeline, pickupBeats } from '../src/music/melodies';
+import { CHAPTER_TUNES } from '../src/music/songs';
 import { Song } from '../src/music/Song';
 import { pitchClass } from '../src/music/theory';
 import { INTRO_SECTIONS, makeRng, makeSectionGenerator } from '../src/world/Level';
@@ -53,6 +55,29 @@ describe('melodies', () => {
       expect(pitchClass(target.midi)).toBe(pitchClass(60 + n!.offset));
     }
     expect(shown.length).toBeGreaterThan(0);
+  });
+});
+
+describe('extra chapter tunes (songs/*.ts)', () => {
+  it('have unique ids, a known chapter, a source and a sensible tempo', () => {
+    const ids = new Set<string>();
+    for (const tune of CHAPTER_TUNES) {
+      expect(ids.has(tune.melody.id), tune.melody.id).toBe(false);
+      ids.add(tune.melody.id);
+      expect(CHAPTERS.some((c) => c.id === tune.chapter), tune.melody.id).toBe(true);
+      expect(tune.source.length, tune.melody.id).toBeGreaterThan(20);
+      expect(tune.bpm, tune.melody.id).toBeGreaterThanOrEqual(56);
+      expect(tune.bpm, tune.melody.id).toBeLessThanOrEqual(150);
+    }
+  });
+
+  it('each becomes a campaign level of its chapter', () => {
+    for (const tune of CHAPTER_TUNES) {
+      const chapter = CHAPTERS.find((c) => c.id === tune.chapter)!;
+      expect(chapter.levels.some((l) => l.sections[0].melody === tune.melody.id), tune.melody.id).toBe(true);
+    }
+    const ids = CHAPTERS.flatMap((c) => c.levels.map((l) => l.id));
+    expect(new Set(ids).size).toBe(ids.length);
   });
 });
 

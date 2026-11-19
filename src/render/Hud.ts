@@ -974,37 +974,45 @@ export class Hud {
       ctx.fillText(t('campaign.soonLong'), px, y + 10);
       return buttons;
     }
-    const lw = Math.min(230, (pw - 20 * (c.levels.length - 1)) / c.levels.length);
+    // Up to four levels in one row; more levels in two rows of smaller buttons
+    const count = c.levels.length;
+    const perRow = count > 4 ? Math.ceil(count / 2) : count;
+    const lgap = count > 4 ? 12 : 20;
+    const lh = count > 4 ? 64 : 74;
+    const lw = Math.min(230, (pw - lgap * (perRow - 1)) / perRow);
     c.levels.forEach((level, i) => {
-      const x = px + i * (lw + 20);
+      const x = px + (i % perRow) * (lw + lgap);
+      const ly = y + Math.floor(i / perRow) * (lh + 10);
       const stars = progress.stars[level.id] ?? 0;
       const pulse = stars === 0 && i === c.levels.findIndex((l) => !progress.stars[l.id]) ? 0.1 * Math.sin(now * 4) : 0;
       ctx.fillStyle = `rgba(255,215,90,${0.14 + pulse})`;
       ctx.beginPath();
-      ctx.roundRect(x, y, lw, 74, 12);
+      ctx.roundRect(x, ly, lw, lh, 12);
       ctx.fill();
       ctx.strokeStyle = 'rgba(255,215,90,0.7)';
       ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.textAlign = 'center';
-      ctx.font = `800 16px ${FONT}`;
+      const k = lh / 74; // vertical scale of the button contents
+      ctx.font = `800 ${count > 4 ? 15 : 16}px ${FONT}`;
       ctx.fillStyle = '#fff';
-      ctx.fillText(t('campaign.level', { n: i + 1 }), x + lw / 2, y + 22);
+      ctx.fillText(t('campaign.level', { n: i + 1 }), x + lw / 2, ly + 22 * k);
       ctx.font = `500 12px ${FONT}`;
       ctx.fillStyle = 'rgba(255,255,255,0.75)';
       const name = sectionName(level.sections[0]);
-      ctx.fillText(wrapText(ctx, name, lw - 12)[0], x + lw / 2, y + 42);
-      ctx.font = `700 16px ${FONT}`;
+      ctx.fillText(wrapText(ctx, name, lw - 12)[0], x + lw / 2, ly + 42 * k);
+      ctx.font = `700 ${count > 4 ? 14 : 16}px ${FONT}`;
       ctx.fillStyle = '#ffd75a';
       // ⏩ = already finished faster than normal
       const fastest = progress.speed[level.id] ?? 1;
       const badge = fastest >= BOOSTS.faster ? '  ⏩⏩' : fastest >= BOOSTS.fast ? '  ⏩' : '';
-      ctx.fillText('★'.repeat(stars) + '☆'.repeat(3 - stars) + badge, x + lw / 2, y + 64);
-      buttons.push({ id: `level:${level.id}`, x, y, w: lw, h: 74 });
+      ctx.fillText('★'.repeat(stars) + '☆'.repeat(3 - stars) + badge, x + lw / 2, ly + 64 * k);
+      buttons.push({ id: `level:${level.id}`, x, y: ly, w: lw, h: lh });
     });
+    const rows = Math.ceil(count / perRow);
 
     // Extra speed for levels that were already finished
-    const by = y + 74 + 18;
+    const by = y + rows * lh + (rows - 1) * 10 + 18;
     ctx.textAlign = 'left';
     ctx.font = `700 14px ${FONT}`;
     ctx.fillStyle = 'rgba(255,255,255,0.8)';

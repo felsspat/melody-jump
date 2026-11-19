@@ -6,34 +6,12 @@
 // one scale degree per bar. Melodies are written relative to the tonic so they
 // can be transposed to any section key.
 
-import type { BarChords, Section } from './Song';
+import { type Melody, type MelodyNote, e, h, q, rest, transpose } from './notation';
+import type { Section } from './Song';
+import { CHAPTER_TUNES } from './songs';
 import { styleOf, swingBeat } from './styles';
 
-/** [semitones from the tonic (null = rest), duration in beats] */
-export type MelodyNote = [offset: number | null, beats: number];
-
-export interface Melody {
-  /** Key into sections.* in texts.json (the song title) */
-  id: string;
-  beatsPerBar: number;
-  /** Bars per pass; the section loops the melody */
-  bars: number;
-  /** One entry per bar; an entry can list several chords that split the bar evenly */
-  chords: BarChords[];
-  notes: MelodyNote[];
-  /**
-   * Pickup ("Auftakt"): notes sounding *before* the first bar, e.g. "Oh when the" before
-   * "saints". On the first pass they fall into the count-in (or the end of the previous
-   * section); on later passes into the rest at the end of the melody, which must be at
-   * least as long as the pickup.
-   */
-  pickup?: MelodyNote[];
-}
-
-const q = (o: number): MelodyNote => [o, 1];
-const h = (o: number): MelodyNote => [o, 2];
-const e = (o: number): MelodyNote => [o, 0.5];
-const rest = (beats: number): MelodyNote => [null, beats];
+export type { Melody, MelodyNote } from './notation';
 
 // Original 12-bar blues tune written for this game (so no copyright issues).
 // Call-and-response phrases over I7 / IV7 / V7; the b3 (Eb in C) is a blue note
@@ -223,9 +201,6 @@ const linstead: MelodyNote[] = [
   h(0), rest(2),
 ];
 
-/** Moves a melody up by `semitones` (for tunes written low, so they sit in the guide range). */
-const transpose = (notes: MelodyNote[], semitones: number): MelodyNote[] =>
-  notes.map(([o, d]) => [o === null ? null : o + semitones, d]);
 
 // "Maple Leaf Rag" (Scott Joplin, 1899 → public domain), first strain, top line only.
 // From the Mutopia edition of the 1899 original (2/4 bars become 4/4 bars, sixteenths
@@ -306,7 +281,7 @@ const careless: MelodyNote[] = [
   [0, 6], rest(2), // done
 ];
 
-export const MELODIES: Record<string, Melody> = {
+const BASE_MELODIES: Record<string, Melody> = {
   careless: {
     id: 'careless',
     beatsPerBar: 4,
@@ -456,6 +431,12 @@ export const MELODIES: Record<string, Melody> = {
     chords: [1, 1, 1, 1, 1, 1, 5, 1],
     notes: [...jakob1, ...jakob1, ...jakob2, ...jakob2, ...jakob3, ...jakob3, ...jakob4, ...jakob4],
   },
+};
+
+/** All melodies: the ones above plus the extra campaign tunes in songs/*.ts. */
+export const MELODIES: Record<string, Melody> = {
+  ...BASE_MELODIES,
+  ...Object.fromEntries(CHAPTER_TUNES.map((tune) => [tune.melody.id, tune.melody])),
 };
 
 export interface TimedNote {

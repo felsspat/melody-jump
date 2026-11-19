@@ -6,6 +6,7 @@
 import { SectionDef } from '../music/Song';
 import { StyleId } from '../music/styles';
 import { Key } from '../music/theory';
+import { CHAPTER_TUNES } from '../music/songs';
 import { TWELVE_BAR_BLUES, melodySection } from '../world/Level';
 
 export { TWELVE_BAR_BLUES };
@@ -300,6 +301,28 @@ export const CHAPTERS: ChapterDef[] = [
     ),
   },
 ];
+
+/**
+ * Adds the extra tunes of songs/*.ts to their chapters: one level per tune, in the chapter's
+ * style, after the other tunes and before the jam session (if the chapter ends with one).
+ * Level id = "<chapter>-<melody id>", so saved stars stay valid when tunes are added.
+ */
+function addChapterTunes(chapters: ChapterDef[]): void {
+  for (const tune of CHAPTER_TUNES) {
+    const chapter = chapters.find((c) => c.id === tune.chapter);
+    if (!chapter) throw new Error(`tune "${tune.melody.id}": unknown chapter "${tune.chapter}"`);
+    const style = chapter.levels[0].sections[0].style;
+    const s = melodySection(tune.melody.id, tune.key, tune.bpm, 1, 1);
+    // Short tunes are repeated so every level lasts a while
+    const passes = Math.max(1, Math.round(16 / s.bars));
+    const level: LevelDef = { id: `${chapter.id}-${tune.melody.id}`, sections: [{ ...s, bars: s.bars * passes, style }] };
+    const last = chapter.levels[chapter.levels.length - 1];
+    const endsWithJam = !last.sections[0].melody;
+    chapter.levels.splice(endsWithJam ? chapter.levels.length - 1 : chapter.levels.length, 0, level);
+  }
+}
+
+addChapterTunes(CHAPTERS);
 
 export function findLevel(levelId: string): { chapter: ChapterDef; index: number } | undefined {
   for (const chapter of CHAPTERS) {
