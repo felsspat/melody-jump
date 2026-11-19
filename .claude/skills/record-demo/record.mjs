@@ -4,7 +4,7 @@
 // and the tools from setup.sh. See SKILL.md.
 //
 // node record.mjs [--level folk-2 | --endless reggae] [--lang en] [--tempo original] [--sound samples]
-//                 [--fill auto|none] [--seconds 100] [--coach off] [--out video.webm] [--url http://localhost:5173/]
+//                 [--fill auto|none] [--seconds 100] [--coach on] [--out video.webm] [--url http://localhost:5173/]
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -26,7 +26,7 @@ const tempo = opt('tempo', 'original');
 const sound = opt('sound', 'samples');
 const fill = opt('fill', 'auto');
 const seconds = Number(opt('seconds', endless ? 100 : 600)); // campaign: until the level ends
-const coach = opt('coach', 'off') === 'on';
+const coach = opt('coach', 'on') !== 'off'; // the coach panel is on by default, as in the game
 // Extra speed for finished levels: normal | fast (+15 %) | faster (+30 %)
 const boost = opt('boost', 'normal');
 const out = opt('out', 'demo.webm');

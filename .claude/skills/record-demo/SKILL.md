@@ -19,7 +19,7 @@ execute them).
 - **Campaign**, level **`folk-2` = “Ode to Joy”** (`--level folk-2`); the video ends a few seconds after the
   level-complete screen with stars and review
 - Tempo **original** (`--tempo original`, the hardest), sound **real instruments** (`--sound samples`)
-- Coach panel off (cleaner picture), guide rings on
+- Coach panel **on** (as in the game, wish of the user), guide rings on
 
 ## Run
 
@@ -43,7 +43,7 @@ Options (all optional):
 | `--boost normal\|fast\|faster` | campaign only: extra speed for finished levels (+15 % / +30 %, on top of `--tempo`); the script marks the level as finished in the fresh browser profile so the boost applies. **Highest speed = `--tempo original --boost faster`** | `normal` |
 | `--sound samples\|synth` | real instruments or synthesizer | `samples` |
 | `--fill auto\|none` | `auto`: in sections **without** a melody the bot adds a chord tone on every off-beat (good for reggae/ska); melody levels always get just the melody | `auto` |
-| `--coach on\|off` | coach panel | `off` |
+| `--coach on\|off` | coach panel (explains every note, gives tips) | `on` (as in the game) |
 | `--mp4 <path>` | output file (WSL path; Windows `C:\…` = `/mnt/c/…`) | `~/melody-jump-demo.mp4` |
 
 Examples:
