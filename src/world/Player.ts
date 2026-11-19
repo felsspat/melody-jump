@@ -2,7 +2,7 @@
 // obstacles. How high/far is determined by the resonance of the played melody.
 
 import { LevelGen } from './Level';
-import { JumpShape, Obstacle, PLAYER_W, PX_PER_BEAT, jumpShape, takeoffBeat } from './physics';
+import { JumpShape, Obstacle, PLAYER_W, PX_PER_BEAT, jumpShape, stompTakeoffBeat, takeoffBeat } from './physics';
 
 export type PlayerState = 'ground' | 'jump' | 'fall';
 export type PlayerEvent = 'jump' | 'doubleJump' | 'land' | 'hurt' | 'shieldBreak' | 'fall' | 'respawn' | 'stomp';
@@ -68,13 +68,16 @@ export class Player {
     this.predicted = false;
   }
 
-  /** Does the current trajectory hit a wall or land in a gap? */
+  /** Does the current trajectory hit a wall or land in a gap? (Coming down onto a monster is a stomp, not a hit.) */
   private trajectoryFails(beat: number, level: LevelGen): boolean {
+    const enteredAt = new Map<Obstacle, number>();
     for (let b = beat; b < beat + 6; b += 0.02) {
       const y = this.heightOnArc(b);
       for (const o of level.obstacles) {
         if (o.kind !== 'wall' || o.broken) continue;
-        if (b + PW_BEATS / 2 > o.beat && b - PW_BEATS / 2 < o.beat + o.width && y < o.height) return true;
+        if (b + PW_BEATS / 2 <= o.beat || b - PW_BEATS / 2 >= o.beat + o.width) continue;
+        if (!enteredAt.has(o)) enteredAt.set(o, y);
+        if (y < o.height) return !(o.monster && enteredAt.get(o)! >= o.height);
       }
       if (y <= 0) return !!level.isGapAt(b);
     }
@@ -117,7 +120,8 @@ export class Player {
         }
       } else if (next && !next.hit && !next.broken) {
         const shape = jumpShape(resonance);
-        const tb = takeoffBeat(next, shape);
+        // Monsters: land on them (stomp) if the jump is high enough, otherwise try to clear them
+        const tb = (next.monster && stompTakeoffBeat(next, shape)) ?? takeoffBeat(next, shape);
         if (beat >= tb && beat < next.beat + next.width) {
           this.startJump(beat, shape);
           events.push('jump');
@@ -170,7 +174,15 @@ export class Player {
         if (o.beat > beat + 1) break;
         const overlap = beat + PW_BEATS / 2 > o.beat && beat - PW_BEATS / 2 < o.beat + o.width;
         if (overlap && this.y < o.height) {
-          if (this.shield) {
+          if (o.monster && this.state === 'jump' && prevY >= o.height && this.y < prevY) {
+            // Came down from above: the monster is squashed and the runner bounces off it
+            o.broken = true;
+            o.stomped = true;
+            o.brokenAt = now;
+            this.y = o.height;
+            this.bounce(beat);
+            events.push('stomp');
+          } else if (this.shield) {
             o.broken = true;
             o.brokenAt = now;
             this.shield = false;

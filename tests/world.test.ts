@@ -69,14 +69,55 @@ describe('Pixel monsters', () => {
     song.onAdd((s) => level.addSection(s));
     song.positionAt(1500);
     const monsters = level.obstacles.filter((o) => o.monster);
-    expect(monsters.length).toBeGreaterThan(2);
-    expect(monsters.length).toBeLessThan(level.obstacles.length / 2);
+    expect(monsters.length).toBeGreaterThan(level.obstacles.length * 0.3);
+    expect(monsters.length).toBeLessThan(level.obstacles.length * 0.7);
     for (const m of monsters) {
       expect(m.kind).toBe('wall');
       expect(m.height).toBe(MONSTER_GRID * m.monster!.scale);
+      // Small: 24–60 px
+      expect(m.height).toBeGreaterThanOrEqual(24);
+      expect(m.height).toBeLessThanOrEqual(60);
       expect(m.width).toBeCloseTo(m.height / PX_PER_BEAT);
       expect(m.minResonance).toBeLessThanOrEqual(100);
     }
+  });
+
+  it('are stomped from above with a little resonance, and never cost a life then', () => {
+    for (const seed of [3, 4, 5]) {
+      const rnd = makeRng(seed);
+      const level = new LevelGen(rnd);
+      const song = new Song(INTRO_SECTIONS, makeSectionGenerator(rnd));
+      song.onAdd((s) => level.addSection(s));
+      song.positionAt(300);
+      const monsters = level.obstacles.filter((o) => o.monster && o.beat < 270);
+      const player = new Player();
+      let stomps = 0;
+      for (let beat = 0; beat < 280; beat += 1 / 60) {
+        if (player.update(beat, beat * 0.5, 30, level).includes('stomp')) stomps++;
+        player.lives = 5;
+      }
+      expect(monsters.length).toBeGreaterThan(5);
+      for (const m of monsters) {
+        expect(m.hit, `monster at beat ${m.beat}`).toBeFalsy();
+        expect(m.stomped, `monster at beat ${m.beat}`).toBe(true);
+        expect(m.minResonance).toBeLessThanOrEqual(30);
+      }
+      expect(stomps).toBeGreaterThanOrEqual(monsters.length);
+    }
+  });
+
+  it('are run into when there is no music at all', () => {
+    const rnd = makeRng(3);
+    const level = new LevelGen(rnd);
+    const song = new Song(INTRO_SECTIONS, makeSectionGenerator(rnd));
+    song.onAdd((s) => level.addSection(s));
+    song.positionAt(300);
+    const player = new Player();
+    for (let beat = 0; beat < 280; beat += 1 / 60) {
+      player.update(beat, beat * 0.5, 0, level);
+      player.lives = 5;
+    }
+    expect(level.obstacles.filter((o) => o.monster && o.hit).length).toBeGreaterThan(0);
   });
 
   it('never appear in the tutorial', () => {

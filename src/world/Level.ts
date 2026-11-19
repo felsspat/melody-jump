@@ -4,7 +4,7 @@ import { MELODIES } from '../music/melodies';
 import { Section, SectionDef } from '../music/Song';
 import { StyleId } from '../music/styles';
 import { ChordSpec, Key } from '../music/theory';
-import { MONSTER_GRID, Obstacle, PLAYER_H, PX_PER_BEAT, TILE, jumpShape, minResonanceFor, takeoffBeat } from './physics';
+import { MONSTER_GRID, Obstacle, PLAYER_H, PX_PER_BEAT, TILE, jumpShape, minResonanceFor, stompResonanceFor, stompTakeoffBeat, takeoffBeat } from './physics';
 
 /** A section that accompanies a well-known melody (chords and length come from the melody). */
 export function melodySection(id: string, key: Key, bpm: number, passes: number, difficulty: number): SectionDef {
@@ -308,7 +308,10 @@ function resonanceBand(difficulty: number): [number, number] {
 }
 
 /** Share of obstacles that are pixel monsters (endless mode and campaign; not in the tutorial). */
-export const MONSTER_CHANCE = 0.25;
+export const MONSTER_CHANCE = 0.5;
+
+/** Pixel size of monsters: 2–5 screen pixels per sprite pixel = 24–60 px. */
+export const MONSTER_SCALES = [2, 5] as const;
 
 export class LevelGen {
   readonly obstacles: Obstacle[] = [];
@@ -320,7 +323,7 @@ export class LevelGen {
   /** Generates obstacles for a section on the bar grid. */
   addSection(s: Section): void {
     const [lo, hi] = resonanceBand(s.difficulty);
-    const density = Math.min(0.85, 0.45 + s.difficulty * 0.08);
+    const density = Math.min(0.9, 0.6 + s.difficulty * 0.06);
     // First section: two bars to warm up
     const firstBar = s.index === 0 ? 2 : 1;
     let lastEnd = s.startBeat;
@@ -338,7 +341,8 @@ export class LevelGen {
       if (this.rnd() < 0.55) {
         const r = Math.min(100, o.minResonance + 22 + this.rnd() * 10);
         const shape = jumpShape(r);
-        const start = takeoffBeat(o, shape);
+        // Same takeoff as the runner: monsters are landed on, everything else jumped over
+        const start = (o.monster && stompTakeoffBeat(o, shape)) ?? takeoffBeat(o, shape);
         const apex = start + shape.duration / 2;
         if (this.rnd() < BLOCK_CHANCE && r < 100) {
           // The head touches the block's bottom at the top of a jump with resonance r
@@ -358,13 +362,13 @@ export class LevelGen {
   }
 
   private makeObstacle(beat: number, lo: number, hi: number, monster = false): Obstacle {
+    // Monsters are small and meant to be stomped: no matching to the difficulty band
+    if (monster) return this.makeMonster(beat);
     let best: Obstacle | undefined;
     let bestDist = Infinity;
     for (let i = 0; i < 24; i++) {
       const gap = this.rnd() < 0.5;
-      const o: Obstacle = monster
-        ? this.makeMonster(beat)
-        : gap
+      const o: Obstacle = gap
         ? { kind: 'gap', beat, width: 0.4 + this.rnd() * 2.0, height: 0, minResonance: 0 }
         : { kind: 'wall', beat, width: 0.25 + Math.floor(this.rnd() * 3) * 0.25, height: 30 + this.rnd() * 200, minResonance: 0 };
       o.minResonance = minResonanceFor(o);
@@ -378,11 +382,15 @@ export class LevelGen {
     return best!;
   }
 
-  /** A pixel monster: physically a wall whose size depends on its pixel scale (36–132 px). */
+  /**
+   * A pixel monster: physically a wall whose size depends on its pixel scale (24–60 px).
+   * `minResonance` is what it takes to land on it (stomp), which is what the runner aims for.
+   */
   private makeMonster(beat: number): Obstacle {
-    const scale = 3 + Math.floor(this.rnd() * 9);
+    const [lo, hi] = MONSTER_SCALES;
+    const scale = lo + Math.floor(this.rnd() * (hi - lo + 1));
     const size = MONSTER_GRID * scale;
-    return {
+    const o: Obstacle = {
       kind: 'wall',
       beat,
       width: size / PX_PER_BEAT,
@@ -394,6 +402,8 @@ export class LevelGen {
         scale,
       },
     };
+    o.minResonance = stompResonanceFor(o);
+    return o;
   }
 
   /** Next obstacle not yet passed, starting at `beat`. */

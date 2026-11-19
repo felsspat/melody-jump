@@ -47,8 +47,10 @@ export interface Obstacle {
    * rules), drawn as a creature of 12×12 sprite pixels, each `scale` screen pixels.
    */
   monster?: { shape: number; color: number; scale: number };
-  /** When the shield smashed this wall (seconds), for the flying bricks */
+  /** When the shield smashed this wall or the runner stomped this monster (seconds), for the animation */
   brokenAt?: number;
+  /** A monster the runner landed on (squashed instead of smashed) */
+  stomped?: boolean;
 }
 
 /** Edge length of one ground / brick / note block on screen (px): five per beat. */
@@ -65,6 +67,26 @@ export function takeoffBeat(o: Obstacle, shape: JumpShape): number {
   const centered = center - shape.duration / 2;
   if (o.kind === 'gap') return Math.min(centered, o.beat - 0.1);
   return centered;
+}
+
+/**
+ * Takeoff for stomping a pixel monster: the arc comes down through the monster's height right at
+ * its leading edge, so the runner lands on top of it. Undefined if the jump is not high enough.
+ */
+export function stompTakeoffBeat(o: Obstacle, shape: JumpShape): number | undefined {
+  if (shape.height < o.height + STOMP_MARGIN) return undefined;
+  // Fraction of the jump at which the falling runner passes the monster's height
+  const u = (1 + Math.sqrt(1 - o.height / shape.height)) / 2;
+  return o.beat + Math.min(0.1, o.width / 2) - u * shape.duration;
+}
+
+/** How much higher than a monster the jump must go to land on it (px). */
+export const STOMP_MARGIN = 6;
+
+/** Lowest resonance at which a jump is high enough to land on a monster. */
+export function stompResonanceFor(o: Obstacle): number {
+  const r = ((o.height + STOMP_MARGIN - jumpShape(0).height) / (jumpShape(100).height - jumpShape(0).height)) * 100;
+  return Math.max(0, Math.min(100, Math.ceil(r)));
 }
 
 /** Does an auto-jump at this resonance clear the obstacle? */

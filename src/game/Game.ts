@@ -896,7 +896,7 @@ export class Game {
         if (o.counted || o.beat + o.width > beat - 0.2) continue;
         o.counted = true;
         if (!o.hit) this.obstaclesCleared++;
-        if (o.monster && !o.hit) {
+        if (o.monster && !o.hit && !o.broken) {
           this.score += 50;
           this.popup(o.beat + o.width / 2, o.height + 20, '+50', '#b0ffb0');
         }

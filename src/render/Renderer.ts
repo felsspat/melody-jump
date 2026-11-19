@@ -523,6 +523,10 @@ export class Renderer {
       const x = this.sx(v, o.beat);
       const w = o.width * PX_PER_BEAT;
       if (x > v.width + 60 || x + w < -60) continue;
+      if (o.broken && o.monster) {
+        this.drawMonster(ctx, v, o, x, gy);
+        continue;
+      }
       if (o.broken) {
         this.drawDebris(ctx, v, o, x, w, gy);
         continue;
@@ -748,6 +752,18 @@ export class Renderer {
     const hop = Math.round(Math.max(0, Math.sin(phase * Math.PI)) * m.scale * 1.5);
     const img = this.monsterSprite(m.shape, m.color, frame);
     const size = MONSTER_W * m.scale;
+    if (o.broken) {
+      // Squashed flat (stomped, or smashed by the shield), then gone
+      const age = v.now - (o.brokenAt ?? -10);
+      if (age > 0.6) return;
+      const h = Math.max(3, size * 0.25);
+      ctx.globalAlpha = 1 - age / 0.6;
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(img, Math.round(x - size * 0.15), Math.round(gy - h), Math.round(size * 1.3), Math.round(h));
+      ctx.imageSmoothingEnabled = true;
+      ctx.globalAlpha = 1;
+      return;
+    }
     ctx.globalAlpha = o.hit ? 0.4 : 1;
     // Shadow on the ground, smaller while hopping
     ctx.fillStyle = 'rgba(0,0,0,0.3)';

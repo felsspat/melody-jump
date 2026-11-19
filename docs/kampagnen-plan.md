@@ -87,8 +87,13 @@ anzuhören.
 - **Boden aus Blöcken** (eine Reihe Quader, darunter versetzte Ziegel), **Abgründe** fast schwarz mit Felskanten
   (vorher sahen Lücken aus wie flache Blöcke; im Browser bestätigt, dass man sie jetzt erkennt).
 - **Mauern** als Ziegeltürme; vom Schild zerschlagene Mauern fliegen in Brocken auseinander.
-- **Pixelmonster:** etwa jedes vierte Hindernis (nicht im Tutorial), 2 eigene Designs × 3 Farben, 36–132 px. Physikalisch
-  eine Mauer, hüpft im Takt. Drüberspringen +50. Der Coach sagt vorher, wie viel Resonanz nötig ist (`monsterTip()`).
+- **Pixelmonster** (seit 19.11.2026 kleiner und mehr, Wunsch „mehr Jump & Run“): etwa jedes zweite Hindernis (nicht im
+  Tutorial), 2 eigene Designs × 3 Farben, 24–60 px (vorher 36–132 px, jedes vierte). Insgesamt gibt es auch mehr
+  Hindernisse (Dichte 0,6–0,9 statt 0,45–0,85 pro Takt). Physikalisch eine Mauer, hüpft im Takt. Die Läuferin **springt
+  ihnen auf den Kopf** (`stompTakeoffBeat()` in `physics.ts`): Sie werden plattgedrückt (+50), sie federt ab. Seitlich
+  hineinlaufen kostet ein Leben. Nötig ist dafür nur etwa 10–20 Resonanz (`stompResonanceFor()`); die Schwierigkeit
+  steckt in Lücken und Mauern. Der Coach sagt vorher, wie viel Resonanz nötig ist (`monsterTip()`). Simulationstests:
+  ab 30 Resonanz wird jedes Monster plattgedrückt, ohne Musik läuft man hinein.
 - **Misston-Gegner:** erscheinen nach drei schiefen Tönen hintereinander; Draufspringen +50.
 - **Belohnungen über Hindernissen:** sich drehende Notenmünzen (+100) oder **Notenblöcke** (`NoteBlock` in `Level.ts`,
   +100), die man mit dem Kopf anstößt. Beides nur mit höherer Resonanz erreichbar. Beim ersten Notenblock gibt es eine
@@ -135,7 +140,7 @@ anzuhören.
 
 ## Technik und Tests
 
-- 107 Tests (Vitest). Unter anderem:
+- 109 Tests (Vitest). Unter anderem:
   - Jeder Melodie-Level klingt beim perfekten Mitspielen gut, und kein fremder Ton bleibt unaufgelöst.
   - Jede Band spielt einen ganzen Level ohne Fehler (Fake-Audio-Engine).
   - Endlos-Abschnitte je Stil sind gültig, das Tempo steigt.
