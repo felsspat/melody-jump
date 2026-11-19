@@ -179,7 +179,7 @@ export const TUNES: ChapterTune[] = [
       notes: mountain,
     },
     key: { tonic: 2, mode: 'major' }, // D major, as in the source
-    bpm: 100,
+    bpm: 92,
     source:
       'Traditional African-American spiritual ("Go Tell It on the Mountain", anonymous; first printed by John W. Work Jr., † 1925) → public domain. ABC: Musica Viva (Frank Nordberg), https://trillian.mit.edu/~jc/music/abc/mirror/musicaviva.com/tunes/usa/go-tell-it-on-the.abc; dotted eighth + sixteenth pairs simplified to eighths.',
   },

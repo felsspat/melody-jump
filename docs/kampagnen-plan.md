@@ -15,7 +15,11 @@ Spirituals · Ragtime · Blues · Dixieland · Swing · Country & Bluegrass · L
 Hip-Hop · House & Techno.
 
 **Neue Ären (seit 19.11.2026, Wunsch „mehr Ären“):** Sie haben je 4 Lieder (aus `src/music/songs/<kapitel>.ts`) und
-einen Jam als letzten Level.
+einen Jam als letzten Level. Wie die alten Kapitel beginnen sie mit einem **langsamen Einstiegslevel** (das leichteste
+Lied bei 70 % Tempo, leichte Hindernisse, Id `<kapitel>-<melodie>-slow`); danach folgen die Lieder von leicht nach schwer,
+gemessen in Tönen pro Sekunde (`notesPerSecond()` in `chapters.ts`). Grund: Der erste Barock-Level (Menuett, 108 BPM,
+2,4 Töne/s) war „viel zu schnell und zu schwer“; die alten Kapitel starten mit 0,7–1,2 Tönen/s. Jetzt starten alle neuen
+Ären bei etwa 1 Ton/s und gehen bis etwa 2,5 Töne/s; dichte Stücke (Barock, Fiddle-Reels, El Choclo) laufen mit 84–96 BPM.
 
 | Kapitel | Zeit | Lieder | Jam | Groove-Regel | Band | Instrument |
 |---|---|---|---|---|---|---|
@@ -196,7 +200,7 @@ anzuhören.
 
 ## Technik und Tests
 
-- 116 Tests (Vitest). Unter anderem:
+- 117 Tests (Vitest). Unter anderem:
   - Jeder Melodie-Level klingt beim perfekten Mitspielen gut, und kein fremder Ton bleibt unaufgelöst.
   - Jede Band spielt einen ganzen Level ohne Fehler (Fake-Audio-Engine).
   - Endlos-Abschnitte je Stil sind gültig, das Tempo steigt.

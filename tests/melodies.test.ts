@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Guide } from '../src/game/Guide';
 import { GUIDE_HIT_BONUS, HarmonyJudge } from '../src/music/HarmonyJudge';
-import { CHAPTERS } from '../src/campaign/chapters';
+import { CHAPTERS, notesPerSecond } from '../src/campaign/chapters';
 import { MELODIES, melodyTimeline, pickupBeats } from '../src/music/melodies';
 import { CHAPTER_TUNES } from '../src/music/songs';
 import { Song } from '../src/music/Song';
@@ -68,6 +68,22 @@ describe('extra chapter tunes (songs/*.ts)', () => {
       expect(tune.source.length, tune.melody.id).toBeGreaterThan(20);
       expect(tune.bpm, tune.melody.id).toBeGreaterThanOrEqual(56);
       expect(tune.bpm, tune.melody.id).toBeLessThanOrEqual(150);
+    }
+  });
+
+  it('the newer eras start with a slow, easy level and get harder from there', () => {
+    for (const id of ['baroque', 'gospel', 'country', 'latin']) {
+      const chapter = CHAPTERS.find((c) => c.id === id)!;
+      const first = chapter.levels[0];
+      expect(first.id, id).toMatch(/-slow$/);
+      const tune = CHAPTER_TUNES.find((t) => t.melody.id === first.sections[0].melody)!;
+      const slowRate = notesPerSecond({ ...tune, bpm: first.sections[0].bpm });
+      // About as gentle as the first level of the older chapters (Twinkle 1.05, Saints 0.68 notes/s)
+      expect(slowRate, id).toBeLessThanOrEqual(1.3);
+      expect(first.sections[0].difficulty, id).toBe(0);
+      const rates = CHAPTER_TUNES.filter((t) => t.chapter === id).map(notesPerSecond);
+      const order = chapter.levels.slice(1, -1).map((l) => notesPerSecond(CHAPTER_TUNES.find((t) => t.melody.id === l.sections[0].melody)!));
+      expect(order, id).toEqual([...rates].sort((x, y) => x - y));
     }
   });
 

@@ -132,7 +132,7 @@ export const TUNES: ChapterTune[] = [
       notes: elChoclo,
     },
     key: { tonic: 9, mode: 'minor' }, // A minor, as in the source
-    bpm: 120,
+    bpm: 96,
     source:
       'Ángel Villoldo († 1919), tango "El Choclo" (1903) → public domain. First strain from John Chambers\' ABC: ' +
       'https://abcnotation.com/tunePage?a=trillian.mit.edu/~jc/music/abc/Argentina/tango/Choclo_Am/0000 ' +
@@ -154,7 +154,7 @@ export const TUNES: ChapterTune[] = [
       notes: [...cucarachaChorus, ...cucarachaVerse],
     },
     key: { tonic: 2, mode: 'major' }, // D major, as in the source
-    bpm: 112,
+    bpm: 100,
     source:
       'Traditional Mexican song "La Cucaracha" (anonymous → public domain). Melody from the Musica Viva ABC: ' +
       'https://abcnotation.com/tunePage?a=trillian.mit.edu/~jc/music/abc/mirror/musicaviva.com/anon/la-cucaracha/la-cucaracha-1/0000 ' +
@@ -179,7 +179,7 @@ export const TUNES: ChapterTune[] = [
       notes: laPaloma,
     },
     key: { tonic: 0, mode: 'major' }, // C major, as in the source
-    bpm: 104,
+    bpm: 96,
     source:
       'Sebastián Iradier († 1865), habanera "La Paloma" (about 1860) → public domain. Refrain and "Ay, chinita" part from the ' +
       'Essen folk song collection (ESAC D0229) as ABC: https://abcnotation.com/tunePage?a=ifdo.ca/~seymour/runabc/esac/dva0/0143 ' +
@@ -200,7 +200,7 @@ export const TUNES: ChapterTune[] = [
       notes: eveningBreeze,
     },
     key: { tonic: 5, mode: 'major' }, // F major
-    bpm: 116,
+    bpm: 104,
     source: 'Original tune written for Melody Jump (bossa nova style, chords I–II7–ii–V7).',
   },
 ];

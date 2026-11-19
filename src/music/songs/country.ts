@@ -123,7 +123,7 @@ export const TUNES: ChapterTune[] = [
       notes: soldiersJoy,
     },
     key: { tonic: 2, mode: 'major' }, // D major, as in the source
-    bpm: 110,
+    bpm: 88,
     source:
       'Traditional fiddle tune (18th century) → public domain. ABC and chords: https://thesession.org/tunes/1356 (setting 39289, D major).',
   },
@@ -141,7 +141,7 @@ export const TUNES: ChapterTune[] = [
       notes: crippleCreek,
     },
     key: { tonic: 9, mode: 'major' }, // A major, as in the source
-    bpm: 112,
+    bpm: 88,
     source:
       'Traditional Appalachian fiddle/banjo tune (19th century) → public domain. ABC and chords: https://thesession.org/tunes/23886 (setting 49222, A major).',
   },
@@ -155,7 +155,7 @@ export const TUNES: ChapterTune[] = [
       notes: shadyGrove,
     },
     key: { tonic: 4, mode: 'minor' }, // E minor (modal tune), as in the source
-    bpm: 100,
+    bpm: 96,
     source:
       'Traditional Appalachian song → public domain. ABC: https://thesession.org/tunes/14220 (setting 25846, tonic E); chords i – VII – III added (the source has none).',
   },
@@ -175,7 +175,7 @@ export const TUNES: ChapterTune[] = [
       notes: homeOnTheRange,
     },
     key: { tonic: 7, mode: 'major' }, // G major, as in the source
-    bpm: 120,
+    bpm: 108,
     source:
       'Brewster Higley († 1911, words) and Daniel Kelley († 1905, music), 1872 → public domain. ABC and chords: Musica Viva (Frank Nordberg, X:522) via https://abcnotation.com/tunePage?a=trillian.mit.edu/~jc/music/abc/mirror/musicaviva.com/tunes/usa/home-on-the-range/0000',
   },

@@ -6,6 +6,7 @@
 import { SectionDef } from '../music/Song';
 import { StyleId } from '../music/styles';
 import { Key } from '../music/theory';
+import type { ChapterTune } from '../music/notation';
 import { CHAPTER_TUNES } from '../music/songs';
 import { TWELVE_BAR_BLUES, melodySection } from '../world/Level';
 
@@ -350,23 +351,51 @@ export const CHAPTERS: ChapterDef[] = [
   },
 ];
 
+/** How hard a tune is to play: notes per second at its tempo. */
+export function notesPerSecond(tune: ChapterTune): number {
+  const m = tune.melody;
+  const notes = m.notes.filter(([offset]) => offset !== null).length;
+  return notes / ((m.bars * m.beatsPerBar * 60) / tune.bpm);
+}
+
+/** Tempo factor and difficulty of the slow first level of a chapter that consists only of tunes and a jam. */
+export const INTRO_TEMPO = 0.7;
+
 /**
  * Adds the extra tunes of songs/*.ts to their chapters: one level per tune, in the chapter's
  * style, after the other tunes and before the jam session (if the chapter ends with one).
  * Level id = "<chapter>-<melody id>", so saved stars stay valid when tunes are added.
+ *
+ * Chapters that have nothing but a jam of their own (the newer eras) are built like the
+ * older ones: their tunes are sorted from easy to hard (notes per second), and the
+ * easiest one also comes first as a slow level ("<chapter>-<melody id>-slow").
  */
 function addChapterTunes(chapters: ChapterDef[]): void {
-  for (const tune of CHAPTER_TUNES) {
-    const chapter = chapters.find((c) => c.id === tune.chapter);
-    if (!chapter) throw new Error(`tune "${tune.melody.id}": unknown chapter "${tune.chapter}"`);
+  const levelFor = (chapter: ChapterDef, tune: ChapterTune, id: string, bpm: number, difficulty: number): LevelDef => {
     const style = chapter.levels[0].sections[0].style;
-    const s = melodySection(tune.melody.id, tune.key, tune.bpm, 1, 1);
-    // Short tunes are repeated so every level lasts a while
-    const passes = Math.max(1, Math.ceil(16 / s.bars)); // at least 16 bars (a 12-bar blues is played twice)
-    const level: LevelDef = { id: `${chapter.id}-${tune.melody.id}`, sections: [{ ...s, bars: s.bars * passes, style }] };
+    const s = melodySection(tune.melody.id, tune.key, bpm, 1, difficulty);
+    // Short tunes are repeated so every level lasts a while (a 12-bar blues is played twice)
+    const passes = Math.max(1, Math.ceil(16 / s.bars));
+    return { id, sections: [{ ...s, bars: s.bars * passes, style }] };
+  };
+  for (const chapter of chapters) {
+    let tunes = CHAPTER_TUNES.filter((t) => t.chapter === chapter.id);
+    if (tunes.length === 0) continue;
+    const onlyJam = chapter.levels.every((l) => !l.sections[0].melody);
+    const added: LevelDef[] = [];
+    if (onlyJam) {
+      tunes = [...tunes].sort((a, b) => notesPerSecond(a) - notesPerSecond(b));
+      const easiest = tunes[0];
+      const slowBpm = Math.max(56, Math.round(easiest.bpm * INTRO_TEMPO));
+      added.push(levelFor(chapter, easiest, `${chapter.id}-${easiest.melody.id}-slow`, slowBpm, 0));
+    }
+    for (const tune of tunes) added.push(levelFor(chapter, tune, `${chapter.id}-${tune.melody.id}`, tune.bpm, 1));
     const last = chapter.levels[chapter.levels.length - 1];
     const endsWithJam = !last.sections[0].melody;
-    chapter.levels.splice(endsWithJam ? chapter.levels.length - 1 : chapter.levels.length, 0, level);
+    chapter.levels.splice(endsWithJam ? chapter.levels.length - 1 : chapter.levels.length, 0, ...added);
+  }
+  for (const tune of CHAPTER_TUNES) {
+    if (!chapters.some((c) => c.id === tune.chapter)) throw new Error(`tune "${tune.melody.id}": unknown chapter "${tune.chapter}"`);
   }
 }
 

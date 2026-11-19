@@ -107,7 +107,7 @@ export const TUNES: ChapterTune[] = [
       notes: minuetInG,
     },
     key: { tonic: 7, mode: 'major' }, // G major, as in the original
-    bpm: 108,
+    bpm: 84,
     source:
       'Christian Petzold († 1733), Minuet in G, BWV Anh. 114 (1725) → public domain. ABC (with chords): https://abcnotation.com/tunePage?a=spuds.thursdaycontra.com/TuneSwaps/0_SPUDS_TuneSwap_All/0470 – first strain, grace note left out.',
   },
@@ -126,7 +126,7 @@ export const TUNES: ChapterTune[] = [
       notes: rondeau,
     },
     key: { tonic: 2, mode: 'minor' }, // D minor, as in the source
-    bpm: 110,
+    bpm: 88,
     source:
       'Henry Purcell († 1695), Rondeau from "Abdelazer" (1695) → public domain. ABC: https://thesession.org/tunes/10911 (setting 1, D minor, 3/2; each 3/2 bar written as two 3/4 bars). First strain; chords added from the broken chords of the melody (the source has none).',
   },
@@ -145,7 +145,7 @@ export const TUNES: ChapterTune[] = [
       notes: queenOfSheba,
     },
     key: { tonic: 10, mode: 'major' }, // Bb major, as in the original
-    bpm: 104,
+    bpm: 84,
     source:
       'George Frideric Handel († 1759), "The Arrival of the Queen of Sheba" from "Solomon" (1749) → public domain. ABC with chords by Colin Hume: https://abcnotation.com/tunePage?a=colinhume.com/ABC.txt/0047 – bars 1–12 and 29–32, final low Bb an octave up.',
   },
@@ -166,7 +166,7 @@ export const TUNES: ChapterTune[] = [
       notes: [...marchA, ...marchB, ...marchA],
     },
     key: { tonic: 2, mode: 'major' }, // D major, as in the source
-    bpm: 96,
+    bpm: 84,
     source:
       'Jeremiah Clarke († 1707), "Prince of Denmark\'s March" ("Trumpet Voluntary", c. 1700) → public domain. Melody: ABC by Chris Myers, https://abcnotation.com/tunePage?a=trillian.mit.edu/~jc/music/abc/mirror/ChrisMyers/KG_tunes_webready/0014 (2/4 bars written as 4/4, trills left out); chords from Colin Hume\'s "The Temple": https://abcnotation.com/tunePage?a=colinhume.com/ABC.txt/1372',
   },
