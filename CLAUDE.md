@@ -41,8 +41,9 @@ wsl -e bash -lc "source ~/.nvm/nvm.sh && cd /mnt/c/Users/devri/git/melody-jump &
 
 ## Samples („Echte Instrumente“)
 
-- **Standard ist der Synthesizer.** Auf dem Startbildschirm kann man „Klang: 🎸 Echte Instrumente“
-  wählen; die Wahl wird gespeichert.
+- **Voreinstellung sind die Samples** („🎸 Echte Instrumente“, Wunsch vom 19.11.2026). Auf dem Startbildschirm und in
+  den Pause-Einstellungen kann man „🎛 Synthesizer“ wählen; die Wahl wird gespeichert. Die Samples laden schon beim
+  Öffnen der Seite; bis sie bereit sind (oder wenn sie nicht laden), spielt der Synthesizer.
 - **Dateien:** `public/samples/` (ca. 5 MB, ca. 165 MP3s + `manifest.json`), erzeugt von `scripts/fetch-samples.mjs`.
   Klavier und Saxophon haben zusätzlich leise/laute Aufnahmen (`soft-60.mp3`, `loud-60.mp3`, im Manifest unter `layers`);
   `layerFor(velocity)` wählt sie aus. Die Bassdrum ist „drum_bass_hard“ von freesound.org (CC0, über Sonic Pi).

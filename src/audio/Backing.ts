@@ -596,8 +596,21 @@ export class Backing {
     o.stop(time + dur + 0.2);
   }
 
+  /** High-pass in front of the sampled kick: the recording has a lot of sub-bass rumble below 45 Hz. */
+  private kickFilter?: BiquadFilterNode;
+
   private kick(time: number, peak: number): void {
-    if (this.sampled?.playDrum('kick', time, peak * 1.1, this.engine.musicBus)) return;
+    // The kick sample is normalized to full scale, the snare sample peaks about 20 dB lower:
+    // with the same factor the kick sounded like a huge concert bass drum. 0.2 ≈ −14 dB.
+    if (this.sampled) {
+      if (!this.kickFilter) {
+        this.kickFilter = this.engine.ctx.createBiquadFilter();
+        this.kickFilter.type = 'highpass';
+        this.kickFilter.frequency.value = 45;
+        this.kickFilter.connect(this.engine.musicBus);
+      }
+      if (this.sampled.playDrum('kick', time, peak * 0.2, this.kickFilter)) return;
+    }
     const ctx = this.engine.ctx;
     const o = ctx.createOscillator();
     o.frequency.setValueAtTime(150, time);

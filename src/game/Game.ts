@@ -152,7 +152,8 @@ export class Game {
   private tutorialDone = load('tutorial-done', '0') === '1';
   private guideOn = load('guide', '1') === '1';
   private coachOn = load('coach', '1') === '1';
-  private soundMode: SoundMode = ((v) => (v === 'samples' ? 'samples' : 'synth'))(load('sound', 'synth'));
+  /** Recorded instruments by default; the synthesizer is the choice (and the fallback if samples fail to load) */
+  private soundMode: SoundMode = ((v) => (v === 'synth' ? 'synth' : 'samples'))(load('sound', 'samples'));
   private sampleBank?: SampleBank;
   /** Volume of the band and of the player's own instrument (1 = default mix) */
   private bandVolume = loadVolume('vol-band');

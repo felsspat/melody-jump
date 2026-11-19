@@ -57,9 +57,12 @@ Niemand muss Kapitel 1 schaffen, um z.B. Blues zu spielen.
   Banjo, leichte Drums · Swing Ride, Walking Bass, Piano · Rock 'n' Roll Backbeat, Boogie-Bass, Piano-Achtel · Ska Skank
   auf dem Offbeat, Rimshot · Reggae One Drop, Skank, Bubble-Orgel · Funk 16tel-Hi-Hat, Oktav-Bass, Gitarren-Stabs ·
   Hip-Hop und House Drumcomputer-Kick, Clap, offene Hi-Hat, Plattenkratzer, Synth-Bass und -Stabs.
-- **Samples („Echte Instrumente“):** wählbar, Standard bleibt der Synthesizer. Quellen: VCSL (CC0: Klavier, Saxophon,
+- **Samples („Echte Instrumente“):** Voreinstellung (seit 19.11.2026, vorher der Synthesizer), der Synthesizer ist wählbar. Quellen: VCSL (CC0: Klavier, Saxophon,
   Mundharmonika, Schlagzeug) und FluidR3_GM (CC BY 3.0: Gitarren, Bässe, Orgel, Trompete, Clavinet). Drumset-Bassdrum
-  „drum_bass_hard“ (menegass, freesound.org #100051, CC0, über Sonic Pi). Klavier hat 3 Anschlagstärken, Saxophon 2
+  „drum_bass_hard“ (menegass, freesound.org #100051, CC0, über Sonic Pi); sie war viel zu laut (Datei auf 0 dB
+  normalisiert, Snare 20 dB leiser, „wie eine riesige Bassdrum“) und läuft seit 19.11.2026 mit Faktor 0,2 (≈ −14 dB)
+  und einem Hochpass bei 45 Hz. Gemessen im Blues: Tiefbass unter 90 Hz vorher 7 dB über den Mitten, jetzt 4 dB
+  darunter. Klavier hat 3 Anschlagstärken, Saxophon 2
   (`layerFor()`: bis 0,45 leise, ab 0,8 laut; das leise G5 fehlt wegen falscher Tonhöhe in der Quelle). Die Band nutzt
   Kontrabass bis Swing, danach E-Bass. Hip-Hop und House nutzen immer Drumcomputer-Klänge, bei House spielt man auch
   mit Samples den Synthesizer. Eine einzelne kaputte Datei wird übersprungen (der Ton kommt dann vom nächsten Sample);
@@ -113,7 +116,8 @@ anzuhören.
   hochkant ein Hinweis zum Drehen. **Auf echten Geräten ungetestet.**
 - **MIDI-Keyboard** (`src/input/MidiInput.ts`, Web MIDI, Chrome/Edge): Noten an/aus mit Anschlagstärke, auch später
   eingesteckte Geräte; der Zugriff wird beim ersten Spielstart erfragt. **Komplett ungetestet:** Nur das Auslesen der
-  MIDI-Nachrichten hat Unit-Tests.
+  MIDI-Nachrichten hat Unit-Tests. Das steht auch im Spiel: als Zeile in der Hilfe auf dem Startbildschirm und in der
+  Meldung beim Anschließen („(ungetestet)“).
 - **Lizenzen:** Knopf „ⓘ Lizenzen & Quellen“ auf dem Startbildschirm (`src/ui/CreditsPanel.ts`), dazu die anklickbare
   Credits-Zeile unten.
 
