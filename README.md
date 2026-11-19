@@ -4,6 +4,9 @@ Seitenscrollendes Jump & Run im Browser, bei dem du den Läufer nicht direkt ste
 Wie harmonisch und taktgenau du spielst („Resonanz“), entscheidet, wie hoch und weit er springt, ob er Leben
 regeneriert, ein Schild bekommt usw.
 
+**Online spielen:** https://felsspat.github.io/melody-jump/ (wird bei jedem Push auf `main` automatisch neu gebaut,
+siehe `.github/workflows/pages.yml`).
+
 ## Starten (Node läuft in WSL)
 
 ```bash

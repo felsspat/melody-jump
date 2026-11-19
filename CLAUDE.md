@@ -32,6 +32,12 @@ wsl -e bash -lc "source ~/.nvm/nvm.sh && cd /mnt/c/Users/devri/git/melody-jump &
 - Remote: `origin` = https://github.com/felsspat/melody-jump (Branch `main`), Zugriff per SSH-Schlüssel aus Windows
   (`git push` aus Git Bash funktioniert ohne Rückfrage).
 - Commits nur, wenn der Mensch es möchte oder es zum Auftrag gehört; vorher Typprüfung, Tests und Build.
+- **GitHub Pages:** https://felsspat.github.io/melody-jump/ . Der Workflow `.github/workflows/pages.yml` testet, baut und
+  veröffentlicht `dist/` bei jedem Push auf `main`. `dist/` bleibt in `.gitignore` (Pages kann aus einem Branch nur `/`
+  oder `/docs` veröffentlichen, nicht `/dist`). `base: './'` in `vite.config.ts` muss bleiben, weil die Seite unter
+  `/melody-jump/` liegt. Jeder Push auf `main` geht damit sofort online.
+- **Dev-Hook:** Nur im Dev-Server ist das laufende Spiel als `window.__melodyJump` erreichbar (`src/main.ts`), z.B. für
+  einen Bot, der mit Headless-Chromium ein Demo-Video aufnimmt. Im Build fehlt er.
 
 ## Samples („Echte Instrumente“)
 

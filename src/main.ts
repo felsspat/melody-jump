@@ -9,4 +9,6 @@ onLocaleChange(() => {
 setLocale(detectLocale());
 
 const canvas = document.getElementById('game') as HTMLCanvasElement;
-new Game(canvas);
+const game = new Game(canvas);
+// Dev server only: lets scripts (e.g. a bot recording a demo video) reach the running game
+if (import.meta.env.DEV) (window as unknown as { __melodyJump: Game }).__melodyJump = game;
