@@ -62,13 +62,20 @@ Niemand muss Kapitel 1 schaffen, um z.B. Blues zu spielen.
   „drum_bass_hard“ (menegass, freesound.org #100051, CC0, über Sonic Pi). Klavier hat 3 Anschlagstärken, Saxophon 2
   (`layerFor()`: bis 0,45 leise, ab 0,8 laut; das leise G5 fehlt wegen falscher Tonhöhe in der Quelle). Die Band nutzt
   Kontrabass bis Swing, danach E-Bass. Hip-Hop und House nutzen immer Drumcomputer-Klänge, bei House spielt man auch
-  mit Samples den Synthesizer. Lädt etwas nicht, bleibt es beim Synthesizer; beim nächsten Start wird es erneut versucht.
-  Details in `CREDITS.md` und `CLAUDE.md`.
+  mit Samples den Synthesizer. Eine einzelne kaputte Datei wird übersprungen (der Ton kommt dann vom nächsten Sample);
+  lädt gar nichts, bleibt es beim Synthesizer, und beim nächsten Start wird es erneut versucht. Details in `CREDITS.md`
+  und `CLAUDE.md`.
+- **Fehler bis 19.11.2026:** `piano/soft-48.mp3` und `piano/soft-84.mp3` waren leer (der Stille-Filter hatte die sehr
+  leisen Aufnahmen ganz weggeschnitten). Weil damals eine kaputte Datei das ganze Laden scheitern ließ, lief das Spiel
+  bis dahin **immer mit dem Synthesizer**, auch mit „Echte Instrumente“. Beide Dateien sind entfernt, das Skript und ein
+  Test verhindern leere Dateien.
 - **Geräusche** (`src/audio/Sfx.ts`): Sprung, Doppelsprung, Landung, Münze, Notenblock, Gegner, Mauer, Treffer, Absturz,
   Fanfare. Alle aus Tönen des gerade klingenden Akkords, damit sie zur Musik passen; sie zählen nicht für die Resonanz.
 
 **Im Browser geprüft (19.11.2026):** Die Melodien und Samples sind gut und **bleiben so**. Das gilt auch für den
-vereinfachten Maple Leaf Rag; die originalgetreuere Fassung mit `bVI`-Akkorden ist verworfen.
+vereinfachten Maple Leaf Rag; die originalgetreuere Fassung mit `bVI`-Akkorden ist verworfen. Achtung: Wegen des
+Ladefehlers oben war dabei vermutlich der Synthesizer zu hören, nicht die Samples; die Samples sind also noch einmal
+anzuhören.
 
 ## Welt und Jump & Run
 
@@ -124,14 +131,21 @@ vereinfachten Maple Leaf Rag; die originalgetreuere Fassung mit `bVI`-Akkorden i
 
 ## Technik und Tests
 
-- 105 Tests (Vitest). Unter anderem:
+- 107 Tests (Vitest). Unter anderem:
   - Jeder Melodie-Level klingt beim perfekten Mitspielen gut, und kein fremder Ton bleibt unaufgelöst.
   - Jede Band spielt einen ganzen Level ohne Fehler (Fake-Audio-Engine).
   - Endlos-Abschnitte je Stil sind gültig, das Tempo steigt.
   - Notenblöcke sind ab der angegebenen Resonanz erreichbar und für schwache Sprünge nicht.
   - Jeder Text existiert in jeder Sprache.
+  - Keine Sample-Datei ist leer, und eine kaputte Datei legt nicht alle Samples lahm.
 - Nicht automatisch geprüft: `Game.ts`, Zeichnen und Klang. Das muss im Browser angesehen und angehört werden.
-- Git-Repository seit 19.11.2026; `.gitattributes` hält die Zeilenenden auf LF.
+- Git-Repository seit 19.11.2026 (https://github.com/felsspat/melody-jump); `.gitattributes` hält die Zeilenenden auf LF.
+- **Online:** https://felsspat.github.io/melody-jump/ . Ein GitHub-Actions-Workflow testet, baut und veröffentlicht bei
+  jedem Push auf `main`.
+- **Demo-Video** (19.11.2026): Ein Bot hat mit Headless-Chromium Reggae endlos auf Originaltempo gespielt (Resonanz
+  durchgehend 100, kein Leben verloren). Er nutzt den Dev-Hook `window.__melodyJump`. Ton und Bild kommen direkt aus
+  dem Spiel; die Ausgabe-Latenz muss dabei auf 0 gesetzt werden, weil Headless-Chromium ohne Soundkarte eine ständig
+  wachsende Latenz meldet.
 
 **Bewusste Vereinfachungen:**
 
@@ -141,6 +155,7 @@ vereinfachten Maple Leaf Rag; die originalgetreuere Fassung mit `bVI`-Akkorden i
 ## Nächste Schritte (Vorschlag)
 
 1. **Im Browser ausprobieren:**
+   - „Echte Instrumente“ noch einmal anhören: Sie laden erst seit dem Fix vom 19.11.2026 wirklich.
    - Geräusche: Passen sie, stimmt die Lautstärke?
    - Notenblöcke: Erkennt man sie, fühlt sich das Anstoßen gut an?
    - Gegner in der Kampagne: zu streng für die Sterne?
