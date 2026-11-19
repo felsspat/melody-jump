@@ -9,8 +9,25 @@ Was im Browser geprüft ist und was nicht, steht bei den einzelnen Punkten und u
 
 ## Kampagne
 
-Alle 11 Kapitel mit je 3–4 Leveln sind spielbar und **frei wählbar** (Entscheidung der Nutzerin bzw. des Nutzers):
-Niemand muss Kapitel 1 schaffen, um z.B. Blues zu spielen.
+Alle 15 Kapitel mit je 5–7 Leveln sind spielbar und **frei wählbar** (Entscheidung der Nutzerin bzw. des Nutzers):
+Niemand muss Kapitel 1 schaffen, um z.B. Blues zu spielen. Reihenfolge: Barock · Volkslied & Klassik · Gospel &
+Spirituals · Ragtime · Blues · Dixieland · Swing · Country & Bluegrass · Latin · Rock 'n' Roll · Ska · Reggae · Funk ·
+Hip-Hop · House & Techno.
+
+**Neue Ären (seit 19.11.2026, Wunsch „mehr Ären“):** Sie haben je 4 Lieder (aus `src/music/songs/<kapitel>.ts`) und
+einen Jam als letzten Level.
+
+| Kapitel | Zeit | Lieder | Jam | Groove-Regel | Band | Instrument |
+|---|---|---|---|---|---|---|
+| Barock | ca. 1600–1750 | Menuett in G (Petzold † 1733, 3/4) · Rondeau aus „Abdelazer“ (Purcell † 1695, d-Moll, Sequenz) · Ankunft der Königin von Saba (Händel † 1759) · Trumpet Voluntary (Clarke † 1707) | Kanon-Folge I–V–vi–iii–IV–I–IV–V in D | gerade, „Motor“: Achtel und 16tel zählen fast voll | Generalbass: laufender Bass, Cembalo-Akkorde und gebrochene Akkorde, kein Schlagzeug | Cembalo |
+| Gospel & Spirituals | 19. Jh. → ab 1930 | Nobody Knows · Amazing Grace (3/4) · Go Down, Moses (g-Moll) · Go Tell It on the Mountain (alle traditionell) | I–I7–IV–IV–I–V7–(IV I)–I mit „Amen“-Schluss | Shuffle (0,6), Klatschen auf 2 und 4 zählen extra, b3/b7 erlaubt | Klatschen, Tamburin, Hammond-Orgel, Klavier, Bass | Chor |
+| Country & Bluegrass | 1920er → ab 1945 | Soldier's Joy · Cripple Creek · Shady Grove (e-Moll) · Home on the Range (Walzer; Kelley † 1905, Higley † 1911) | I–IV–V7 in G | gerade, „Boom-Chick“: 1 und 3 zählen extra | Bass auf 1/3, Westerngitarre auf 2/4, Banjo-Rolls in Achteln | Fiddle |
+| Latin | 1910er → 1960er | El Choclo (Villoldo † 1919, Tango, a-Moll) · La Cucaracha (trad.) · La Paloma (Iradier † 1865, Habanera) · eigene Bossa Nova „Abendbrise“ | i–iv–V7–i in a-Moll | Synkopen zählen am meisten (Offbeat 1,25) | 3-2-Son-Clave, Congas, vorgezogener Bass, Montuno-Klavier | Konzertgitarre |
+
+Alle neuen Bands laufen auch mit „Echte Instrumente“ (Samples: Cembalo, Banjo, Fiddle, Western- und Nylongitarre,
+Bandoneon, Chor aus FluidR3); Clave und Congas sind synthetisiert. Erklärt werden die neuen Grooves im Kapiteltext, im
+Coach (Timing-Texte „motor“ und „clave“) und in „Musik verstehen“ → Grooves. Die Dixieland-Band spielt jetzt ein echtes
+Banjo-Sample statt der E-Gitarre.
 
 | # | Kapitel | Zeit | Melodie (Level 1+2) | Zweite Melodie („tune2“) | Jam (letztes Level) | Groove-Regel | Instrument (Samples) |
 |---|---|---|---|---|---|---|---|
@@ -45,7 +62,8 @@ Melodien wurden aus Notenquellen übertragen (Quelle und Begründung im Feld `so
 | Hip-Hop | eigene: Staubige Tasten · Regen auf Vinyl · Betonschatten |
 | House & Techno | eigene: Klavier im Morgengrauen · Acid-Schleife · Samt-Tanzfläche |
 
-Die Kapiteltexte nennen den Jam jetzt „letzter Level“ statt „Level 3“. Die Karte zeigt mehr als vier Level in zwei Reihen.
+Die Kapiteltexte nennen den Jam jetzt „letzter Level“ statt „Level 3“. Die Karte zeigt mehr als vier Level in zwei Reihen,
+die 15 Kapitelkarten ebenfalls in zwei Reihen; der Wikipedia-Knopf steht rechts neben dem Kapitelnamen.
 Alle Lieder bestehen die Tests (perfekt mitgespielt: keine unaufgelösten fremden Töne, Resonanz > 55), angehört hat sie
 noch niemand.
 
@@ -63,8 +81,8 @@ noch niemand.
 
 ## Endlos-Modus
 
-- „Endlos“ (oder Enter) auf dem Startbildschirm öffnet eine Stilwahl mit 12 Karten im Raster 4 × 3: „Gemischt“,
-  Klassik und die 10 weiteren Stile. Klicken, Zahlentasten 1–9 und 0 (für die ersten zehn Karten) oder Pfeiltasten + Enter.
+- „Endlos“ (oder Enter) auf dem Startbildschirm öffnet eine Stilwahl mit 16 Karten im Raster 4 × 4: „Gemischt“
+  und die 15 Stile. Klicken, Zahlentasten 1–9 und 0 (für die ersten zehn Karten) oder Pfeiltasten + Enter.
 - Die Wahl wird gespeichert (`endless-style`). Nach Game Over startet „Nochmal“ im selben Stil.
 - `RECIPES` in `src/world/Level.ts` legt je Stil Tonarten, Progressionen, Tempo-Bereich, Taktzahl und Abschnittsnamen
   fest. Das Tempo steigt über etwa 8 Abschnitte vom unteren zum oberen Wert.
@@ -230,6 +248,10 @@ nächsten Sample hochgerechnet, solange nichts geladen ist, spielt der Synthesiz
     Bill Bailey), Robert Burns († 1796, Auld Lang Syne), Walter Jekyll („Jamaican Song and Story“, 1907, † 1929;
     traditionelle Lieder), traditionell: Drunken Sailor, Loch Lomond, Goin' Down the Road, Motherless Child, Take This
     Hammer, Swing Low, Joshua Fit the Battle, Mango Walk
+  - neue Ären: Petzold († 1733), Purcell († 1695), Händel († 1759), Jeremiah Clarke († 1707), Daniel Kelley († 1905) und
+    Brewster Higley († 1911, Home on the Range), Ángel Villoldo († 1919, El Choclo), Sebastián Iradier († 1865, La
+    Paloma), traditionell: Nobody Knows, Amazing Grace (Melodie „New Britain“, Text John Newton † 1807), Go Down Moses,
+    Go Tell It on the Mountain (John W. Work Jr. † 1925), Soldier's Joy, Cripple Creek, Shady Grove, La Cucaracha
 - **Eigene Kompositionen:** Blues-Melodie, Swing-Riff, Boogie-Riff, Insel-Riddim, Funk-Riff, Bronx-Hook, Club-Hook.
 - **Nicht verwenden:** „St. Louis Blues“ (Handy † 1958) bis Ende 2028.
   Ebenso alle Originale ab den 1950ern, z.B. Rock 'n' Roll, Ska, Reggae, Funk.
@@ -240,6 +262,9 @@ nächsten Sample hochgerechnet, solange nichts geladen ist, spielt der Synthesiz
   „Banana Boat Song“ (Quellen von der Belafonte-Fassung 1956 geprägt), „Jamaica Farewell“ (Lord Burgess).
   Erlaubt, aber noch ohne brauchbare Notenquelle: „Trouble in Mind“ (R. M. Jones † 1945), „Nobody Knows You When You're
   Down and Out“ (Jimmie Cox † 1925), „King Porter Stomp“ (Morton † 1941), „Panama“ (Tyers † 1924).
+  Ebenfalls verworfen: „Cielito Lindo“ (Mendoza † 1957), „Guantanamera“, „Bésame mucho“, „La Cumparsita“ (Rechte der
+  späteren Texter unklar), „Wildwood Flower“ (bekannte Fassung von der Carter Family), „Red River Valley“ und „Clementine“
+  (Urheber mit unbekanntem Todesjahr), „He's Got the Whole World“ und „Kum ba yah“ (Herkunft unklar).
 
 ## Entschiedene Fragen (19.11.2026)
 

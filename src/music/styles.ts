@@ -3,7 +3,22 @@
 
 import { Key } from './theory';
 
-export type StyleId = 'classic' | 'ragtime' | 'blues' | 'dixieland' | 'swing' | 'rock' | 'ska' | 'reggae' | 'funk' | 'hiphop' | 'electronic';
+export type StyleId =
+  | 'classic'
+  | 'baroque'
+  | 'gospel'
+  | 'ragtime'
+  | 'blues'
+  | 'dixieland'
+  | 'swing'
+  | 'country'
+  | 'latin'
+  | 'rock'
+  | 'ska'
+  | 'reggae'
+  | 'funk'
+  | 'hiphop'
+  | 'electronic';
 
 /** Where a note landed relative to the beat grid. */
 export type GridKind = 'beat' | 'offbeat' | 'sixteenth' | 'off';
@@ -30,6 +45,42 @@ const flatThirdSeventh = (key: Key) => [3, 10].map((i) => (key.tonic + i) % 12);
 
 export const STYLES: Record<StyleId, StyleRules> = {
   classic: { id: 'classic', swing: 0.5, bluePcs: () => [], blueScore: 0, timing: STRAIGHT, beatAccents: [] },
+  // Baroque: a steady "motor" of eighths and sixteenths over the basso continuo – every beat counts
+  baroque: {
+    id: 'baroque',
+    swing: 0.5,
+    bluePcs: () => [],
+    blueScore: 0,
+    timing: { beat: 1.2, offbeat: 1.1, sixteenth: 1.0, off: 0.55 },
+    beatAccents: [1.1, 1, 1, 1],
+  },
+  // Gospel: a church shuffle; the hand claps on 2 and 4 carry the groove, b3 and b7 are welcome
+  gospel: {
+    id: 'gospel',
+    swing: 0.6,
+    bluePcs: flatThirdSeventh,
+    blueScore: 1,
+    timing: { beat: 1.15, offbeat: 1.05, sixteenth: 0.8, off: 0.55 },
+    beatAccents: [1, 1.25, 1, 1.25],
+  },
+  // Country & bluegrass: straight "boom-chick" – bass on 1 and 3, the guitar's chop on 2 and 4
+  country: {
+    id: 'country',
+    swing: 0.5,
+    bluePcs: () => [],
+    blueScore: 0,
+    timing: { beat: 1.2, offbeat: 1.05, sixteenth: 0.85, off: 0.55 },
+    beatAccents: [1.15, 1, 1.15, 1],
+  },
+  // Latin: the clave makes syncopations (notes between the beats) the most important ones
+  latin: {
+    id: 'latin',
+    swing: 0.5,
+    bluePcs: () => [],
+    blueScore: 0,
+    timing: { beat: 1.0, offbeat: 1.25, sixteenth: 0.9, off: 0.55 },
+    beatAccents: [1.1, 1, 1, 1],
+  },
   // Syncopation: notes between the beats are part of the style
   ragtime: {
     id: 'ragtime',

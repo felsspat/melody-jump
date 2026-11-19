@@ -54,6 +54,9 @@ function timingText(n: JudgedNote): string {
       return t('explain.timing.onBeat');
     case 'offbeat':
       if (style === 'ska' || style === 'reggae' || style === 'electronic') return t('explain.timing.offbeatGroove');
+      if (style === 'latin') return t('explain.timing.clave');
+      if (style === 'baroque') return t('explain.timing.motor');
+      if (style === 'gospel') return t('explain.timing.swungEighth');
       if (style === 'hiphop') return t('explain.timing.layBack');
       if (style === 'blues' || style === 'swing') return t('explain.timing.swungEighth');
       if (style === 'ragtime') return t('explain.timing.syncopation');

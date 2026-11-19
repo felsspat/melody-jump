@@ -61,7 +61,24 @@ const QUICK_CHANGE_BLUES = [1, 4, 1, 1, 4, 4, 1, 1, 5, 4, 1, 5];
 
 /** What the endless mode plays: one style, or "mixed" (classic intro, then every style). */
 export type EndlessStyle = StyleId | 'mixed';
-export const ENDLESS_STYLES: EndlessStyle[] = ['mixed', 'classic', 'ragtime', 'blues', 'dixieland', 'swing', 'rock', 'ska', 'reggae', 'funk', 'hiphop', 'electronic'];
+export const ENDLESS_STYLES: EndlessStyle[] = [
+  'mixed',
+  'baroque',
+  'classic',
+  'gospel',
+  'ragtime',
+  'blues',
+  'dixieland',
+  'swing',
+  'country',
+  'latin',
+  'rock',
+  'ska',
+  'reggae',
+  'funk',
+  'hiphop',
+  'electronic',
+];
 
 export function isEndlessStyle(v: string): v is EndlessStyle {
   return (ENDLESS_STYLES as string[]).includes(v);
@@ -86,6 +103,67 @@ interface StyleRecipe {
 }
 
 const RECIPES: Record<Exclude<StyleId, 'classic'>, StyleRecipe> = {
+  baroque: {
+    majorTonics: [2, 7, 0, 9],
+    minorTonics: [9, 2, 4],
+    minorChance: 0.3,
+    majorProgs: [
+      // The "canon" progression and its relatives: chains of fifths and steps
+      ['I', 'V', 'vi', 'iii', 'IV', 'I', 'IV', 'V'],
+      ['I', 'IV', 'V', 'I'],
+      ['I', 'vi', 'ii', 'V'],
+    ],
+    minorProgs: [
+      ['i', 'iv', 'V', 'i'],
+      ['i', 'VII', 'VI', 'V'],
+    ],
+    bpm: [72, 96],
+    bars: 16,
+    names: ['baroqueJam', 'candleHall', 'organLoft'],
+  },
+  gospel: {
+    majorTonics: [10, 3, 5, 0],
+    minorTonics: [2, 7],
+    minorChance: 0.2,
+    majorProgs: [
+      // The "Amen" ending IV → I (plagal cadence)
+      ['I', 'I7', 'IV', 'IV', 'I', 'V7', 'IV', 'I'],
+      ['I', 'IV', 'I', 'V7'],
+      ['I', 'vi', 'IV', 'V7'],
+    ],
+    minorProgs: [['i', 'iv', 'i', 'V7']],
+    bpm: [72, 100],
+    bars: 16,
+    names: ['gospelJam', 'sundayMorning', 'riverJordan'],
+  },
+  country: {
+    majorTonics: [7, 2, 9, 4, 0],
+    minorChance: 0,
+    majorProgs: [
+      ['I', 'I', 'IV', 'I', 'I', 'I', 'V7', 'I'],
+      ['I', 'IV', 'I', 'V7'],
+      ['I', 'V7', 'V7', 'I'],
+    ],
+    bpm: [100, 136],
+    bars: 16,
+    names: ['countryJam', 'barnDance', 'mountainPorch'],
+  },
+  latin: {
+    majorTonics: [0, 5, 7],
+    minorTonics: [9, 2, 4],
+    minorChance: 0.6,
+    majorProgs: [
+      ['I', 'IV', 'V7', 'IV'],
+      ['ii', 'V7', 'I', 'I'],
+    ],
+    minorProgs: [
+      ['i', 'iv', 'V7', 'i'],
+      ['i', 'VII', 'VI', 'V7'],
+    ],
+    bpm: [88, 116],
+    bars: 16,
+    names: ['latinJam', 'havanaNight', 'tangoSalon'],
+  },
   ragtime: {
     majorTonics: [0, 5, 7, 10],
     minorChance: 0,

@@ -17,7 +17,23 @@ describe('campaign data', () => {
 
   it('chapters are in historical order and ska comes before reggae', () => {
     const ids = CHAPTERS.map((c) => c.id);
-    expect(ids).toEqual(['folk', 'ragtime', 'blues', 'dixieland', 'swing', 'rocknroll', 'ska', 'reggae', 'funk', 'hiphop', 'electronic']);
+    expect(ids).toEqual([
+      'baroque',
+      'folk',
+      'gospel',
+      'ragtime',
+      'blues',
+      'dixieland',
+      'swing',
+      'country',
+      'latin',
+      'rocknroll',
+      'ska',
+      'reggae',
+      'funk',
+      'hiphop',
+      'electronic',
+    ]);
   });
 
   it('every available chapter has levels; every chapter has localized texts and a Wikipedia link', () => {

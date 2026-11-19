@@ -85,7 +85,8 @@ wsl -e bash -lc "source ~/.nvm/nvm.sh && cd /mnt/c/Users/devri/git/melody-jump &
 | Musik | `theory.ts` (Skalen, Dreiklänge, Septakkorde, `chordFromSpec("VI7")`), `Song.ts` (Abschnitte; endlos mit Generator oder endlich ohne → `endBeat`; ein Takt der Akkordfolge kann eine Liste sein, z.B. `['I', 'V7']` = halber Takt je Akkord), `melodies.ts` (Melodien als Paare aus Halbtönen ab Grundton bzw. `null` für Pausen und der Dauer in Beats, optional mit Auftakt `pickup`), `styles.ts` (Stilregeln: Swing, Blue Notes, Timing-Gewichte, Betonungen), `HarmonyJudge.ts` (Bewertung pro Ton → Resonanz), `explain.ts` (Coach-Texte, Diagnose, Zwischendominanten) |
 | Spiel | `src/game/Game.ts` (Zustände `title`/`map`/`styles`/`playing`/`paused`/`gameover`/`levelComplete`; Modi `run`/`tutorial`/`campaign`; Pause-Einstellungen, Rückblick am Ende, Punkte-Einblendungen), `Tutorial.ts` (11 Schritte mit Lesepause), `Guide.ts` (Hilfe-Ringe: bekannte Melodie oder Akkordtöne) |
 | Eingabe | `src/input/InputMapper.ts` (Maus/Touch, Tastatur, Gleiten; Spurbereich `LOW_MIDI`–`HIGH_MIDI` über `setLaneRange()`), `MidiInput.ts` (Web MIDI, ungetestet) |
-| Kampagne | `src/campaign/chapters.ts` (11 Kapitel × 3–4 Level; `styleLevels()` mit optionaler zweiter Melodie `<stil>-tune2`), `progress.ts` (Sterne, `localStorage` mit `try/catch`) |
+| Kampagne | `src/campaign/chapters.ts` (15 Kapitel × 5–7 Level; `styleLevels()` für die alten Kapitel, `addChapterTunes()` hängt die Lieder aus `src/music/songs/<kapitel>.ts` vor den Jam), `progress.ts` (Sterne, `localStorage` mit `try/catch`) |
+| Lieder | `src/music/notation.ts` (Notenformat, Helfer `q`/`h`/`e`…, Format `ChapterTune`), `src/music/songs/<kapitel>.ts` (je Kapitel eine Datei, Quelle und Rechtslage im Feld `source`) |
 | Welt | `src/world/physics.ts` (Sprünge in Beat-Zeit), `Level.ts` (Hindernis-Generator inkl. Pixelmonster, Notenmünzen und Notenblöcke, Endlos-Stile `RECIPES`, `INTRO_SECTIONS`, `melodySection()`), `Player.ts`, `Enemies.ts` |
 | Darstellung | `src/render/Renderer.ts` (Klaviertasten-Spuren, unten durchsichtig; Welt aus Blöcken, Abgründe, Ziegelmauern, Münzen, Notenblöcke, Ziel-Tor; Pixel-Mädchen aus `sprites.ts`), `Hud.ts` (HUD, Titel, Karte, Pause, Level-Ende, Game Over, Flaggen), `NoteParticles.ts` |
 | UI | `src/ui/TheoryPanel.ts` (HTML-Overlay „Musik verstehen“, Taste I), `CreditsPanel.ts` (Lizenzen & Quellen der Samples) |
@@ -118,12 +119,17 @@ wsl -e bash -lc "source ~/.nvm/nvm.sh && cd /mnt/c/Users/devri/git/melody-jump &
   - `StyleId` + `STYLES` in `styles.ts`
   - einen Fall in `Backing.onStep`
   - ein Spieler-Instrument in `PLAYER_INSTRUMENTS` (`SampleBank.ts`)
-  - ein Kapitel in `chapters.ts`
+  - ein Kapitel in `chapters.ts` (Reihenfolge = Geschichte, Test in `campaign.test.ts`); die Lieder kommen in eine neue
+    Datei `src/music/songs/<kapitel>.ts`, die in `songs/index.ts` eingetragen wird
   - ein Rezept in `RECIPES` und einen Eintrag in `ENDLESS_STYLES` (`src/world/Level.ts`) für den Endlos-Modus
   - Endlos-Auswahl: Das Raster hat `STYLE_GRID_COLS` Spalten (`Hud.ts`), Zahlentasten gibt es nur für die ersten zehn Karten
   - Texte unter `campaign.chapters.<id>`, `endless.styles.<id>` und `sections.<name>`
   - Coach-Text für das Timing (`timingText` in `explain.ts`) und einen Absatz in „Musik verstehen“ → Grooves
-  - Tests: `tests/styles.test.ts` spielt *jeden* Melodie-Level perfekt mit und prüft die Band mit Fake-Audio
+  - ggf. Samples: `fluid()`-Zeile in `scripts/fetch-samples.mjs`, `InstrumentId` in `SampleBank.ts`, Instrumentname unter
+    `instruments.<id>` und in den Credits (`credits.sources.fluid.instruments`)
+  - Tests: `tests/styles.test.ts` spielt *jeden* Melodie-Level perfekt mit und prüft die Band mit Fake-Audio; die Kapitelzahl
+    steht in `styles.test.ts` und `campaign.test.ts`
+  - Die Karte zeigt mehr als 12 Kapitel in zwei Reihen, mehr als 4 Level ebenfalls; bei 720 px Höhe ist es eng.
 - **Neue Melodie:** Die Summe der Dauern muss Takte × Schläge ergeben (Test). Fremde Töne sind nur
   als Durchgangston erlaubt, also direkt danach ein Akkordton im Halb- oder Ganztonabstand.
   - Noten dürfen über den Taktstrich gehen (Haltebögen), nur die Summe zählt.

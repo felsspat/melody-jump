@@ -874,54 +874,63 @@ export class Hud {
     ctx.fillStyle = 'rgba(255,255,255,0.65)';
     ctx.fillText(t('campaign.hint'), w / 2, 72);
 
-    // Timeline of chapter cards
+    // Timeline of chapter cards: one row, or two rows of smaller cards when there are many chapters
     const n = chapters.length;
+    const twoRows = n > 12;
+    const cardsPerRow = twoRows ? Math.ceil(n / 2) : n;
     const gap = 10;
-    const cw = Math.min(150, (w - 40 - gap * (n - 1)) / n);
-    const ch = 92;
+    const cw = Math.min(150, (w - 40 - gap * (cardsPerRow - 1)) / cardsPerRow);
+    const ch = twoRows ? 56 : 92;
     const cy = 96;
-    const startX = w / 2 - (cw * n + gap * (n - 1)) / 2;
+    const startX = w / 2 - (cw * cardsPerRow + gap * (cardsPerRow - 1)) / 2;
     ctx.strokeStyle = 'rgba(255,215,90,0.4)';
     ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(startX, cy + ch / 2);
-    ctx.lineTo(startX + cw * n + gap * (n - 1), cy + ch / 2);
-    ctx.stroke();
+    for (let row = 0; row < (twoRows ? 2 : 1); row++) {
+      const ly = cy + row * (ch + 8) + ch / 2;
+      ctx.beginPath();
+      ctx.moveTo(startX, ly);
+      ctx.lineTo(startX + cw * cardsPerRow + gap * (cardsPerRow - 1), ly);
+      ctx.stroke();
+    }
     chapters.forEach((c, i) => {
-      const x = startX + i * (cw + gap);
+      const x = startX + (i % cardsPerRow) * (cw + gap);
+      const cardY = cy + Math.floor(i / cardsPerRow) * (ch + 8);
       const active = i === selected;
       const stars = c.levels.reduce((sum, l) => sum + (progress.stars[l.id] ?? 0), 0);
       ctx.globalAlpha = c.available ? 1 : 0.5;
       ctx.fillStyle = active ? 'rgba(255,215,90,0.22)' : 'rgba(30,24,60,0.95)';
       ctx.beginPath();
-      ctx.roundRect(x, cy, cw, ch, 10);
+      ctx.roundRect(x, cardY, cw, ch, 10);
       ctx.fill();
       ctx.strokeStyle = active ? '#ffd75a' : 'rgba(255,255,255,0.3)';
       ctx.lineWidth = active ? 2.5 : 1;
       ctx.stroke();
-      ctx.font = `600 11px ${FONT}`;
+      ctx.font = `600 ${twoRows ? 10 : 11}px ${FONT}`;
       ctx.fillStyle = 'rgba(255,255,255,0.6)';
-      ctx.fillText(t(`campaign.chapters.${c.id}.years`), x + cw / 2, cy + 18);
-      ctx.font = `800 13px ${FONT}`;
+      ctx.fillText(wrapText(ctx, t(`campaign.chapters.${c.id}.years`), cw - 6)[0], x + cw / 2, cardY + (twoRows ? 14 : 18));
+      ctx.font = `800 ${twoRows ? 12 : 13}px ${FONT}`;
       ctx.fillStyle = '#fff';
-      wrapText(ctx, t(`campaign.chapters.${c.id}.name`), cw - 10).forEach((l, li) => ctx.fillText(l, x + cw / 2, cy + 40 + li * 16));
-      ctx.font = `600 12px ${FONT}`;
+      const nameLines = wrapText(ctx, t(`campaign.chapters.${c.id}.name`), cw - 10);
+      if (twoRows) ctx.fillText(nameLines[0] + (nameLines.length > 1 ? '…' : ''), x + cw / 2, cardY + 31);
+      else nameLines.forEach((l, li) => ctx.fillText(l, x + cw / 2, cardY + 40 + li * 16));
+      ctx.font = `600 ${twoRows ? 11 : 12}px ${FONT}`;
       if (c.available) {
         ctx.fillStyle = '#ffd75a';
-        ctx.fillText(`★ ${stars}/${c.levels.length * 3}`, x + cw / 2, cy + ch - 10);
+        ctx.fillText(`★ ${stars}/${c.levels.length * 3}`, x + cw / 2, cardY + ch - (twoRows ? 8 : 10));
       } else {
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.fillText(`🔒 ${t('campaign.soon')}`, x + cw / 2, cy + ch - 10);
+        ctx.fillText(`🔒 ${t('campaign.soon')}`, x + cw / 2, cardY + ch - (twoRows ? 8 : 10));
       }
       ctx.globalAlpha = 1;
-      buttons.push({ id: `chapter:${i}`, x, y: cy, w: cw, h: ch });
+      buttons.push({ id: `chapter:${i}`, x, y: cardY, w: cw, h: ch });
     });
+    const cardsBottom = cy + (twoRows ? 2 * ch + 8 : ch);
 
     // Details of the selected chapter
     const c = chapters[selected];
     const px = Math.max(20, w / 2 - 380);
     const pw = Math.min(760, w - 40);
-    let y = cy + ch + 40;
+    let y = cardsBottom + 40;
     ctx.textAlign = 'left';
     ctx.font = `900 26px ${FONT}`;
     ctx.fillStyle = '#fff';
@@ -930,6 +939,20 @@ export class Hud {
     ctx.font = `600 15px ${FONT}`;
     ctx.fillStyle = 'rgba(255,255,255,0.6)';
     ctx.fillText(t(`campaign.chapters.${c.id}.years`), px + nameW, y);
+
+    // Wikipedia link, at the right end of the name line
+    ctx.font = `600 14px ${FONT}`;
+    const wikiLabel = t('campaign.wiki');
+    const ww = ctx.measureText(wikiLabel).width + 24;
+    const wx = px + pw - ww;
+    const wy = y - 24;
+    ctx.fillStyle = 'rgba(140,220,255,0.12)';
+    ctx.beginPath();
+    ctx.roundRect(wx, wy, ww, 32, 8);
+    ctx.fill();
+    ctx.fillStyle = '#8cdcff';
+    ctx.fillText(wikiLabel, wx + 12, wy + 21);
+    buttons.push({ id: 'wiki', x: wx, y: wy, w: ww, h: 32 });
     y += 28;
     ctx.font = `500 15px ${FONT}`;
     ctx.fillStyle = 'rgba(255,255,255,0.85)';
@@ -952,20 +975,7 @@ export class Hud {
         y += 20;
       }
     }
-    y += 12;
-
-    // Wikipedia link
-    ctx.font = `600 14px ${FONT}`;
-    const wikiLabel = t('campaign.wiki');
-    const ww = ctx.measureText(wikiLabel).width + 24;
-    ctx.fillStyle = 'rgba(140,220,255,0.12)';
-    ctx.beginPath();
-    ctx.roundRect(px, y, ww, 32, 8);
-    ctx.fill();
-    ctx.fillStyle = '#8cdcff';
-    ctx.fillText(wikiLabel, px + 12, y + 21);
-    buttons.push({ id: 'wiki', x: px, y, w: ww, h: 32 });
-    y += 52;
+    y += 16;
 
     // Level buttons
     if (!c.available) {

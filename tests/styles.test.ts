@@ -110,8 +110,8 @@ describe('groove accents', () => {
 describe('style chapters', () => {
   const available = CHAPTERS.filter((c) => c.available);
 
-  it('all eleven chapters are playable, each with at least three levels', () => {
-    expect(available).toHaveLength(11);
+  it('all fifteen chapters are playable, each with at least three levels', () => {
+    expect(available).toHaveLength(15);
     for (const c of available) expect(c.levels.length, c.id).toBeGreaterThanOrEqual(3);
   });
 

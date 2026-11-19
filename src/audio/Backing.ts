@@ -15,6 +15,8 @@ interface StepInfo {
   onBeat: boolean;
   time: number;
   spb: number;
+  /** Beats per bar (3 in waltz-time tunes) */
+  bpb: number;
 }
 
 export class Backing {
@@ -30,7 +32,8 @@ export class Backing {
 
   /** Bass sound per style: upright bass for the acoustic eras, electric bass later. */
   private get bassInstrument(): InstrumentId {
-    return this.style === 'ragtime' || this.style === 'dixieland' || this.style === 'swing' || this.style === 'blues' || this.style === 'classic' ? 'uprightBass' : 'bass';
+    const acoustic: StyleId[] = ['classic', 'baroque', 'ragtime', 'blues', 'dixieland', 'swing', 'country', 'latin'];
+    return acoustic.includes(this.style) ? 'uprightBass' : 'bass';
   }
 
   constructor(
@@ -59,11 +62,19 @@ export class Backing {
     }
 
     this.style = pos.section.style ?? 'classic';
-    const step: StepInfo = { chord: pos.chord, next: pos.nextChord, bar: pos.bar, beatIdx, onBeat, time, spb };
+    const step: StepInfo = { chord: pos.chord, next: pos.nextChord, bar: pos.bar, beatIdx, onBeat, time, spb, bpb };
     switch (pos.section.style) {
       case 'blues':
         this.bluesStep(pos.chord.root, pos.bar, beatIdx, onBeat, time, spb);
         return;
+      case 'baroque':
+        return this.baroqueStep(step);
+      case 'gospel':
+        return this.gospelStep(step);
+      case 'country':
+        return this.countryStep(step);
+      case 'latin':
+        return this.latinStep(step);
       case 'ragtime':
         return this.ragtimeStep(step);
       case 'dixieland':
@@ -135,6 +146,176 @@ export class Backing {
   }
 
   /** Ragtime "oom-pah": bass note on 1 and 3, piano chord on 2 and 4 – no drums. */
+  /**
+   * Baroque basso continuo: the bass walks in quarter notes, the harpsichord plays the full
+   * chord on beat 1 and broken chord tones on the other beats and off-beats. No drums.
+   */
+  private baroqueStep(s: StepInfo): void {
+    const tones = voiceChord(s.chord, 60);
+    if (s.onBeat) {
+      this.walkingBass(s);
+      if (s.beatIdx === 0) for (const m of tones) this.harpsichord(s.time, m, s.spb * 0.9, 0.045);
+      else this.harpsichord(s.time, tones[s.beatIdx % tones.length] + 12, s.spb * 0.45, 0.035);
+    } else {
+      this.harpsichord(s.time, tones[(s.beatIdx + 1) % tones.length] + 12, s.spb * 0.4, 0.028);
+    }
+  }
+
+  /**
+   * Gospel: hand claps on 2 and 4 (in 3/4 on 2 and 3), a swung tambourine, Hammond organ chords
+   * and bass on the strong beats, piano chords with the claps.
+   */
+  private gospelStep(s: StepInfo): void {
+    const swing = STYLES.gospel.swing;
+    if (!s.onBeat) {
+      this.hat(s.time + (swing - 0.5) * s.spb, 0.04);
+      return;
+    }
+    const root = 36 + s.chord.root;
+    const strong = s.bpb === 3 ? s.beatIdx === 0 : s.beatIdx % 2 === 0;
+    if (strong) {
+      this.bass(s.time, s.beatIdx === 0 ? root : root + 7 > 47 ? root - 5 : root + 7, s.spb * 0.9, 0.3);
+      this.organChord(s.chord, s.time, s.spb * (s.bpb === 3 ? 2.8 : 1.9));
+      this.kick(s.time, 0.4);
+    } else {
+      this.clap(s.time, 0.3);
+      this.pianoChord(s.chord, s.time, s.spb * 0.5, 0.045);
+    }
+  }
+
+  /**
+   * Country & bluegrass "boom-chick": bass on 1 and 3 (root, then fifth), the guitar's chop on
+   * 2 and 4, and a banjo playing a roll of chord tones on every eighth.
+   */
+  private countryStep(s: StepInfo): void {
+    const tones = voiceChord(s.chord, 62);
+    const pos = s.beatIdx * 2 + (s.onBeat ? 0 : 1);
+    this.banjoPick(s.time, tones[[0, 1, 2, 0, 1, 2, 0, 1][pos % 8] % tones.length], s.onBeat ? 0.04 : 0.03);
+    if (!s.onBeat) return;
+    const root = 36 + s.chord.root;
+    const boom = s.bpb === 3 ? s.beatIdx === 0 : s.beatIdx % 2 === 0;
+    if (boom) this.bass(s.time, s.beatIdx === 0 ? root : root + 7 > 47 ? root - 5 : root + 7, s.spb * 0.8, 0.32);
+    else {
+      this.strum(s.chord, s.time, s.spb * 0.4);
+      this.snare(s.time, 0.08);
+    }
+  }
+
+  /**
+   * Latin (son / salsa feel): claves in the 3-2 son clave over two bars, conga tumbao
+   * (slap on 2, open tones on 4 and 4-and), an anticipated bass (the 4 already plays the
+   * next chord's root) and a piano montuno of broken chord tones on every eighth.
+   */
+  private latinStep(s: StepInfo): void {
+    const pos = s.beatIdx + (s.onBeat ? 0 : 0.5);
+    if (s.bpb === 4) {
+      const clave = s.bar % 2 === 0 ? [0, 1.5, 3] : [1, 2];
+      if (clave.includes(pos)) this.claves(s.time);
+    }
+    if (pos === 1) this.conga(s.time, true);
+    else if (pos === 3 || pos === 3.5) this.conga(s.time, false);
+    const root = 36 + s.chord.root;
+    if (pos === 0 && s.bar === 0) this.bass(s.time, root, s.spb * 1.2, 0.3);
+    if (pos === 1.5) this.bass(s.time, root + 7 > 47 ? root - 5 : root + 7, s.spb * 1.3, 0.3);
+    if (pos === s.bpb - 1) this.bass(s.time, 36 + s.next.root, s.spb * 1.4, 0.32);
+    const tones = voiceChord(s.chord, 64);
+    const order = [0, 2, 1, 2, 0, 2, 1, 2];
+    this.piano(s.time, tones[order[Math.round(pos * 2) % 8] % tones.length], s.spb * 0.4, s.onBeat ? 0.03 : 0.045);
+    this.hat(s.time, 0.022);
+  }
+
+  /** Harpsichord: plucked, bright and short (sample, or a sawtooth through a closing low-pass). */
+  private harpsichord(time: number, midi: number, dur: number, peak: number): void {
+    if (this.sampled?.playNote('harpsichord', midi, time, dur, peak * 3, this.engine.musicBus, this.engine.reverbSend)) return;
+    const ctx = this.engine.ctx;
+    const g = this.envGain(time, peak, 0.002, 0.02, Math.max(0.15, dur));
+    const f = ctx.createBiquadFilter();
+    f.type = 'lowpass';
+    f.frequency.setValueAtTime(5000, time);
+    f.frequency.exponentialRampToValueAtTime(900, time + 0.3);
+    f.connect(g);
+    g.connect(this.engine.musicBus);
+    g.connect(this.engine.reverbSend);
+    const o = ctx.createOscillator();
+    o.type = 'sawtooth';
+    o.frequency.value = midiToFreq(midi);
+    o.connect(f);
+    o.start(time);
+    o.stop(time + dur + 0.4);
+  }
+
+  /** One plucked banjo note (bluegrass roll). */
+  private banjoPick(time: number, midi: number, peak: number): void {
+    if (this.sampled?.playNote('banjo', midi, time, 0.25, peak * 3, this.engine.musicBus)) return;
+    const ctx = this.engine.ctx;
+    const g = this.envGain(time, peak, 0.002, 0.01, 0.18);
+    const f = ctx.createBiquadFilter();
+    f.type = 'highpass';
+    f.frequency.value = 700;
+    f.connect(g);
+    g.connect(this.engine.musicBus);
+    const o = ctx.createOscillator();
+    o.type = 'square';
+    o.frequency.value = midiToFreq(midi);
+    o.connect(f);
+    o.start(time);
+    o.stop(time + 0.24);
+  }
+
+  /** Acoustic guitar strum (the country "chick"): the chord's notes a few milliseconds apart. */
+  private strum(chord: Chord, time: number, dur: number): void {
+    const notes = voiceChord(chord, 52);
+    const sb = this.sampled;
+    if (sb) {
+      notes.forEach((m, i) => sb.playNote('steelGuitar', m, time + i * 0.01, dur, 0.09, this.engine.musicBus));
+      return;
+    }
+    const ctx = this.engine.ctx;
+    notes.forEach((m, i) => {
+      const t0 = time + i * 0.01;
+      const g = this.envGain(t0, 0.025, 0.003, 0.02, dur);
+      const f = ctx.createBiquadFilter();
+      f.type = 'lowpass';
+      f.frequency.value = 2600;
+      f.connect(g);
+      g.connect(this.engine.musicBus);
+      const o = ctx.createOscillator();
+      o.type = 'sawtooth';
+      o.frequency.value = midiToFreq(m);
+      o.connect(f);
+      o.start(t0);
+      o.stop(t0 + dur + 0.1);
+    });
+  }
+
+  /** Claves: two hardwood sticks – a short, high, woody click. */
+  private claves(time: number): void {
+    const ctx = this.engine.ctx;
+    const g = this.envGain(time, 0.16, 0.001, 0.005, 0.06);
+    g.connect(this.engine.musicBus);
+    const o = ctx.createOscillator();
+    o.type = 'sine';
+    o.frequency.value = 2500;
+    o.connect(g);
+    o.start(time);
+    o.stop(time + 0.08);
+  }
+
+  /** Conga: an open, ringing tone, or a sharp slap. */
+  private conga(time: number, slap: boolean): void {
+    const ctx = this.engine.ctx;
+    const g = this.envGain(time, slap ? 0.12 : 0.2, 0.002, 0.01, slap ? 0.08 : 0.2);
+    g.connect(this.engine.musicBus);
+    const o = ctx.createOscillator();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(slap ? 420 : 330, time);
+    o.frequency.exponentialRampToValueAtTime(slap ? 300 : 250, time + 0.12);
+    o.connect(g);
+    o.start(time);
+    o.stop(time + 0.25);
+    if (slap) this.noiseHit(time, 'bandpass', 2200, 0.08, 0.04);
+  }
+
   private ragtimeStep(s: StepInfo): void {
     if (!s.onBeat) return;
     const root = 36 + s.chord.root;
@@ -562,7 +743,7 @@ export class Backing {
     const notes = voiceChord(chord, 62);
     const sb = this.sampled;
     if (sb) {
-      notes.forEach((m, i) => sb.playNote('guitar', m, time + i * 0.012, 0.16, 0.1 * accent, this.engine.musicBus));
+      notes.forEach((m, i) => sb.playNote('banjo', m, time + i * 0.012, 0.16, 0.1 * accent, this.engine.musicBus));
       return;
     }
     const ctx = this.engine.ctx;

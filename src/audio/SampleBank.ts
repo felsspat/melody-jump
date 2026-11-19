@@ -15,7 +15,14 @@ export type InstrumentId =
   | 'uprightBass'
   | 'organ'
   | 'trumpet'
-  | 'clavinet';
+  | 'clavinet'
+  | 'harpsichord'
+  | 'banjo'
+  | 'fiddle'
+  | 'steelGuitar'
+  | 'nylonGuitar'
+  | 'bandoneon'
+  | 'choir';
 
 export type DrumId = 'kick' | 'snare' | 'rim' | 'hat' | 'ride' | 'clap';
 
@@ -194,7 +201,13 @@ export class SampleBank {
  */
 export const PLAYER_INSTRUMENTS: Record<StyleId, InstrumentId | undefined> = {
   classic: 'piano',
+  baroque: 'harpsichord',
+  // Gospel is sung: the player leads the choir
+  gospel: 'choir',
   ragtime: 'piano',
+  country: 'fiddle',
+  // Bossa nova and son: the nylon-string guitar
+  latin: 'nylonGuitar',
   blues: 'harmonica',
   // Dixieland is led by the trumpet (cornet); with no clarinet sample, that is the lead voice
   dixieland: 'trumpet',

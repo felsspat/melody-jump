@@ -14,6 +14,34 @@
     "sectionInfo": { "de": "{key} · {bpm} BPM · {beats}/4", "en": "{key} · {bpm} BPM · {beats}/4" }
   },
   "sections": {
+    "nobodyKnows": { "de": "Nobody Knows", "en": "Nobody Knows" },
+    "amazingGrace": { "de": "Amazing Grace", "en": "Amazing Grace" },
+    "goDownMoses": { "de": "Go Down, Moses", "en": "Go Down, Moses" },
+    "goTellItOnTheMountain": { "de": "Go Tell It on the Mountain", "en": "Go Tell It on the Mountain" },
+    "soldiersJoy": { "de": "Soldier's Joy", "en": "Soldier's Joy" },
+    "crippleCreek": { "de": "Cripple Creek", "en": "Cripple Creek" },
+    "shadyGrove": { "de": "Shady Grove", "en": "Shady Grove" },
+    "homeOnTheRange": { "de": "Home on the Range", "en": "Home on the Range" },
+    "elChoclo": { "de": "El Choclo", "en": "El Choclo" },
+    "laCucaracha": { "de": "La Cucaracha", "en": "La Cucaracha" },
+    "laPaloma": { "de": "La Paloma", "en": "La Paloma" },
+    "eveningBreeze": { "de": "Abendbrise", "en": "Evening Breeze" },
+    "minuetInG": { "de": "Menuett in G", "en": "Minuet in G" },
+    "abdelazerRondeau": { "de": "Rondeau (Abdelazer)", "en": "Rondeau (Abdelazer)" },
+    "queenOfSheba": { "de": "Ankunft der Königin von Saba", "en": "Arrival of the Queen of Sheba" },
+    "trumpetVoluntary": { "de": "Trumpet Voluntary", "en": "Trumpet Voluntary" },
+    "baroqueJam": { "de": "Barock-Jam: der Kanon", "en": "Baroque jam: the canon" },
+    "candleHall": { "de": "Kerzensaal", "en": "Candlelit Hall" },
+    "organLoft": { "de": "Orgelempore", "en": "Organ Loft" },
+    "gospelJam": { "de": "Gospel-Jam: Amen!", "en": "Gospel jam: Amen!" },
+    "sundayMorning": { "de": "Sonntagmorgen", "en": "Sunday Morning" },
+    "riverJordan": { "de": "Am Jordan", "en": "River Jordan" },
+    "countryJam": { "de": "Country-Jam: Boom-Chick", "en": "Country jam: boom-chick" },
+    "barnDance": { "de": "Scheunentanz", "en": "Barn Dance" },
+    "mountainPorch": { "de": "Veranda in den Bergen", "en": "Mountain Porch" },
+    "latinJam": { "de": "Latin-Jam: Clave", "en": "Latin jam: clave" },
+    "havanaNight": { "de": "Nacht in Havanna", "en": "Havana Night" },
+    "tangoSalon": { "de": "Tango-Salon", "en": "Tango Salon" },
     "mirrorBallStrut": { "de": "Spiegelkugel-Stolz", "en": "Mirror Ball Strut" },
     "basementGrease": { "de": "Kellerfunk", "en": "Basement Grease" },
     "brassPunch": { "de": "Bläserhiebe", "en": "Brass Punch" },
@@ -145,6 +173,8 @@
     "up": { "de": "hoch", "en": "up" },
     "down": { "de": "runter", "en": "down" },
     "timing": {
+      "clave": { "de": "Synkope ✓ – im Latin zählen Töne zwischen den Schlägen am meisten, wie bei der Clave", "en": "Syncopation ✓ – in Latin music notes between the beats count the most, like the clave" },
+      "motor": { "de": "Durchlaufende Achtel ✓ – im Barock zählt jeder Zwischenschlag", "en": "Running eighths ✓ – in baroque music every in-between note counts" },
       "onBeat": { "de": "Genau auf dem Schlag ✓", "en": "Right on the beat ✓" },
       "eighth": { "de": "Zwischen zwei Schlägen (Achtel) – geht auch", "en": "Between two beats (eighth note) – that works too" },
       "sixteenth": { "de": "Schneller Zwischenschlag (Sechzehntel) – ok", "en": "Quick off-beat (sixteenth note) – ok" },
@@ -692,7 +722,11 @@
             "Reggae: One Drop – Bassdrum und Rimshot nur auf Schlag 3, die „1“ bleibt leer. Viel Platz, langsam.",
             "Funk: „the One“ – alles läuft auf Schlag 1 zu, dazwischen kurze Töne im 16tel-Raster.",
             "Hip-Hop: Boom-Bap – tiefe Bassdrum, harte Snare auf 2 und 4. Alles ist etwas „laid back“ (lässig spät), und Pausen sind genauso wichtig wie Töne. Der Beat stammt oft aus einem „Breakbeat“: der Stelle einer Platte, an der nur das Schlagzeug spielt.",
-            "House & Techno: Four-on-the-floor – die Bassdrum auf jedem Schlag, die offene Hi-Hat genau dazwischen. Maschinen spielen exakt, ohne Swing; Töne auf dem „und“ zählen am meisten."
+            "House & Techno: Four-on-the-floor – die Bassdrum auf jedem Schlag, die offene Hi-Hat genau dazwischen. Maschinen spielen exakt, ohne Swing; Töne auf dem „und“ zählen am meisten.",
+            "Barock: ein gleichmäßiger „Motor“ aus Achteln und Sechzehnteln über dem Generalbass (Bass und Cembalo spielen die Akkorde). Jeder Schlag zählt, Zwischenschläge auch.",
+            "Gospel: Händeklatschen auf 2 und 4, ein Shuffle wie im Blues, Orgel und Chor. Typisch sind Ruf und Antwort und der „Amen“-Schluss IV → I.",
+            "Country & Bluegrass: „Boom-Chick“ – der Bass auf 1 und 3, die Gitarre auf 2 und 4, darüber Banjo-Rolls in gleichmäßigen Achteln.",
+            "Latin: die Clave – ein festes Muster über zwei Takte (3-2: „1 – 2-und – 4 | – 2 – 3“). Melodien und Bass setzen gern zwischen die Schläge (Synkopen); der Bass nimmt den nächsten Akkord schon auf Schlag 4 vorweg."
           ],
           "en": [
             "Every style stresses different places in the bar – that's its \"groove\". The game rewards notes right there:",
@@ -704,7 +738,11 @@
             "Reggae: one drop – kick drum and rimshot only on beat 3, the \"1\" stays empty. Lots of space, slow.",
             "Funk: \"the One\" – everything drives toward beat 1, with short notes on a 16th-note grid in between.",
             "Hip-hop: boom bap – a deep kick, a hard snare on 2 and 4. Everything is a little \"laid back\" (lazily late), and rests matter as much as notes. The beat often comes from a \"breakbeat\": the part of a record where only the drums play.",
-            "House & techno: four-on-the-floor – the kick on every beat, the open hi-hat right in between. Machines play exactly, without swing; notes on the \"and\" count the most."
+            "House & techno: four-on-the-floor – the kick on every beat, the open hi-hat right in between. Machines play exactly, without swing; notes on the \"and\" count the most.",
+            "Baroque: a steady \"motor\" of eighths and sixteenths over the basso continuo (bass and harpsichord play the chords). Every beat counts, and so do the notes in between.",
+            "Gospel: hand claps on 2 and 4, a shuffle as in the blues, organ and choir. Typical are call and response and the \"Amen\" ending IV → I.",
+            "Country & bluegrass: \"boom-chick\" – the bass on 1 and 3, the guitar on 2 and 4, banjo rolls in even eighths on top.",
+            "Latin: the clave – a fixed pattern over two bars (3-2: \"1 – 2-and – 4 | – 2 – 3\"). Melodies and bass like to land between the beats (syncopation); the bass already plays the next chord on beat 4."
           ]
         },
         "links": {
@@ -841,8 +879,8 @@
       "fluid": {
         "name": { "de": "FluidR3_GM-Soundfont", "en": "FluidR3_GM soundfont" },
         "instruments": {
-          "de": "E-Gitarre, verzerrte Gitarre, E-Bass, Kontrabass, Orgel, Trompete, Clavinet",
-          "en": "Electric guitar, overdriven guitar, bass guitar, upright bass, organ, trumpet, clavinet"
+          "de": "E-Gitarre, verzerrte Gitarre, E-Bass, Kontrabass, Orgel, Trompete, Clavinet, Cembalo, Banjo, Fiddle, Western- und Konzertgitarre, Bandoneon, Chor",
+          "en": "Electric guitar, overdriven guitar, bass guitar, upright bass, organ, trumpet, clavinet, harpsichord, banjo, fiddle, steel- and nylon-string guitar, bandoneon, choir"
         },
         "by": {
           "de": "Soundfont von Frank Wen und Mitwirkenden, als MP3 gerendert vom Projekt midi-js-soundfonts (Benjamin Gleitzman).",
@@ -875,6 +913,34 @@
       "en": "Click or number (1–9, 0) = start · arrow keys + Enter = choose · Esc = back"
     },
     "styles": {
+      "baroque": {
+        "name": { "de": "🎼 Barock", "en": "🎼 Baroque" },
+        "hint": {
+          "de": "Bach & Co.: Generalbass und Cembalo, durchlaufende Achtel, die Kanon-Akkordfolge.",
+          "en": "Bach & co.: basso continuo and harpsichord, running eighths, the canon progression."
+        }
+      },
+      "gospel": {
+        "name": { "de": "🙌 Gospel", "en": "🙌 Gospel" },
+        "hint": {
+          "de": "Klatschen auf 2 und 4, Orgel und Chor, Ruf und Antwort, „Amen“-Schluss.",
+          "en": "Claps on 2 and 4, organ and choir, call and response, the \"Amen\" ending."
+        }
+      },
+      "country": {
+        "name": { "de": "🤠 Country", "en": "🤠 Country" },
+        "hint": {
+          "de": "Boom-Chick: Bass auf 1 und 3, Gitarre auf 2 und 4, dazu Banjo-Rolls. Schnell!",
+          "en": "Boom-chick: bass on 1 and 3, guitar on 2 and 4, plus banjo rolls. Fast!"
+        }
+      },
+      "latin": {
+        "name": { "de": "🥁 Latin", "en": "🥁 Latin" },
+        "hint": {
+          "de": "Die Clave gibt den Rhythmus vor: Töne zwischen den Schlägen zählen am meisten.",
+          "en": "The clave sets the rhythm: notes between the beats count the most."
+        }
+      },
       "mixed": {
         "name": { "de": "🎲 Gemischt", "en": "🎲 Mixed" },
         "hint": {
@@ -1074,6 +1140,34 @@
         "play": { "de": ["Swing-Feeling: Achtel lang-kurz statt gleichmäßig.", "Schlag 2 und 4 fühlen sich betont an (Hi-Hat).", "Level 1 und 2: „Swing-Riff“, eine eigene Melodie aus kurzen Riffs.", "Letzter Level: Jam über ii – V7 – I – VI7, die Lieblingsfolge des Jazz."], "en": ["Swing feel: eighths long-short instead of even.", "Beats 2 and 4 feel accented (hi-hat).", "Levels 1 and 2: \"Swing Riff\", an original tune made of short riffs.", "Last level: jam over ii – V7 – I – VI7, jazz's favorite progression."] },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Swing_(Musikrichtung)", "en": "https://en.wikipedia.org/wiki/Swing_music" }
       },
+      "baroque": {
+        "name": { "de": "Barock", "en": "Baroque" },
+        "years": { "de": "ca. 1600–1750", "en": "c. 1600–1750" },
+        "intro": { "de": ["Bach, Händel, Vivaldi: Musik für Kirchen und Fürstenhöfe. Unter allem läuft der „Generalbass“ (Basso continuo): Bass und Cembalo spielen die Akkorde, darüber schwingt die Melodie."], "en": ["Bach, Handel, Vivaldi: music for churches and royal courts. Underneath everything runs the \"basso continuo\": bass and harpsichord play the chords, the melody soars above them."] },
+        "play": { "de": ["Gleichmäßig: durchlaufende Achtel und Sechzehntel, jeder Schlag zählt.", "Sequenz: ein kurzes Motiv wird Stufe für Stufe versetzt wiederholt – wie in Pachelbels Kanon.", "Letzter Level: Jam über die Kanon-Akkordfolge I – V – vi – iii – IV – I – IV – V."], "en": ["Steady: running eighths and sixteenths, every beat counts.", "Sequence: a short motif is repeated one step higher or lower each time – as in Pachelbel's Canon.", "Last level: jam over the canon progression I – V – vi – iii – IV – I – IV – V."] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Barockmusik", "en": "https://en.wikipedia.org/wiki/Baroque_music" }
+      },
+      "gospel": {
+        "name": { "de": "Gospel & Spirituals", "en": "Gospel & Spirituals" },
+        "years": { "de": "19. Jh. → ab 1930", "en": "19th c. → from 1930" },
+        "intro": { "de": ["Spirituals sind die geistlichen Lieder der versklavten Afroamerikaner im 19. Jahrhundert. Ab den 1930ern wird daraus der Gospel: Chor, Orgel, Klavier und Händeklatschen."], "en": ["Spirituals are the religious songs of enslaved African Americans in the 19th century. From the 1930s they grow into gospel: choir, organ, piano and hand claps."] },
+        "play": { "de": ["Klatschen auf 2 und 4: Töne auf diesen Schlägen zählen extra.", "Ruf und Antwort: eine Stimme ruft, der Chor antwortet – spiel kurze Antworten in die Pausen.", "„Amen“-Schluss: IV → I (plagale Kadenz) – du hörst ihn im Jam am Ende jeder Runde."], "en": ["Claps on 2 and 4: notes on these beats count extra.", "Call and response: one voice calls, the choir answers – play short answers in the gaps.", "\"Amen\" ending: IV → I (plagal cadence) – you hear it in the jam at the end of every round."] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Gospel", "en": "https://en.wikipedia.org/wiki/Gospel_music" }
+      },
+      "country": {
+        "name": { "de": "Country & Bluegrass", "en": "Country & Bluegrass" },
+        "years": { "de": "1920er → ab 1945", "en": "1920s → from 1945" },
+        "intro": { "de": ["Aus den Appalachen und dem Süden der USA: Fiddle, Banjo, Gitarre und Kontrabass. Ab 1945 macht der Bluegrass daraus schnelle, virtuose Musik."], "en": ["From the Appalachians and the American South: fiddle, banjo, guitar and upright bass. From 1945, bluegrass turns it into fast, virtuosic music."] },
+        "play": { "de": ["Boom-Chick: der Bass auf 1 und 3 („Boom“), die Gitarre auf 2 und 4 („Chick“). Töne auf 1 und 3 zählen extra.", "Gerade Achtel, oft schnell – wie eine Fiddle-Melodie.", "Letzter Level: Jam über I – IV – V7."], "en": ["Boom-chick: the bass on 1 and 3 (\"boom\"), the guitar on 2 and 4 (\"chick\"). Notes on 1 and 3 count extra.", "Straight eighths, often fast – like a fiddle tune.", "Last level: jam over I – IV – V7."] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Country-Musik", "en": "https://en.wikipedia.org/wiki/Country_music" }
+      },
+      "latin": {
+        "name": { "de": "Latin", "en": "Latin" },
+        "years": { "de": "1910er → 1960er", "en": "1910s → 1960s" },
+        "intro": { "de": ["Aus Kuba, Argentinien und Brasilien: Son, Mambo, Tango und Bossa Nova. Afrikanische und europäische Musik verschmelzen, der Rhythmus steht im Mittelpunkt."], "en": ["From Cuba, Argentina and Brazil: son, mambo, tango and bossa nova. African and European music merge, and rhythm takes centre stage."] },
+        "play": { "de": ["Clave: zwei Hölzer spielen ein festes Muster über zwei Takte – „1 – 2-und – 4 | – 2 – 3“ (3-2-Son-Clave).", "Synkopen: Töne zwischen den Schlägen zählen hier am meisten.", "Der Bass nimmt auf Schlag 4 schon den nächsten Akkord vorweg.", "Letzter Level: Jam in a-Moll über i – iv – V7 – i."], "en": ["Clave: two wooden sticks play a fixed pattern over two bars – \"1 – 2-and – 4 | – 2 – 3\" (3-2 son clave).", "Syncopation: notes between the beats count the most here.", "The bass already plays the next chord on beat 4.", "Last level: jam in A minor over i – iv – V7 – i."] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Lateinamerikanische_Musik", "en": "https://en.wikipedia.org/wiki/Music_of_Latin_America" }
+      },
       "rocknroll": {
         "name": { "de": "Rock 'n' Roll", "en": "Rock 'n' Roll" },
         "years": { "de": "ca. 1954–1959", "en": "c. 1954–1959" },
@@ -1221,6 +1315,13 @@
     }
   },
   "instruments": {
+    "harpsichord": { "de": "Cembalo", "en": "Harpsichord" },
+    "banjo": { "de": "Banjo", "en": "Banjo" },
+    "fiddle": { "de": "Fiddle (Geige)", "en": "Fiddle" },
+    "steelGuitar": { "de": "Westerngitarre", "en": "Acoustic guitar" },
+    "nylonGuitar": { "de": "Konzertgitarre", "en": "Nylon-string guitar" },
+    "bandoneon": { "de": "Bandoneon", "en": "Bandoneon" },
+    "choir": { "de": "Chor", "en": "Choir" },
     "piano": { "de": "Klavier", "en": "Piano" },
     "sax": { "de": "Tenorsaxophon", "en": "Tenor sax" },
     "harmonica": { "de": "Mundharmonika", "en": "Harmonica" },

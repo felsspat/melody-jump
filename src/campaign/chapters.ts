@@ -74,6 +74,18 @@ function styleLevels(
 
 export const CHAPTERS: ChapterDef[] = [
   {
+    id: 'baroque',
+    available: true,
+    // Jam over the "canon" progression (as in Pachelbel's Canon)
+    // The tunes of this chapter are in src/music/songs/baroque.ts and are added before the jam.
+    levels: [
+      {
+        id: 'baroque-jam',
+        sections: [{ name: 'baroqueJam', key: { tonic: 2, mode: 'major' }, bpm: 80, beatsPerBar: 4, progression: ['I', 'V', 'vi', 'iii', 'IV', 'I', 'IV', 'V'], bars: 16, difficulty: 2, style: 'baroque' }],
+      },
+    ],
+  },
+  {
     id: 'folk',
     available: true,
     levels: [
@@ -93,6 +105,18 @@ export const CHAPTERS: ChapterDef[] = [
             difficulty: 2,
           },
         ],
+      },
+    ],
+  },
+  {
+    id: 'gospel',
+    available: true,
+    // Jam with the "Amen" ending (IV → I, plagal cadence)
+    // The tunes of this chapter are in src/music/songs/gospel.ts and are added before the jam.
+    levels: [
+      {
+        id: 'gospel-jam',
+        sections: [{ name: 'gospelJam', key: { tonic: 10, mode: 'major' }, bpm: 84, beatsPerBar: 4, progression: ['I', 'I7', 'IV', 'IV', 'I', 'V7', ['IV', 'I'], 'I'], bars: 16, difficulty: 2, style: 'gospel' }],
       },
     ],
   },
@@ -194,6 +218,30 @@ export const CHAPTERS: ChapterDef[] = [
       C_MAJOR,
       { melody: 'riverside', bpm: 108, key: F_MAJOR },
     ),
+  },
+  {
+    id: 'country',
+    available: true,
+    // Bluegrass jam: I – IV – V7, boom-chick
+    // The tunes of this chapter are in src/music/songs/country.ts and are added before the jam.
+    levels: [
+      {
+        id: 'country-jam',
+        sections: [{ name: 'countryJam', key: { tonic: 7, mode: 'major' }, bpm: 116, beatsPerBar: 4, progression: ['I', 'I', 'IV', 'I', 'I', 'I', 'V7', 'I'], bars: 16, difficulty: 2, style: 'country' }],
+      },
+    ],
+  },
+  {
+    id: 'latin',
+    available: true,
+    // Jam in A minor over the son clave
+    // The tunes of this chapter are in src/music/songs/latin.ts and are added before the jam.
+    levels: [
+      {
+        id: 'latin-jam',
+        sections: [{ name: 'latinJam', key: { tonic: 9, mode: 'minor' }, bpm: 100, beatsPerBar: 4, progression: ['i', 'iv', 'V7', 'i'], bars: 16, difficulty: 2, style: 'latin' }],
+      },
+    ],
   },
   {
     id: 'rocknroll',
