@@ -314,7 +314,7 @@ function addChapterTunes(chapters: ChapterDef[]): void {
     const style = chapter.levels[0].sections[0].style;
     const s = melodySection(tune.melody.id, tune.key, tune.bpm, 1, 1);
     // Short tunes are repeated so every level lasts a while
-    const passes = Math.max(1, Math.round(16 / s.bars));
+    const passes = Math.max(1, Math.ceil(16 / s.bars)); // at least 16 bars (a 12-bar blues is played twice)
     const level: LevelDef = { id: `${chapter.id}-${tune.melody.id}`, sections: [{ ...s, bars: s.bars * passes, style }] };
     const last = chapter.levels[chapter.levels.length - 1];
     const endsWithJam = !last.sections[0].melody;

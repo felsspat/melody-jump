@@ -26,6 +26,29 @@ Niemand muss Kapitel 1 schaffen, um z.B. Blues zu spielen.
 | 10 | Hip-Hop | ab 1973 | eigener „Bronx-Hook“ (a-Moll) | – | i – iv – i – VI (a-Moll) | Boom-Bap: Snare 2/4, leicht „laid back“ (0,58) | Klavier |
 | 11 | House & Techno | ab ca. 1984 | eigener „Club-Hook“ | – | i – VI – III – VII (a-Moll), 124 BPM | Four-on-the-floor, Offbeats zählen am meisten | Synthesizer |
 
+**Weitere Lieder (seit 19.11.2026, je 3 pro Kapitel, Wunsch „mehr Lieder pro Ära“):** Sie stehen in
+`src/music/songs/<kapitel>.ts` (Format `ChapterTune` in `src/music/notation.ts`) und werden von `addChapterTunes()` in
+`chapters.ts` automatisch zu Leveln vor dem Jam (Level-Id `<kapitel>-<melodie>`, mindestens 16 Takte). Gemeinfreie
+Melodien wurden aus Notenquellen übertragen (Quelle und Begründung im Feld `source`), die anderen sind eigene Stücke.
+
+| Kapitel | Neue Lieder |
+|---|---|
+| Volkslied & Klassik | Brahms' Wiegenlied „Guten Abend, gut' Nacht“ (3/4) · Drunken Sailor (d-Moll) · Auld Lang Syne |
+| Ragtime | The Easy Winners (Joplin) · Twelfth Street Rag (Bowman †1949) · Elite Syncopations (Joplin, 2. Teil) |
+| Blues | Goin' Down the Road · Motherless Child (Spiritual, d-Moll) · Take This Hammer (Work Song) |
+| Dixieland | Bill Bailey (Cannon †1912) · Swing Low, Sweet Chariot · Joshua Fit the Battle (g-Moll) |
+| Swing | Loch Lomond (trad., Swing-Hit 1937) · eigener „Mitternachts-Riff“ (d-Moll) · eigenes „Jump Town“ |
+| Rock 'n' Roll | eigene: Sock-Hop-Riff (12 Takte) · Doo-Wop im Mondschein (I–vi–IV–V) · Stop-Time-Boogie |
+| Ska | aus Jekyll „Jamaican Song and Story“ (1907): Der Mungo kommt · Wein nicht, Jamaika-Mädchen · trad. Mango Walk |
+| Reggae | aus Jekyll (1907): Krieg in Monkland (c-Moll) · In Somerset geboren (f-Moll) · eigenes „Morgen am Hang“ |
+| Funk & Disco | eigene: Spiegelkugel-Stolz · Kellerfunk (e-Moll) · Bläserhiebe |
+| Hip-Hop | eigene: Staubige Tasten · Regen auf Vinyl · Betonschatten |
+| House & Techno | eigene: Klavier im Morgengrauen · Acid-Schleife · Samt-Tanzfläche |
+
+Die Kapiteltexte nennen den Jam jetzt „letzter Level“ statt „Level 3“. Die Karte zeigt mehr als vier Level in zwei Reihen.
+Alle Lieder bestehen die Tests (perfekt mitgespielt: keine unaufgelösten fremden Töne, Resonanz > 55), angehört hat sie
+noch niemand.
+
 - **Kampagnenkarte:** Zeitstrahl mit Kapitelkarten, Sternen pro Kapitel, Kapiteltext, „So spielst du“, Wikipedia-Button
   und Level-Buttons.
 - **Schneller spielen** (seit 19.11.2026): Auf der Karte wählt man „⏩ Tempo für bestandene Level: Normal · +15 % ·
@@ -203,10 +226,20 @@ nächsten Sample hochgerechnet, solange nichts geladen ist, spielt der Synthesiz
   - Cole († 1911) & J. R. Johnson († 1954): „Oh, Didn't He Ramble“ (seit 2025)
   - traditionelle Lieder wie „Twinkle“, „Bruder Jakob“, „When the Saints“, „Careless Love“,
     „Down by the Riverside“, „Linstead Market“
+  - seit 19.11.2026 außerdem: Brahms († 1897), Euday Bowman († 1949, Twelfth Street Rag), Hughie Cannon († 1912,
+    Bill Bailey), Robert Burns († 1796, Auld Lang Syne), Walter Jekyll („Jamaican Song and Story“, 1907, † 1929;
+    traditionelle Lieder), traditionell: Drunken Sailor, Loch Lomond, Goin' Down the Road, Motherless Child, Take This
+    Hammer, Swing Low, Joshua Fit the Battle, Mango Walk
 - **Eigene Kompositionen:** Blues-Melodie, Swing-Riff, Boogie-Riff, Insel-Riddim, Funk-Riff, Bronx-Hook, Club-Hook.
 - **Nicht verwenden:** „St. Louis Blues“ (Handy † 1958) bis Ende 2028.
   Ebenso alle Originale ab den 1950ern, z.B. Rock 'n' Roll, Ska, Reggae, Funk.
   Außerdem: „Bourbon Street Parade“ (Barbarin † 1969), „Tiger Rag“ (LaRocca † 1961), „Frankie and Johnny“ (unklar).
+  Bei der Suche am 19.11.2026 verworfen: „Just a Closer Walk with Thee“ (Urheberschaft unklar, evtl. † 1974/1989),
+  „St. James Infirmary“ (Irving Mills † 1985), „Corrine, Corrina“ (Mitchell Parish † 1993), „Chinatown, My Chinatown“
+  (Jean Schwartz † 1956, erst ab 2027), „Minor Swing“ (Grappelli † 1997), „Honeysuckle Rose“ (Razaf † 1973),
+  „Banana Boat Song“ (Quellen von der Belafonte-Fassung 1956 geprägt), „Jamaica Farewell“ (Lord Burgess).
+  Erlaubt, aber noch ohne brauchbare Notenquelle: „Trouble in Mind“ (R. M. Jones † 1945), „Nobody Knows You When You're
+  Down and Out“ (Jimmie Cox † 1925), „King Porter Stomp“ (Morton † 1941), „Panama“ (Tyers † 1924).
 
 ## Entschiedene Fragen (19.11.2026)
 

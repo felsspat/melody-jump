@@ -14,6 +14,39 @@
     "sectionInfo": { "de": "{key} · {bpm} BPM · {beats}/4", "en": "{key} · {bpm} BPM · {beats}/4" }
   },
   "sections": {
+    "mirrorBallStrut": { "de": "Spiegelkugel-Stolz", "en": "Mirror Ball Strut" },
+    "basementGrease": { "de": "Kellerfunk", "en": "Basement Grease" },
+    "brassPunch": { "de": "Bläserhiebe", "en": "Brass Punch" },
+    "dustyKeys": { "de": "Staubige Tasten", "en": "Dusty Keys" },
+    "vinylRain": { "de": "Regen auf Vinyl", "en": "Rain on Vinyl" },
+    "concreteShadows": { "de": "Betonschatten", "en": "Concrete Shadows" },
+    "sunrisePiano": { "de": "Klavier im Morgengrauen", "en": "Sunrise Piano" },
+    "acidCircuit": { "de": "Acid-Schleife", "en": "Acid Circuit" },
+    "velvetFloor": { "de": "Samt-Tanzfläche", "en": "Velvet Dancefloor" },
+    "lochLomond": { "de": "Loch Lomond", "en": "Loch Lomond" },
+    "midnightRiff": { "de": "Mitternachts-Riff", "en": "Midnight Riff" },
+    "jumpTown": { "de": "Jump Town", "en": "Jump Town" },
+    "sockHop": { "de": "Sock-Hop-Riff", "en": "Sock Hop Riff" },
+    "doowopMoon": { "de": "Doo-Wop im Mondschein", "en": "Doo-Wop Moon" },
+    "stopTimeBoogie": { "de": "Stop-Time-Boogie", "en": "Stop-Time Boogie" },
+    "mahngoose": { "de": "Der Mungo kommt", "en": "Mahngoose a Come" },
+    "jamaicaGal": { "de": "Wein nicht, Jamaika-Mädchen", "en": "Don't Cry, Jamaica Gal" },
+    "mangoWalk": { "de": "Mango Walk", "en": "Mango Walk" },
+    "monkland": { "de": "Krieg in Monkland", "en": "War Down a Monkland" },
+    "somersetBarn": { "de": "In Somerset geboren", "en": "A Somerset Me Barn" },
+    "hillsideMorning": { "de": "Morgen am Hang", "en": "Hillside Morning" },
+    "brahmsLullaby": { "de": "Guten Abend, gut’ Nacht (Brahms)", "en": "Brahms’ Lullaby" },
+    "drunkenSailor": { "de": "Drunken Sailor", "en": "Drunken Sailor" },
+    "auldLangSyne": { "de": "Auld Lang Syne", "en": "Auld Lang Syne" },
+    "easyWinners": { "de": "The Easy Winners", "en": "The Easy Winners" },
+    "twelfthStreet": { "de": "Twelfth Street Rag", "en": "Twelfth Street Rag" },
+    "eliteSyncopations": { "de": "Elite Syncopations", "en": "Elite Syncopations" },
+    "goinDownTheRoad": { "de": "Goin' Down the Road", "en": "Goin' Down the Road" },
+    "motherlessChild": { "de": "Motherless Child", "en": "Motherless Child" },
+    "takeThisHammer": { "de": "Take This Hammer", "en": "Take This Hammer" },
+    "billBailey": { "de": "Bill Bailey", "en": "Bill Bailey" },
+    "swingLow": { "de": "Swing Low, Sweet Chariot", "en": "Swing Low, Sweet Chariot" },
+    "joshua": { "de": "Joshua Fit the Battle", "en": "Joshua Fit the Battle" },
     "twinkle": { "de": "Funkel, funkel, kleiner Stern", "en": "Twinkle, Twinkle, Little Star" },
     "bluesTune": { "de": "Erster Blues", "en": "First Blues" },
     "entertainer": { "de": "The Entertainer (Scott Joplin, 1902)", "en": "The Entertainer (Scott Joplin, 1902)" },
@@ -935,8 +968,8 @@
       "fast": { "de": "+15 %", "en": "+15%" },
       "faster": { "de": "+30 %", "en": "+30%" },
       "hint": {
-        "de": "Gilt nur für Level mit mindestens einem ★ und kommt zur Tempo-Einstellung im Hauptmenü dazu. ⏩ / ⏩⏩ am Level = schon so schnell geschafft.",
-        "en": "Only for levels with at least one ★, on top of the speed setting in the main menu. ⏩ / ⏩⏩ on a level = already finished that fast."
+        "de": "Nur für Level mit ★, zusätzlich zum Tempo im Hauptmenü. ⏩ / ⏩⏩ = schon so schnell geschafft.",
+        "en": "Only for levels with a ★, on top of the main-menu speed. ⏩ / ⏩⏩ = already finished that fast."
       }
     },
     "title": { "de": "Kampagne: Eine Reise durch die Musikgeschichte", "en": "Campaign: A journey through music history" },
@@ -973,8 +1006,8 @@
           "en": ["Piano music from the USA: a steady \"oom-pah\" in the left hand, a shifted, \"ragged\" melody in the right."]
         },
         "play": {
-          "de": ["Synkopen: wichtige Töne kommen zwischen den Schlägen – sie zählen hier fast so viel wie Töne auf dem Schlag.", "Chromatische Vorhalte (D–D♯–E) lösen sich in Akkordtöne auf.", "Level 3: Zwischendominanten C – A7 – D7 – G7 (siehe „Musik verstehen“, Taste I)."],
-          "en": ["Syncopation: important notes land between the beats – they count almost as much as notes on the beat.", "Chromatic approach notes (D–D♯–E) resolve into chord tones.", "Level 3: secondary dominants C – A7 – D7 – G7 (see \"Understanding music\", key I)."]
+          "de": ["Synkopen: wichtige Töne kommen zwischen den Schlägen – sie zählen hier fast so viel wie Töne auf dem Schlag.", "Chromatische Vorhalte (D–D♯–E) lösen sich in Akkordtöne auf.", "Letzter Level: Zwischendominanten C – A7 – D7 – G7 (siehe „Musik verstehen“, Taste I)."],
+          "en": ["Syncopation: important notes land between the beats – they count almost as much as notes on the beat.", "Chromatic approach notes (D–D♯–E) resolve into chord tones.", "Last level: secondary dominants C – A7 – D7 – G7 (see \"Understanding music\", key I)."]
         },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Ragtime", "en": "https://en.wikipedia.org/wiki/Ragtime" }
       },
@@ -995,12 +1028,12 @@
           "de": [
             "Blue Notes (in C: E♭, G♭, B♭) sind hier erwünscht – sie leuchten blau.",
             "Shuffle: Töne zwischen den Schlägen etwas später spielen („lang-kurz“).",
-            "Level 3 ist eine Jam-Session ohne Vorlage: improvisiere!"
+            "Der letzte Level ist eine Jam-Session ohne Vorlage: improvisiere!"
           ],
           "en": [
             "Blue notes (in C: E♭, G♭, B♭) are welcome here – they glow blue.",
             "Shuffle: play notes between the beats a little late (\"long-short\").",
-            "Level 3 is a jam session without a tune: improvise!"
+            "The last level is a jam session without a tune: improvise!"
           ]
         },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Blues", "en": "https://en.wikipedia.org/wiki/Blues" }
@@ -1022,14 +1055,14 @@
           "de": [
             "Two-Beat: Die Tuba spielt auf Schlag 1 und 3 – Töne dort zählen etwas mehr.",
             "Achtel nur leicht geswingt: etwas lang-kurz, aber weniger als im Swing.",
-            "Level 1+2: „When the Saints Go Marching In“, der Dixieland-Klassiker.",
-            "Level 3: Jam – spiel wie die Trompete eine eigene Stimme über die Akkorde."
+            "Level 1 und 2: „When the Saints Go Marching In“, der Dixieland-Klassiker.",
+            "Letzter Level: Jam – spiel wie die Trompete eine eigene Stimme über die Akkorde."
           ],
           "en": [
             "Two-beat: the tuba plays on beats 1 and 3 – notes there count a bit more.",
             "Eighths only lightly swung: a little long-short, but less than in swing.",
-            "Levels 1+2: \"When the Saints Go Marching In\", the Dixieland classic.",
-            "Level 3: jam – play your own part over the chords, like the trumpet."
+            "Levels 1 and 2: \"When the Saints Go Marching In\", the Dixieland classic.",
+            "Last level: jam – play your own part over the chords, like the trumpet."
           ]
         },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Dixieland", "en": "https://en.wikipedia.org/wiki/Dixieland_jazz" }
@@ -1038,7 +1071,7 @@
         "name": { "de": "Swing", "en": "Swing" },
         "years": { "de": "1930er–1945", "en": "1930s–1945" },
         "intro": { "de": ["Jazz für Tanzsäle: Big Bands, Walking Bass und geswingte Achtel. Die Bläser spielen kurze, wiederholte Motive, sogenannte Riffs."], "en": ["Jazz for dance halls: big bands, walking bass and swung eighths. The horns play short repeated phrases called riffs."] },
-        "play": { "de": ["Swing-Feeling: Achtel lang-kurz statt gleichmäßig.", "Schlag 2 und 4 fühlen sich betont an (Hi-Hat).", "Level 1+2: „Swing-Riff“, eine eigene Melodie aus kurzen Riffs.", "Level 3: Jam über ii – V7 – I – VI7, die Lieblingsfolge des Jazz."], "en": ["Swing feel: eighths long-short instead of even.", "Beats 2 and 4 feel accented (hi-hat).", "Levels 1+2: \"Swing Riff\", an original tune made of short riffs.", "Level 3: jam over ii – V7 – I – VI7, jazz's favorite progression."] },
+        "play": { "de": ["Swing-Feeling: Achtel lang-kurz statt gleichmäßig.", "Schlag 2 und 4 fühlen sich betont an (Hi-Hat).", "Level 1 und 2: „Swing-Riff“, eine eigene Melodie aus kurzen Riffs.", "Letzter Level: Jam über ii – V7 – I – VI7, die Lieblingsfolge des Jazz."], "en": ["Swing feel: eighths long-short instead of even.", "Beats 2 and 4 feel accented (hi-hat).", "Levels 1 and 2: \"Swing Riff\", an original tune made of short riffs.", "Last level: jam over ii – V7 – I – VI7, jazz's favorite progression."] },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Swing_(Musikrichtung)", "en": "https://en.wikipedia.org/wiki/Swing_music" }
       },
       "rocknroll": {
@@ -1052,7 +1085,7 @@
         "name": { "de": "Ska", "en": "Ska" },
         "years": { "de": "ca. 1959–1966", "en": "c. 1959–1966" },
         "intro": { "de": ["Aus Jamaika: Mento, Calypso und amerikanischer R&B verschmelzen – die Gitarre spielt auf jedem „und“."], "en": ["From Jamaica: mento, calypso and American R&B merge – the guitar plays on every \"and\"."] },
-        "play": { "de": ["Offbeat: Töne genau zwischen den Schlägen („und“) zählen am meisten!", "Level 3: Jam – versuch, nur auf den Offbeats zu spielen."], "en": ["Offbeat: notes exactly between the beats (\"and\") count the most!", "Level 3: jam – try playing only on the offbeats."] },
+        "play": { "de": ["Offbeat: Töne genau zwischen den Schlägen („und“) zählen am meisten!", "Letzter Level: Jam – versuch, nur auf den Offbeats zu spielen."], "en": ["Offbeat: notes exactly between the beats (\"and\") count the most!", "Last level: jam – try playing only on the offbeats."] },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Ska", "en": "https://en.wikipedia.org/wiki/Ska" }
       },
       "reggae": {
@@ -1066,7 +1099,7 @@
         "name": { "de": "Funk & Disco", "en": "Funk & Disco" },
         "years": { "de": "ab ca. 1965 → 1970er", "en": "from c. 1965 → 1970s" },
         "intro": { "de": ["Groove pur: alles dreht sich um „the One“. Funk beginnt schon Mitte der 60er, seinen Höhepunkt hat er mit Disco in den 70ern."], "en": ["Pure groove: everything revolves around \"the One\". Funk starts in the mid-60s and peaks together with disco in the 70s."] },
-        "play": { "de": ["„The One“: Töne auf Schlag 1 zählen stark extra.", "Kurze Töne, auch im 16tel-Raster – Pausen gehören zum Groove.", "Level 3: Jam über einen einzigen Akkord (E7) – nur Groove!"], "en": ["\"The One\": notes on beat 1 count a lot extra.", "Short notes, also on the 16th grid – rests are part of the groove.", "Level 3: jam over a single chord (E7) – pure groove!"] },
+        "play": { "de": ["„The One“: Töne auf Schlag 1 zählen stark extra.", "Kurze Töne, auch im 16tel-Raster – Pausen gehören zum Groove.", "Letzter Level: Jam über einen einzigen Akkord (E7) – nur Groove!"], "en": ["\"The One\": notes on beat 1 count a lot extra.", "Short notes, also on the 16th grid – rests are part of the groove.", "Last level: jam over a single chord (E7) – pure groove!"] },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Funk_(Musik)", "en": "https://en.wikipedia.org/wiki/Funk" }
       },
       "hiphop": {
@@ -1087,13 +1120,13 @@
             "Boom-Bap: tiefe Bassdrum („boom“), harte Snare auf 2 und 4 („bap“) – Töne auf 2 und 4 zählen extra.",
             "Lässig („laid back“): Töne zwischen den Schlägen ruhig etwas spät spielen.",
             "Lass Platz! Pausen gehören zum Hook – nicht jeder Schlag braucht einen Ton.",
-            "Level 3: Jam über eine Moll-Schleife – erfinde deinen eigenen Hook."
+            "Letzter Level: Jam über eine Moll-Schleife – erfinde deinen eigenen Hook."
           ],
           "en": [
             "Boom bap: a deep kick (\"boom\"), a hard snare on 2 and 4 (\"bap\") – notes on 2 and 4 count extra.",
             "Laid back: feel free to play notes between the beats a little late.",
             "Leave space! Rests are part of the hook – not every beat needs a note.",
-            "Level 3: jam over a minor loop – invent your own hook."
+            "Last level: jam over a minor loop – invent your own hook."
           ]
         },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Hip-Hop_(Musik)", "en": "https://en.wikipedia.org/wiki/Hip-hop_music" }
@@ -1116,13 +1149,13 @@
             "Offbeat: Töne genau zwischen den Kicks („und“) zählen am meisten – dort, wo die Hi-Hat zischt.",
             "Gerade Achtel, kein Swing: Maschinen spielen exakt.",
             "Dein Instrument ist der Synthesizer – auch bei „Echte Instrumente“.",
-            "Level 3: Jam in a-Moll, schnell und gleichmäßig wie im Club."
+            "Letzter Level: Jam in a-Moll, schnell und gleichmäßig wie im Club."
           ],
           "en": [
             "Offbeat: notes exactly between the kicks (\"and\") count the most – where the hi-hat hisses.",
             "Straight eighths, no swing: machines play exactly.",
             "Your instrument is the synthesizer – also with \"Real instruments\".",
-            "Level 3: jam in A minor, fast and steady like in a club."
+            "Last level: jam in A minor, fast and steady like in a club."
           ]
         },
         "wikiUrl": { "de": "https://de.wikipedia.org/wiki/House-Musik", "en": "https://en.wikipedia.org/wiki/House_music" }
