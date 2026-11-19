@@ -2,7 +2,7 @@
 // All user-facing text comes from texts.json via t()/tl().
 
 import { ChapterDef } from '../campaign/chapters';
-import { Progress } from '../campaign/progress';
+import { BOOSTS, BoostId, Progress } from '../campaign/progress';
 import { Tutorial, stepLines, stepTask, stepTitle } from '../game/Tutorial';
 import { LOCALES, Locale, getLocale, t, tl } from '../i18n/i18n';
 import { NoteExplanation } from '../music/explain';
@@ -847,6 +847,7 @@ export class Hud {
     chapters: ChapterDef[],
     selected: number,
     progress: Progress,
+    boost: BoostId = 'normal',
   ): Button[] {
     const buttons: Button[] = [];
     ctx.fillStyle = 'rgba(8,6,20,0.82)';
@@ -995,9 +996,43 @@ export class Hud {
       ctx.fillText(wrapText(ctx, name, lw - 12)[0], x + lw / 2, y + 42);
       ctx.font = `700 16px ${FONT}`;
       ctx.fillStyle = '#ffd75a';
-      ctx.fillText('★'.repeat(stars) + '☆'.repeat(3 - stars), x + lw / 2, y + 64);
+      // ⏩ = already finished faster than normal
+      const fastest = progress.speed[level.id] ?? 1;
+      const badge = fastest >= BOOSTS.faster ? '  ⏩⏩' : fastest >= BOOSTS.fast ? '  ⏩' : '';
+      ctx.fillText('★'.repeat(stars) + '☆'.repeat(3 - stars) + badge, x + lw / 2, y + 64);
       buttons.push({ id: `level:${level.id}`, x, y, w: lw, h: 74 });
     });
+
+    // Extra speed for levels that were already finished
+    const by = y + 74 + 18;
+    ctx.textAlign = 'left';
+    ctx.font = `700 14px ${FONT}`;
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    const label = t('campaign.boost.label');
+    ctx.fillText(label, px, by + 21);
+    let bx = px + ctx.measureText(label).width + 12;
+    (Object.keys(BOOSTS) as BoostId[]).forEach((id, i) => {
+      const text = `${i + 1} · ${t(`campaign.boost.${id}`)}`;
+      ctx.font = `${id === boost ? 800 : 500} 14px ${FONT}`;
+      const bw = ctx.measureText(text).width + 24;
+      const active = id === boost;
+      ctx.fillStyle = active ? 'rgba(140,220,255,0.25)' : 'rgba(255,255,255,0.06)';
+      ctx.beginPath();
+      ctx.roundRect(bx, by, bw, 32, 8);
+      ctx.fill();
+      ctx.strokeStyle = active ? '#8cdcff' : 'rgba(255,255,255,0.3)';
+      ctx.lineWidth = active ? 2 : 1;
+      ctx.stroke();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = active ? '#fff' : 'rgba(255,255,255,0.7)';
+      ctx.fillText(text, bx + bw / 2, by + 21);
+      ctx.textAlign = 'left';
+      buttons.push({ id: `boost:${id}`, x: bx, y: by, w: bw, h: 32 });
+      bx += bw + 8;
+    });
+    ctx.font = `500 12px ${FONT}`;
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    wrapText(ctx, t('campaign.boost.hint'), pw).forEach((l, i) => ctx.fillText(l, px, by + 50 + i * 16));
     return buttons;
   }
 
@@ -1012,6 +1047,7 @@ export class Hud {
     avgResonance: number,
     hasNext: boolean,
     review: string[] = [],
+    boost = 1,
   ): Button[] {
     ctx.fillStyle = 'rgba(8,6,20,0.78)';
     ctx.fillRect(0, 0, w, h);
@@ -1019,6 +1055,11 @@ export class Hud {
     ctx.font = `900 48px ${FONT}`;
     ctx.fillStyle = '#8cffaa';
     ctx.fillText(t('levelComplete.title'), w / 2, h * 0.28);
+    if (boost > 1) {
+      ctx.font = `700 16px ${FONT}`;
+      ctx.fillStyle = '#8cdcff';
+      ctx.fillText(t('levelComplete.boost', { n: Math.round((boost - 1) * 100) }), w / 2, h * 0.28 - 52);
+    }
     // Stars pop in one after another
     ctx.font = `900 64px ${FONT}`;
     for (let i = 0; i < 3; i++) {

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { CHAPTERS, TWELVE_BAR_BLUES, findLevel } from '../src/campaign/chapters';
-import { loadProgress, recordResult, starsFor } from '../src/campaign/progress';
+import { boostFor, loadProgress, recordResult, starsFor } from '../src/campaign/progress';
 import { Guide } from '../src/game/Guide';
 import { LOCALES, setLocale, t, tl } from '../src/i18n/i18n';
 import { explainNote } from '../src/music/explain';
@@ -65,6 +65,16 @@ describe('progress', () => {
     recordResult(p, 'blues-1', 1, 900);
     expect(p.stars['blues-1']).toBe(2);
     expect(p.best['blues-1']).toBe(900);
+  });
+
+  it('remembers the fastest speed, and speeds up only finished levels', () => {
+    const p = loadProgress();
+    expect(boostFor(p, 'ska-1', 'faster')).toBe(1); // not finished yet: normal speed
+    recordResult(p, 'ska-1', 2, 500, 1.15);
+    recordResult(p, 'ska-1', 3, 400, 1);
+    expect(p.speed['ska-1']).toBe(1.15);
+    expect(boostFor(p, 'ska-1', 'faster')).toBe(1.3);
+    expect(boostFor(p, 'ska-1', 'normal')).toBe(1);
   });
 
   it('awards stars by average resonance and lives lost', () => {

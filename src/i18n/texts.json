@@ -929,6 +929,16 @@
     }
   },
   "campaign": {
+    "boost": {
+      "label": { "de": "⏩ Tempo für bestandene Level:", "en": "⏩ Speed for completed levels:" },
+      "normal": { "de": "Normal", "en": "Normal" },
+      "fast": { "de": "+15 %", "en": "+15%" },
+      "faster": { "de": "+30 %", "en": "+30%" },
+      "hint": {
+        "de": "Gilt nur für Level mit mindestens einem ★ und kommt zur Tempo-Einstellung im Hauptmenü dazu. ⏩ / ⏩⏩ am Level = schon so schnell geschafft.",
+        "en": "Only for levels with at least one ★, on top of the speed setting in the main menu. ⏩ / ⏩⏩ on a level = already finished that fast."
+      }
+    },
     "title": { "de": "Kampagne: Eine Reise durch die Musikgeschichte", "en": "Campaign: A journey through music history" },
     "hint": {
       "de": "Alle verfügbaren Kapitel sind frei wählbar – probier einfach aus, was dich interessiert.",
@@ -1121,6 +1131,7 @@
   },
   "levelComplete": {
     "title": { "de": "Level geschafft! 🎉", "en": "Level complete! 🎉" },
+    "boost": { "de": "⏩ mit {n} % mehr Tempo", "en": "⏩ at {n}% more speed" },
     "stats": { "de": "Punkte: {score} · Ø Resonanz: {resonance}", "en": "Score: {score} · avg. resonance: {resonance}" },
     "starsHint": {
       "de": "★ geschafft · ★★ Ø Resonanz ab 45 · ★★★ Ø Resonanz ab 65 und höchstens ein Leben verloren",

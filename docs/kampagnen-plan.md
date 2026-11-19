@@ -28,6 +28,11 @@ Niemand muss Kapitel 1 schaffen, um z.B. Blues zu spielen.
 
 - **Kampagnenkarte:** Zeitstrahl mit Kapitelkarten, Sternen pro Kapitel, Kapiteltext, „So spielst du“, Wikipedia-Button
   und Level-Buttons.
+- **Schneller spielen** (seit 19.11.2026): Auf der Karte wählt man „⏩ Tempo für bestandene Level: Normal · +15 % ·
+  +30 %“ (Klick oder Tasten 1–3, gespeichert als `campaign-boost`). Es gilt nur für Level mit mindestens einem Stern und
+  kommt zur Tempo-Einstellung im Hauptmenü dazu (`BOOSTS`, `boostFor()` in `progress.ts`). Der Fortschritt merkt sich das
+  schnellste geschaffte Tempo je Level (`speed`), der Level-Knopf zeigt es als ⏩ bzw. ⏩⏩, das Level-Ende als
+  „⏩ mit 15 % mehr Tempo“.
 - **Level-Ende:** Ziel-Tor mit Notenschlüssel und Fanfare. 1–3 Sterne aus durchschnittlicher Resonanz und verlorenen
   Leben, dazu ein Rückblick (siehe „Lernen“). Danach „Nächstes Level“, „Nochmal“ oder „Karte“. Der Fortschritt wird im
   Browser gespeichert.
@@ -140,7 +145,7 @@ anzuhören.
 
 ## Technik und Tests
 
-- 109 Tests (Vitest). Unter anderem:
+- 110 Tests (Vitest). Unter anderem:
   - Jeder Melodie-Level klingt beim perfekten Mitspielen gut, und kein fremder Ton bleibt unaufgelöst.
   - Jede Band spielt einen ganzen Level ohne Fehler (Fake-Audio-Engine).
   - Endlos-Abschnitte je Stil sind gültig, das Tempo steigt.

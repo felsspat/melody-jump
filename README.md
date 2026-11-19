@@ -39,6 +39,7 @@ npm run build     # statischer Build nach dist/
 | `M` | Begleitung stumm |
 | Pause → „⚙ Einstellungen“ | Lautstärke von Band und eigenem Instrument, Tempo und Klang ändern – auch mitten im Level |
 | `F3` | Debug-Overlay (Bewertung jeder Note) |
+| `1` / `2` / `3` auf der Kampagnenkarte | Tempo für bestandene Level: normal / +15 % / +30 % |
 | `[` / `]` | Latenz-Offset anpassen, falls Töne neben dem Takt bewertet werden (deutsche Tastatur: `Ü` / `+`). Der Wert wird gespeichert; der Coach weist darauf hin, wenn du gleichmäßig zu früh oder zu spät bist |
 
 ## Einstieg

@@ -32,7 +32,7 @@ import { Player, PlayerEvent } from '../world/Player';
 import { CreditsPanel } from '../ui/CreditsPanel';
 import { TheoryPanel } from '../ui/TheoryPanel';
 import { CHAPTERS, LevelDef, findLevel } from '../campaign/chapters';
-import { loadProgress, recordResult, saveProgress, starsFor } from '../campaign/progress';
+import { BOOSTS, BoostId, boostFor, isBoostId, loadProgress, recordResult, saveProgress, starsFor } from '../campaign/progress';
 import { styleOf } from '../music/styles';
 import { Guide } from './Guide';
 import { STEPS, TUTORIAL_SECTION, Tutorial } from './Tutorial';
@@ -185,6 +185,10 @@ export class Game {
   private progress = loadProgress();
   private mapChapter = 0;
   private campaignLevel?: LevelDef;
+  /** Extra speed chosen on the map for levels that were already finished */
+  private boost: BoostId = ((v) => (isBoostId(v) ? v : 'normal'))(load('campaign-boost', 'normal'));
+  /** Extra speed of the current campaign run (1 = normal) */
+  private runBoost = 1;
   private resonanceSamples: number[] = [];
   private livesLost = 0;
   private lastStars = 0;
@@ -248,7 +252,9 @@ export class Game {
     } else if (mode === 'campaign' && campaignLevel) {
       // Finite level: the song ends after its sections
       const factor = TEMPOS[this.tempo].factor;
-      this.song = new Song(campaignLevel.sections.map((d) => ({ ...d, bpm: Math.round(d.bpm * factor) })));
+      // Finished levels can be played faster (chosen on the map)
+      this.runBoost = boostFor(this.progress, campaignLevel.id, this.boost);
+      this.song = new Song(campaignLevel.sections.map((d) => ({ ...d, bpm: Math.round(d.bpm * factor * this.runBoost) })));
       this.song.onAdd((s) => this.level.addSection(s));
     } else {
       // Scale all tempos by the selected game speed (read when a section is made: it can change in the pause menu)
@@ -367,6 +373,7 @@ export class Game {
       else if (b.id === 'wiki') this.openChapterWiki();
       else if (b.id.startsWith('chapter:')) this.mapChapter = Number(b.id.slice(8));
       else if (b.id.startsWith('level:')) this.startLevel(b.id.slice(6));
+      else if (b.id.startsWith('boost:')) this.changeBoost(b.id.slice(6));
     } else if (this.state === 'levelComplete') {
       if (b) this.levelCompleteAction(b.id);
     } else if (this.state === 'playing' && this.tutorialReading) {
@@ -440,6 +447,13 @@ export class Game {
     window.open(url, '_blank', 'noopener');
   }
 
+  /** Extra speed for finished levels (map buttons or keys 1–3). */
+  private changeBoost(id: string): void {
+    if (!isBoostId(id)) return;
+    this.boost = id;
+    save('campaign-boost', id);
+  }
+
   private startLevel(levelId: string): void {
     const found = findLevel(levelId);
     if (!found) return;
@@ -479,7 +493,7 @@ export class Game {
     const samples = this.resonanceSamples;
     const avg = samples.length ? samples.reduce((a, b) => a + b, 0) / samples.length : this.resonance;
     this.lastStars = starsFor(avg, this.livesLost);
-    recordResult(this.progress, level.id, this.lastStars, this.score);
+    recordResult(this.progress, level.id, this.lastStars, this.score, this.runBoost);
     saveProgress(this.progress);
     this.review = this.makeReview();
     this.sfx?.fanfare(this.song.positionAt(Math.max(0, this.song.endBeat - 0.5)).chord);
@@ -604,6 +618,9 @@ export class Game {
         const level = c.levels.find((l) => !this.progress.stars[l.id]) ?? c.levels[0];
         if (c.available && level) this.startLevel(level.id);
       } else if (code === 'KeyI') this.openTheory();
+      else if (code === 'Digit1' || code === 'Digit2' || code === 'Digit3') {
+        this.changeBoost((Object.keys(BOOSTS) as BoostId[])[Number(code.slice(5)) - 1]);
+      }
       return true;
     }
     if (this.state === 'styles') {
@@ -1129,7 +1146,7 @@ export class Game {
     this.particles.draw(ctx, now, this.debug);
 
     if (this.state === 'map') {
-      this.titleButtons = this.hud.drawMap(ctx, this.width, this.height, now, CHAPTERS, this.mapChapter, this.progress);
+      this.titleButtons = this.hud.drawMap(ctx, this.width, this.height, now, CHAPTERS, this.mapChapter, this.progress, this.boost);
       return;
     }
     if (this.state === 'title') {
@@ -1214,6 +1231,7 @@ export class Game {
         this.averageResonance,
         !!this.nextLevelId(),
         this.review,
+        this.runBoost,
       );
     }
   }

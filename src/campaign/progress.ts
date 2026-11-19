@@ -5,12 +5,27 @@ export interface Progress {
   version: 1;
   stars: Record<string, number>;
   best: Record<string, number>;
+  /** Fastest extra speed each level was finished at (1 = normal, 1.15 = +15 % …); missing in old saves */
+  speed: Record<string, number>;
+}
+
+/** Extra speed for levels that were already finished (chosen on the campaign map). */
+export const BOOSTS = { normal: 1, fast: 1.15, faster: 1.3 } as const;
+export type BoostId = keyof typeof BOOSTS;
+
+export function isBoostId(v: string): v is BoostId {
+  return v in BOOSTS;
+}
+
+/** The boost only applies to levels that already have at least one star. */
+export function boostFor(p: Progress, levelId: string, boost: BoostId): number {
+  return (p.stars[levelId] ?? 0) > 0 ? BOOSTS[boost] : 1;
 }
 
 const STORAGE_KEY = 'melody-jump-campaign';
 
 function empty(): Progress {
-  return { version: 1, stars: {}, best: {} };
+  return { version: 1, stars: {}, best: {}, speed: {} };
 }
 
 export function loadProgress(): Progress {
@@ -19,7 +34,7 @@ export function loadProgress(): Progress {
     if (!raw) return empty();
     const data = JSON.parse(raw) as Partial<Progress>;
     if (data.version !== 1) return empty();
-    return { version: 1, stars: data.stars ?? {}, best: data.best ?? {} };
+    return { version: 1, stars: data.stars ?? {}, best: data.best ?? {}, speed: data.speed ?? {} };
   } catch {
     return empty();
   }
@@ -33,10 +48,11 @@ export function saveProgress(p: Progress): void {
   }
 }
 
-/** Keeps the best result per level. */
-export function recordResult(p: Progress, levelId: string, stars: number, score: number): void {
+/** Keeps the best result per level, and the fastest speed it was finished at. */
+export function recordResult(p: Progress, levelId: string, stars: number, score: number, speed = 1): void {
   p.stars[levelId] = Math.max(p.stars[levelId] ?? 0, stars);
   p.best[levelId] = Math.max(p.best[levelId] ?? 0, Math.floor(score));
+  p.speed[levelId] = Math.max(p.speed[levelId] ?? 1, speed);
 }
 
 /**
