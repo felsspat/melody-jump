@@ -1,0 +1,239 @@
+{
+  "instruments": {
+    "piano": {
+      "license": "CC0",
+      "source": "VCSL",
+      "notes": {
+        "48": "piano/48.mp3",
+        "55": "piano/55.mp3",
+        "60": "piano/60.mp3",
+        "67": "piano/67.mp3",
+        "72": "piano/72.mp3",
+        "79": "piano/79.mp3",
+        "84": "piano/84.mp3",
+        "91": "piano/91.mp3"
+      },
+      "layers": {
+        "soft": {
+          "48": "piano/soft-48.mp3",
+          "55": "piano/soft-55.mp3",
+          "60": "piano/soft-60.mp3",
+          "67": "piano/soft-67.mp3",
+          "72": "piano/soft-72.mp3",
+          "79": "piano/soft-79.mp3",
+          "84": "piano/soft-84.mp3"
+        },
+        "loud": {
+          "48": "piano/loud-48.mp3",
+          "55": "piano/loud-55.mp3",
+          "60": "piano/loud-60.mp3",
+          "67": "piano/loud-67.mp3",
+          "72": "piano/loud-72.mp3",
+          "79": "piano/loud-79.mp3",
+          "84": "piano/loud-84.mp3",
+          "91": "piano/loud-91.mp3"
+        }
+      }
+    },
+    "sax": {
+      "license": "CC0",
+      "source": "VCSL",
+      "notes": {
+        "48": "sax/48.mp3",
+        "52": "sax/52.mp3",
+        "56": "sax/56.mp3",
+        "60": "sax/60.mp3",
+        "64": "sax/64.mp3",
+        "68": "sax/68.mp3",
+        "72": "sax/72.mp3",
+        "76": "sax/76.mp3"
+      },
+      "layers": {
+        "loud": {
+          "48": "sax/loud-48.mp3",
+          "52": "sax/loud-52.mp3",
+          "56": "sax/loud-56.mp3",
+          "60": "sax/loud-60.mp3",
+          "64": "sax/loud-64.mp3",
+          "68": "sax/loud-68.mp3",
+          "72": "sax/loud-72.mp3",
+          "76": "sax/loud-76.mp3"
+        }
+      }
+    },
+    "harmonica": {
+      "license": "CC0",
+      "source": "VCSL",
+      "notes": {
+        "60": "harmonica/60.mp3",
+        "64": "harmonica/64.mp3",
+        "72": "harmonica/72.mp3",
+        "76": "harmonica/76.mp3",
+        "79": "harmonica/79.mp3",
+        "84": "harmonica/84.mp3",
+        "88": "harmonica/88.mp3"
+      }
+    },
+    "guitar": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "40": "guitar/40.mp3",
+        "43": "guitar/43.mp3",
+        "46": "guitar/46.mp3",
+        "49": "guitar/49.mp3",
+        "52": "guitar/52.mp3",
+        "55": "guitar/55.mp3",
+        "58": "guitar/58.mp3",
+        "61": "guitar/61.mp3",
+        "64": "guitar/64.mp3",
+        "67": "guitar/67.mp3",
+        "70": "guitar/70.mp3",
+        "73": "guitar/73.mp3",
+        "76": "guitar/76.mp3",
+        "79": "guitar/79.mp3",
+        "82": "guitar/82.mp3",
+        "85": "guitar/85.mp3",
+        "88": "guitar/88.mp3"
+      }
+    },
+    "overdrive": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "40": "overdrive/40.mp3",
+        "43": "overdrive/43.mp3",
+        "46": "overdrive/46.mp3",
+        "49": "overdrive/49.mp3",
+        "52": "overdrive/52.mp3",
+        "55": "overdrive/55.mp3",
+        "58": "overdrive/58.mp3",
+        "61": "overdrive/61.mp3",
+        "64": "overdrive/64.mp3",
+        "67": "overdrive/67.mp3",
+        "70": "overdrive/70.mp3",
+        "73": "overdrive/73.mp3",
+        "76": "overdrive/76.mp3",
+        "79": "overdrive/79.mp3",
+        "82": "overdrive/82.mp3",
+        "85": "overdrive/85.mp3",
+        "88": "overdrive/88.mp3"
+      }
+    },
+    "bass": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "28": "bass/28.mp3",
+        "31": "bass/31.mp3",
+        "34": "bass/34.mp3",
+        "37": "bass/37.mp3",
+        "40": "bass/40.mp3",
+        "43": "bass/43.mp3",
+        "46": "bass/46.mp3",
+        "49": "bass/49.mp3",
+        "52": "bass/52.mp3",
+        "55": "bass/55.mp3",
+        "58": "bass/58.mp3",
+        "61": "bass/61.mp3",
+        "64": "bass/64.mp3"
+      }
+    },
+    "uprightBass": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "28": "uprightBass/28.mp3",
+        "31": "uprightBass/31.mp3",
+        "34": "uprightBass/34.mp3",
+        "37": "uprightBass/37.mp3",
+        "40": "uprightBass/40.mp3",
+        "43": "uprightBass/43.mp3",
+        "46": "uprightBass/46.mp3",
+        "49": "uprightBass/49.mp3",
+        "52": "uprightBass/52.mp3",
+        "55": "uprightBass/55.mp3",
+        "58": "uprightBass/58.mp3",
+        "61": "uprightBass/61.mp3",
+        "64": "uprightBass/64.mp3"
+      }
+    },
+    "organ": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "36": "organ/36.mp3",
+        "39": "organ/39.mp3",
+        "42": "organ/42.mp3",
+        "45": "organ/45.mp3",
+        "48": "organ/48.mp3",
+        "51": "organ/51.mp3",
+        "54": "organ/54.mp3",
+        "57": "organ/57.mp3",
+        "60": "organ/60.mp3",
+        "63": "organ/63.mp3",
+        "66": "organ/66.mp3",
+        "69": "organ/69.mp3",
+        "72": "organ/72.mp3",
+        "75": "organ/75.mp3",
+        "78": "organ/78.mp3",
+        "81": "organ/81.mp3",
+        "84": "organ/84.mp3",
+        "87": "organ/87.mp3",
+        "90": "organ/90.mp3",
+        "93": "organ/93.mp3",
+        "96": "organ/96.mp3"
+      }
+    },
+    "trumpet": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "52": "trumpet/52.mp3",
+        "55": "trumpet/55.mp3",
+        "58": "trumpet/58.mp3",
+        "61": "trumpet/61.mp3",
+        "64": "trumpet/64.mp3",
+        "67": "trumpet/67.mp3",
+        "70": "trumpet/70.mp3",
+        "73": "trumpet/73.mp3",
+        "76": "trumpet/76.mp3",
+        "79": "trumpet/79.mp3",
+        "82": "trumpet/82.mp3",
+        "85": "trumpet/85.mp3",
+        "88": "trumpet/88.mp3"
+      }
+    },
+    "clavinet": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "36": "clavinet/36.mp3",
+        "39": "clavinet/39.mp3",
+        "42": "clavinet/42.mp3",
+        "45": "clavinet/45.mp3",
+        "48": "clavinet/48.mp3",
+        "51": "clavinet/51.mp3",
+        "54": "clavinet/54.mp3",
+        "57": "clavinet/57.mp3",
+        "60": "clavinet/60.mp3",
+        "63": "clavinet/63.mp3",
+        "66": "clavinet/66.mp3",
+        "69": "clavinet/69.mp3",
+        "72": "clavinet/72.mp3",
+        "75": "clavinet/75.mp3",
+        "78": "clavinet/78.mp3",
+        "81": "clavinet/81.mp3",
+        "84": "clavinet/84.mp3"
+      }
+    }
+  },
+  "drums": {
+    "kick": "drums/kick.mp3",
+    "snare": "drums/snare.mp3",
+    "rim": "drums/rim.mp3",
+    "hat": "drums/hat.mp3",
+    "ride": "drums/ride.mp3",
+    "clap": "drums/clap.mp3"
+  }
+}

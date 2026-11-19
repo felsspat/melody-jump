@@ -1,0 +1,1198 @@
+{
+  "language": { "de": "Deutsch", "en": "English" },
+  "noteNames": {
+    "de": ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "H"],
+    "en": ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+  },
+  "keys": {
+    "y": { "de": "Z", "en": "Y" },
+    "semicolon": { "de": "Ö", "en": ";" }
+  },
+  "music": {
+    "major": { "de": "{tonic}-Dur", "en": "{tonic} major" },
+    "minor": { "de": "{tonic}-Moll", "en": "{tonic} minor" },
+    "sectionInfo": { "de": "{key} · {bpm} BPM · {beats}/4", "en": "{key} · {bpm} BPM · {beats}/4" }
+  },
+  "sections": {
+    "twinkle": { "de": "Funkel, funkel, kleiner Stern", "en": "Twinkle, Twinkle, Little Star" },
+    "bluesTune": { "de": "Erster Blues", "en": "First Blues" },
+    "entertainer": { "de": "The Entertainer (Scott Joplin, 1902)", "en": "The Entertainer (Scott Joplin, 1902)" },
+    "ragJam": { "de": "Ragtime-Jam: Zwischendominanten", "en": "Ragtime jam: secondary dominants" },
+    "saints": { "de": "When the Saints Go Marching In", "en": "When the Saints Go Marching In" },
+    "swingRiff": { "de": "Swing-Riff", "en": "Swing Riff" },
+    "careless": { "de": "Careless Love (traditionell)", "en": "Careless Love (traditional)" },
+    "mapleLeaf": { "de": "Maple Leaf Rag (Scott Joplin, 1899)", "en": "Maple Leaf Rag (Scott Joplin, 1899)" },
+    "ramble": { "de": "Oh, Didn't He Ramble (1902)", "en": "Oh, Didn't He Ramble (1902)" },
+    "riverside": { "de": "Down by the Riverside (Spiritual)", "en": "Down by the Riverside (spiritual)" },
+    "linstead": { "de": "Linstead Market (Mento aus Jamaika)", "en": "Linstead Market (Jamaican mento)" },
+    "hiphopHook": { "de": "Bronx-Hook", "en": "Bronx Hook" },
+    "hiphopJam": { "de": "Hip-Hop-Jam: Moll-Schleife", "en": "Hip-hop jam: minor loop" },
+    "blockParty": { "de": "Block-Party", "en": "Block Party" },
+    "cypher": { "de": "Freestyle-Kreis", "en": "Freestyle Cypher" },
+    "clubHook": { "de": "Club-Hook", "en": "Club Hook" },
+    "houseJam": { "de": "House-Jam: Four-on-the-floor", "en": "House jam: four-on-the-floor" },
+    "warehouse": { "de": "Lagerhallen-Party", "en": "Warehouse Party" },
+    "strobeLights": { "de": "Stroboskop", "en": "Strobe Lights" },
+    "dixieJam": { "de": "Dixieland-Jam: Kollektivimprovisation", "en": "Dixieland jam: collective improvisation" },
+    "frenchQuarter": { "de": "French Quarter", "en": "French Quarter" },
+    "paradeStreet": { "de": "Parade durch die Straßen", "en": "Street Parade" },
+    "swingJam": { "de": "Swing-Jam: ii – V – I", "en": "Swing jam: ii – V – I" },
+    "boogieRiff": { "de": "Boogie-Riff", "en": "Boogie Riff" },
+    "rockJam": { "de": "Rock-'n'-Roll-Jam", "en": "Rock 'n' Roll Jam" },
+    "susanna": { "de": "Oh! Susanna (als Ska)", "en": "Oh! Susanna (ska version)" },
+    "skaJam": { "de": "Ska-Jam: Offbeats!", "en": "Ska jam: offbeats!" },
+    "islandTune": { "de": "Insel-Riddim", "en": "Island Riddim" },
+    "reggaeJam": { "de": "Reggae-Jam: One Drop", "en": "Reggae jam: one drop" },
+    "funkRiff": { "de": "Funk-Riff", "en": "Funk Riff" },
+    "funkJam": { "de": "Funk-Jam: auf die Eins!", "en": "Funk jam: on the One!" },
+    "bluesJam": { "de": "Blues-Jam (improvisieren!)", "en": "Blues Jam (improvise!)" },
+    "ode": { "de": "Ode an die Freude", "en": "Ode to Joy" },
+    "jakob": { "de": "Bruder Jakob", "en": "Frère Jacques" },
+    "awakening": { "de": "Erwachen", "en": "Awakening" },
+    "meadow": { "de": "Wiese", "en": "Meadow" },
+    "waltz": { "de": "Walzer", "en": "Waltz" },
+    "dusk": { "de": "Dämmerung", "en": "Dusk" },
+    "storm": { "de": "Sturm", "en": "Storm" },
+    "crystalCave": { "de": "Kristallhöhle", "en": "Crystal Cave" },
+    "starPath": { "de": "Sternenpfad", "en": "Star Path" },
+    "fogMoor": { "de": "Nebelmoor", "en": "Fog Moor" },
+    "bellTower": { "de": "Glockenturm", "en": "Bell Tower" },
+    "cloudSea": { "de": "Wolkenmeer", "en": "Sea of Clouds" },
+    "echoValley": { "de": "Echotal", "en": "Echo Valley" },
+    "sparkForest": { "de": "Funkenwald", "en": "Spark Forest" },
+    "practiceRoom": { "de": "Übungsraum", "en": "Practice Room" },
+    "honkyTonk": { "de": "Honky-Tonk-Saloon", "en": "Honky-Tonk Saloon" },
+    "riverboat": { "de": "Raddampfer", "en": "Riverboat" },
+    "crossroads": { "de": "Kreuzung um Mitternacht", "en": "Midnight Crossroads" },
+    "deltaPorch": { "de": "Veranda im Delta", "en": "Delta Porch" },
+    "ballroom": { "de": "Tanzsaal", "en": "Ballroom" },
+    "nightTrain": { "de": "Nachtzug", "en": "Night Train" },
+    "jukebox": { "de": "Jukebox", "en": "Jukebox" },
+    "diner": { "de": "Diner", "en": "Diner" },
+    "soundSystem": { "de": "Soundsystem", "en": "Sound System" },
+    "harbour": { "de": "Hafen von Kingston", "en": "Kingston Harbour" },
+    "beachRiddim": { "de": "Strand-Riddim", "en": "Beach Riddim" },
+    "blueMountains": { "de": "Blaue Berge", "en": "Blue Mountains" },
+    "discoBall": { "de": "Discokugel", "en": "Disco Ball" },
+    "grooveCellar": { "de": "Groove-Keller", "en": "Groove Cellar" }
+  },
+  "explain": {
+    "monster": {
+      "tooLow": {
+        "de": "👾 Ein Pixelmonster kommt! Zum Drüberspringen brauchst du etwa {need} Resonanz, du hast {now}. Spiel Akkordtöne (die leuchtenden Tasten) genau auf dem Schlag – dann steigt die Resonanz und du springst höher.",
+        "en": "👾 A pixel monster is coming! To jump over it you need about {need} resonance, you have {now}. Play chord tones (the glowing keys) right on the beat – your resonance rises and you jump higher."
+      },
+      "enough": {
+        "de": "👾 Ein Pixelmonster kommt – deine Resonanz ({now}) reicht zum Drüberspringen (nötig: {need}). Weiter so!",
+        "en": "👾 A pixel monster is coming – your resonance ({now}) is enough to jump over it (needed: {need}). Keep it up!"
+      }
+    },
+    "intervals": {
+      "de": [
+        "Tonwiederholung", "Halbton-Schritt", "Ganzton-Schritt", "kleine Terz", "große Terz", "Quarte",
+        "Tritonus", "Quinte", "kleine Sexte", "große Sexte", "kleine Septime", "große Septime", "Oktave"
+      ],
+      "en": [
+        "repeated note", "half step", "whole step", "minor third", "major third", "fourth",
+        "tritone", "fifth", "minor sixth", "major sixth", "minor seventh", "major seventh", "octave"
+      ]
+    },
+    "intervalOctaves": { "de": "{n} Oktaven", "en": "{n} octaves" },
+    "intervalBigLeap": { "de": "großer Sprung ({n} Halbtöne)", "en": "big leap ({n} half steps)" },
+    "up": { "de": "hoch", "en": "up" },
+    "down": { "de": "runter", "en": "down" },
+    "timing": {
+      "onBeat": { "de": "Genau auf dem Schlag ✓", "en": "Right on the beat ✓" },
+      "eighth": { "de": "Zwischen zwei Schlägen (Achtel) – geht auch", "en": "Between two beats (eighth note) – that works too" },
+      "sixteenth": { "de": "Schneller Zwischenschlag (Sechzehntel) – ok", "en": "Quick off-beat (sixteenth note) – ok" },
+      "offbeatGroove": { "de": "Offbeat ✓ – genau zwischen den Schlägen, das macht diesen Stil aus!", "en": "Offbeat ✓ – right between the beats, that's what this style is about!" },
+      "swungEighth": { "de": "Geswingte Achtel ✓ – lang-kurz, genau das Swing-Gefühl", "en": "Swung eighth ✓ – long-short, exactly the swing feel" },
+      "syncopation": { "de": "Synkope ✓ – Ragtime lebt von Tönen zwischen den Schlägen", "en": "Syncopation ✓ – ragtime lives on notes between the beats" },
+      "layBack": {
+      "de": "Lässig zwischen den Schlägen ✓ – im Hip-Hop darf es etwas spät („laid back“) sein",
+      "en": "Laid back between the beats ✓ – in hip-hop it may come a little late"
+    },
+    "lightSwing": {
+      "de": "Leicht geswingte Achtel ✓ – im Dixieland ein bisschen lang-kurz, weniger als im Swing",
+      "en": "Lightly swung eighth ✓ – in Dixieland a little long-short, less than in swing"
+    },
+    "funkSixteenth": { "de": "16tel-Groove ✓ – im Funk zählen auch die schnellen Zwischenschläge", "en": "16th-note groove ✓ – in funk the fast in-between hits count too" },
+      "off": { "de": "Neben dem Takt: {ms} ms {dir} – warte auf den Punkt oben", "en": "Off the beat: {ms} ms {dir} – wait for the dot at the top" },
+      "early": { "de": "zu früh", "en": "too early" },
+      "late": { "de": "zu spät", "en": "too late" }
+    },
+    "interval": {
+      "repeat": {
+        "de": "Gleicher Ton wie eben – ab und zu ok, zu oft wird es langweilig",
+        "en": "Same note as before – fine now and then, too often gets boring"
+      },
+      "tritone": {
+        "de": "{name} {dir} – dieser Abstand klingt unruhig, lieber Quarte oder Quinte",
+        "en": "{name} {dir} – this distance sounds restless, try a fourth or fifth instead"
+      },
+      "hugeLeap": {
+        "de": "{name} – sehr weite Sprünge sind schwer zu singen, kleinere klingen melodischer",
+        "en": "{name} – very wide leaps are hard to sing, smaller ones sound more melodic"
+      },
+      "seventh": {
+        "de": "{name} {dir} – klingt spannungsvoll, eher selten einsetzen",
+        "en": "{name} {dir} – sounds tense, use it sparingly"
+      },
+      "step": {
+        "de": "{name} {dir} ✓ – kleine Schritte machen Melodien flüssig",
+        "en": "{name} {dir} ✓ – small steps make melodies flow"
+      },
+      "leap": {
+        "de": "{name} {dir} ✓ – ein wohlklingender Sprung",
+        "en": "{name} {dir} ✓ – a pleasant-sounding leap"
+      }
+    },
+    "chord": {
+      "headline": { "de": "{note} – Akkordton ✓", "en": "{note} – chord tone ✓" },
+      "why": {
+        "de": "Die Band spielt gerade den Akkord {chord} – die Töne {tones} gleichzeitig. {pc} ist {role} dieses Akkords. {ratio}",
+        "en": "The band is playing the chord {chord} right now – the notes {tones} at the same time. {pc} is {role} of this chord. {ratio}"
+      }
+    },
+    "secondaryDominant": {
+      "de": "{chord} ist hier eine Zwischendominante: ein „geliehener“ Septakkord, der zum nächsten Akkord {target} zieht – wie V7 zu I, nur auf einen anderen Akkord gerichtet. Mehr: Taste I.",
+      "en": "{chord} is a secondary dominant here: a \"borrowed\" seventh chord that pulls toward the next chord {target} – like V7 to I, just aimed at a different chord. More: press I."
+    },
+    "roles": {
+      "seventh": { "de": "die Septime", "en": "the seventh" },
+      "root": { "de": "der Grundton", "en": "the root" },
+      "third": { "de": "die Terz", "en": "the third" },
+      "fifth": { "de": "die Quinte", "en": "the fifth" }
+    },
+    "ratios": {
+      "seventh": {
+        "de": "Zum Grundton {root} ist das eine kleine Septime (etwa 16:9) – ein Ton mit Spannung, der in den nächsten Akkord drängt. Genau diese Septime gibt Septakkorden ihren Sog.",
+        "en": "Against the root {root} that's a minor seventh (about 16:9) – a note with tension that pushes toward the next chord. This seventh is what gives seventh chords their pull."
+      },
+      "root": {
+        "de": "Die Band spielt genau diesen Ton (oder ihn eine Oktave höher/tiefer, Schwingungsverhältnis 1:1 bzw. 2:1) – dein Ton verschmilzt vollständig mit ihr.",
+        "en": "The band plays exactly this note (or an octave higher/lower, vibration ratio 1:1 or 2:1) – your note melts completely into it."
+      },
+      "majorThird": {
+        "de": "Zum Grundton {root} ist das eine große Terz: Die Schwingungen stehen im Verhältnis 5:4. Bei so einfachen Verhältnissen treffen sich die Schallwellen regelmäßig – das hören wir als rund und angenehm („Konsonanz“).",
+        "en": "Against the root {root} that's a major third: the vibrations are in a 5:4 ratio. With such simple ratios the sound waves line up regularly – we hear that as smooth and pleasant (\"consonance\")."
+      },
+      "minorThird": {
+        "de": "Zum Grundton {root} ist das eine kleine Terz: Verhältnis 6:5. Auch das ist ein einfaches Verhältnis – die Schallwellen passen regelmäßig zusammen, es klingt rund (in Moll etwas weicher, trauriger).",
+        "en": "Against the root {root} that's a minor third: ratio 6:5. Still a simple ratio – the sound waves line up regularly, so it sounds smooth (a bit softer and sadder in minor)."
+      },
+      "fifth": {
+        "de": "Zum Grundton {root} ist das eine Quinte: Verhältnis 3:2 – nach der Oktave der „reinste“ Zusammenklang überhaupt. Deshalb klingt sie so stabil.",
+        "en": "Against the root {root} that's a fifth: ratio 3:2 – after the octave the \"purest\" combination of all. That's why it sounds so stable."
+      },
+      "tritone": {
+        "de": "Zum Grundton {root} ist das ein Tritonus (Verhältnis etwa 45:32) – ein kompliziertes Verhältnis, deshalb klingt dieser Akkord gespannt.",
+        "en": "Against the root {root} that's a tritone (ratio about 45:32) – a complicated ratio, which is why this chord sounds tense."
+      }
+    },
+    "scale": {
+      "headline": { "de": "{note} – passt zur Tonart", "en": "{note} – fits the key" },
+      "why": {
+        "de": "{pc} gehört zur „Tonfamilie“ von {key}, ist aber nicht im Akkord {chord} ({tones}). Abstand zum nächsten Ton der Band ({near}): {interval} – das erzeugt etwas Spannung, aber keine harte Reibung. Gut als Zwischenschritt; danach am besten auf einem Akkordton landen.",
+        "en": "{pc} belongs to the \"note family\" of {key}, but isn't in the chord {chord} ({tones}). Distance to the nearest band note ({near}): {interval} – a little tension, but no harsh clash. Good as a stepping stone; then land on a chord tone."
+      }
+    },
+    "passing": {
+      "headline": { "de": "{note} – Durchgangston ✓", "en": "{note} – passing tone ✓" },
+      "why": {
+        "de": "Eigentlich fremd, aber du bist danach direkt zu einem Akkordton weitergegangen. So klingt die Reibung gewollt.",
+        "en": "Actually foreign, but you moved straight on to a chord tone. That makes the clash sound intentional."
+      }
+    },
+    "blue": {
+      "headline": { "de": "{note} – Blue Note ✓", "en": "{note} – blue note ✓" },
+      "why": {
+        "de": "{pc} gehört eigentlich nicht zu {key} – aber im Blues ist genau diese „schräge“ Note gewollt! Die erniedrigte Terz, Quinte und Septime (Blue Notes) geben dem Blues seinen klagenden, rauen Klang. Tipp: Spiel danach einen Halbton höher, das ist der typische Blues-Schritt.",
+        "en": "{pc} doesn't really belong to {key} – but in the blues this \"bent\" note is exactly what you want! The flattened third, fifth and seventh (blue notes) give the blues its wailing, gritty sound. Tip: follow it with the note a half step up – the classic blues move."
+      }
+    },
+    "dissonant": {
+      "headline": { "de": "{note} – fremder Ton ✗", "en": "{note} – foreign note ✗" },
+      "why": {
+        "de": "{pc} gehört nicht zu {key}. Er liegt nur {dist} neben {target}, den die Band gerade spielt. So nah beieinander haben zwei Töne ein kompliziertes Schwingungsverhältnis (Halbton ≈ 16:15): Die Schallwellen laufen ständig auseinander und wieder zusammen – man hört ein raues Flattern, die „Schwebung“.",
+        "en": "{pc} doesn't belong to {key}. It's only {dist} away from {target}, which the band is playing. Two notes that close have a complicated vibration ratio (half step ≈ 16:15): the sound waves keep drifting apart and back together – you hear a rough flutter called \"beating\"."
+      },
+      "oneSemitone": { "de": "einen Halbton", "en": "one half step" },
+      "semitones": { "de": "{n} Halbtöne", "en": "{n} half steps" },
+      "tip": {
+        "de": "Tipp: geh direkt zu {target} weiter, dann zählt {pc} als Durchgangston.",
+        "en": "Tip: move straight on to {target}, then {pc} counts as a passing tone."
+      }
+    },
+    "guideHit": { "de": "Ring getroffen ✓ – genau der vorgeschlagene Ton", "en": "Ring hit ✓ – exactly the suggested note" },
+    "more": { "de": "ⓘ Taste I: mehr dazu (mit Wikipedia-Links)", "en": "ⓘ Press I: learn more (with Wikipedia links)" },
+    "spam": {
+      "de": "Viele Töne auf einmal zählen weniger – ein Ton pro Schlag reicht völlig.",
+      "en": "Lots of notes at once count less – one note per beat is plenty."
+    },
+    "latency": {
+      "late": {
+        "de": "Deine Töne kommen gleichmäßig etwa {ms} ms zu spät. Das liegt oft am Gerät: Kopfhörer (vor allem Bluetooth) geben den Klang verzögert wieder – das nennt man Latenz. Drück ein paar Mal die Taste ] (deutsche Tastatur: die Taste + rechts neben Ü), jedes Mal gleicht 10 ms aus.",
+        "en": "Your notes arrive about {ms} ms late, every time. That is often the device: headphones (Bluetooth above all) play the sound with a delay – this is called latency. Press the ] key a few times; each press makes up for 10 ms."
+      },
+      "early": {
+        "de": "Deine Töne kommen gleichmäßig etwa {ms} ms zu früh. Das kann an der Latenz liegen (der Verzögerung zwischen Spiel und Lautsprecher), die zu stark ausgeglichen wird. Drück ein paar Mal die Taste [ (deutsche Tastatur: die Taste Ü), jedes Mal sind es 10 ms.",
+        "en": "Your notes arrive about {ms} ms early, every time. That can be the latency (the delay between the game and your speakers) being corrected too much. Press the [ key a few times; each press is 10 ms."
+      }
+    },
+    "latencyShort": {
+      "late": {
+        "de": "Du warst gleichmäßig etwa {ms} ms zu spät – wohl die Latenz (Verzögerung) deines Geräts. Im Spiel mit ] ausgleichen (deutsche Tastatur: +).",
+        "en": "You were about {ms} ms late throughout – probably your device's latency (delay). Correct it in the game with the ] key."
+      },
+      "early": {
+        "de": "Du warst gleichmäßig etwa {ms} ms zu früh – die Latenz (Verzögerung) wird wohl zu stark ausgeglichen. Im Spiel mit [ korrigieren (deutsche Tastatur: Ü).",
+        "en": "You were about {ms} ms early throughout – the latency (delay) is probably corrected too much. Adjust it in the game with the [ key."
+      }
+    },
+    "diagnose": {
+      "silence": { "de": "Spiel Töne! Ohne Musik verliert der Läufer seine Sprungkraft.", "en": "Play some notes! Without music the runner loses its jumping power." },
+      "fewNotes": { "de": "Etwas mehr spielen: etwa ein Ton pro Schlag hält die Resonanz oben.", "en": "Play a bit more: about one note per beat keeps the resonance up." },
+      "dissonant": { "de": "Viele fremde Töne – bleib auf den farbig leuchtenden Spuren.", "en": "Lots of foreign notes – stay on the brightly colored lanes." },
+      "offBeat": { "de": "Du spielst oft neben dem Takt – klick genau, wenn ein Punkt oben aufleuchtet.", "en": "You're often off the beat – click exactly when a dot lights up at the top." },
+      "spam": { "de": "Weniger ist mehr: zu viele Töne pro Schlag oder immer derselbe Ton.", "en": "Less is more: too many notes per beat, or always the same note." },
+      "fewChordTones": { "de": "Triff öfter die leuchtenden Akkordtöne – die geben am meisten Resonanz.", "en": "Hit the glowing chord tones more often – they give the most resonance." },
+      "good": { "de": "Gut so! Mit kleinen Schritten zwischen Akkordtönen wird es noch besser.", "en": "Nice! Small steps between chord tones make it even better." }
+    }
+  },
+  "tutorial": {
+    "header": { "de": "TUTORIAL {n}/{total}", "en": "TUTORIAL {n}/{total}" },
+    "stepDone": { "de": "✓ Super, geschafft!", "en": "✓ Great, done!" },
+    "footer": { "de": "Enter = Schritt überspringen · I = Musik verstehen · Esc = Pause / Menü", "en": "Enter = skip step · I = understanding music · Esc = pause / menu" },
+    "footerLast": { "de": "I = Musik verstehen · Esc = Pause / Menü", "en": "I = understanding music · Esc = pause / menu" },
+    "readyButton": { "de": "▶ Los geht's (Klick / Enter)", "en": "▶ Let's go (click / Enter)" },
+    "readyHint": {
+      "de": "Lies in Ruhe – die Musik wartet. Klick irgendwo oder drück Enter, wenn du bereit bist.",
+      "en": "Take your time reading – the music waits. Click anywhere or press Enter when you're ready."
+    },
+    "markers": {
+      "clickHere": { "de": "Klick hier", "en": "Click here" },
+      "low": { "de": "tief", "en": "low" },
+      "high": { "de": "hoch", "en": "high" },
+      "fits": { "de": "passt", "en": "fits" },
+      "foreign": { "de": "1. fremd", "en": "1. foreign" },
+      "resolve": { "de": "2. auflösen", "en": "2. resolve" },
+      "chordTone": { "de": "Akkord {n}", "en": "Chord {n}" },
+      "octave": { "de": "Oktave", "en": "Octave" },
+      "key": { "de": "Taste {key}", "en": "Key {key}" },
+      "mouseOnly": { "de": "Maus", "en": "Mouse" }
+    },
+    "steps": {
+      "welcome": {
+        "title": { "de": "Willkommen!", "en": "Welcome!" },
+        "lines": {
+          "de": [
+            "Du steuerst den Läufer nicht direkt – du machst Musik. Je schöner sie zur Band passt, desto besser springt er.",
+            "Der Bildschirm ist dein Instrument: eine riesige Klaviertastatur, nur hochkant. Jede senkrechte Taste ist ein Ton – helle wie die weißen, dunkle wie die schwarzen Klaviertasten.",
+            "Der Pfeil zeigt auf eine Spalte. Klick irgendwo in diese Spalte –",
+            "oder drück die Taste, die unter dem Pfeil steht (die Buchstaben stehen auch unten auf der Klaviatur)."
+          ],
+          "en": [
+            "You don't control the runner directly – you make music. The better it fits the band, the better it jumps.",
+            "The screen is your instrument: a giant piano keyboard standing upright. Each vertical key is one note – light ones like the white piano keys, dark ones like the black keys.",
+            "The arrow points at a lane. Click anywhere inside that lane –",
+            "or press the key shown under the arrow (the letters are also printed on the keyboard strip at the bottom)."
+          ]
+        },
+        "task": { "de": "Spiele 3 Töne in der markierten Spalte (oder mit der Taste)", "en": "Play 3 notes in the marked lane (or with the key)" }
+      },
+      "pitch": {
+        "title": { "de": "Hoch und tief, laut und leise", "en": "High and low, loud and soft" },
+        "lines": {
+          "de": [
+            "Genau wie beim Klavier: Tasten links = tiefe Töne, Tasten rechts = hohe Töne.",
+            "Die Höhe, auf der du klickst, ist die Lautstärke: oben = laut, unten = leise.",
+            "Mit der Tastatur: ↓ schaltet eine Oktave tiefer, ↑ eine Oktave höher – die gelbe",
+            "Klammer unten auf der Klaviatur zeigt, welche Töne deine Tasten gerade spielen."
+          ],
+          "en": [
+            "Just like a piano: keys on the left = low notes, keys on the right = high notes.",
+            "How high up you click sets the volume: top = loud, bottom = soft.",
+            "On the keyboard: ↓ shifts one octave down, ↑ one octave up – the yellow",
+            "frame on the keyboard strip shows which notes your keys are playing right now."
+          ]
+        },
+        "task": { "de": "Spiele den tiefen und den hohen markierten Ton", "en": "Play the low and the high marked note" }
+      },
+      "beat": {
+        "title": { "de": "Der Takt", "en": "The beat" },
+        "lines": {
+          "de": [
+            "Die Band spielt einen gleichmäßigen Beat. Oben in der Mitte blinken die Punkte mit, der goldene ist die „1“.",
+            "Jetzt kommt es nicht darauf an, welchen Ton du spielst, sondern wann.",
+            "Siehst du die Ringe? Sie kommen jeden zweiten Schlag und werden kleiner. Wenn ein Ring ganz klein ist – jetzt klicken! Kein Stress, du hast Zeit.",
+            "Warum? Töne auf dem Schlag verschmelzen mit dem Rhythmus der Band und zählen am meisten."
+          ],
+          "en": [
+            "The band plays a steady beat. The dots at the top center blink along – the golden one is the “1”.",
+            "Now it's not about which note you play, but when.",
+            "See the rings? They come every second beat and shrink. When a ring is at its smallest – click now! No rush, you have time.",
+            "Why? Notes on the beat blend with the band's rhythm and count the most."
+          ]
+        },
+        "task": { "de": "Spiele 4 Töne genau auf dem Schlag (wenn der Ring sich schließt)", "en": "Play 4 notes exactly on the beat (when the ring closes)" }
+      },
+      "chordTones": {
+        "title": { "de": "Akkordtöne – die sicheren Töne", "en": "Chord tones – the safe notes" },
+        "lines": {
+          "de": [
+            "Die Band spielt gerade einen Akkord: drei Töne gleichzeitig. Oben steht sein Name, z.B. „C“.",
+            "Ein C-Akkord besteht aus den Tönen C, E und G. Genau diese Spalten leuchten farbig.",
+            "Die Pfeile zeigen sie dir mit den passenden Tasten.",
+            "Warum passen sie? Weil die Band genau diese Töne gerade selbst spielt – dein Ton verschmilzt mit ihr."
+          ],
+          "en": [
+            "The band is playing a chord: three notes at once. Its name is shown at the top, e.g. “C”.",
+            "A C chord is made of the notes C, E and G. Exactly those lanes glow in color.",
+            "The arrows point them out together with the matching keys.",
+            "Why do they fit? Because the band is playing exactly these notes right now – your note blends in."
+          ]
+        },
+        "task": { "de": "Spiele 4 markierte Akkordtöne", "en": "Play 4 marked chord tones" }
+      },
+      "chordChange": {
+        "title": { "de": "Der Akkord wechselt", "en": "The chord changes" },
+        "lines": {
+          "de": [
+            "Alle zwei Takte wechselt die Band den Akkord: C → Am → F → G → wieder von vorn.",
+            "Pass auf: Die Pfeile und die leuchtenden Spalten springen dabei auf andere Töne!",
+            "Rechts neben dem Akkordnamen oben steht schon der nächste Akkord („→ Am“).",
+            "Ein Ton, der eben noch gepasst hat, kann im nächsten Takt fremd klingen – also immer den Pfeilen folgen."
+          ],
+          "en": [
+            "Every two bars the band changes chords: C → Am → F → G → and around again.",
+            "Watch out: the arrows and glowing lanes jump to different notes!",
+            "Next to the chord name at the top you can already see the next chord (“→ Am”).",
+            "A note that just fitted can sound foreign in the next bar – so keep following the arrows."
+          ]
+        },
+        "task": { "de": "Triff Akkordtöne in 3 verschiedenen Akkorden", "en": "Hit chord tones in 3 different chords" }
+      },
+      "rings": {
+        "title": { "de": "Folge den Ringen", "en": "Follow the rings" },
+        "lines": {
+          "de": [
+            "Jetzt beides zusammen: Die Ringe sitzen über der richtigen Spalte UND schließen sich auf dem Schlag.",
+            "Unter jedem Ring steht der Ton und in [Klammern] die Taste.",
+            "Das ist eine fertige Melodie aus Akkordtönen – perfekt, wenn du nicht weißt, was du spielen sollst."
+          ],
+          "en": [
+            "Now both together: the rings sit above the right lane AND close on the beat.",
+            "Under each ring you'll see the note and, in [brackets], the key.",
+            "It's a ready-made melody of chord tones – perfect when you don't know what to play."
+          ]
+        },
+        "task": { "de": "Triff 6 Ringe: richtige Spalte (oder Taste), wenn der Ring sich schließt", "en": "Hit 6 rings: right lane (or key) when the ring closes" }
+      },
+      "dissonance": {
+        "title": { "de": "Warum manche Töne schief klingen", "en": "Why some notes sound off" },
+        "lines": {
+          "de": [
+            "Die Tonart C-Dur hat 7 „Familientöne“: C D E F G A H – auf der Klaviatur die weißen Tasten.",
+            "Die schwarzen Tasten gehören nicht zur Familie. Sie liegen nur einen Halbton neben einem Ton der Band –",
+            "so nah beieinander „reiben“ sich zwei Töne, das klingt schief.",
+            "Trick: Spiel erst den fremden Ton (Pfeil 1) und gleich danach den Nachbarton (Pfeil 2), der zum Akkord gehört.",
+            "Dann wird aus der Reibung eine Spannung, die sich auflöst – ein „Durchgangston“. Das klingt gewollt!"
+          ],
+          "en": [
+            "The key of C major has 7 “family notes”: C D E F G A B – the white keys on the keyboard strip.",
+            "The black keys aren't part of the family. They sit just one half step away from a note the band plays –",
+            "two notes that close together clash, and that sounds off.",
+            "Trick: play the foreign note first (arrow 1) and right after it the neighboring chord tone (arrow 2).",
+            "The clash turns into tension that resolves – a “passing tone”. That sounds intentional!"
+          ]
+        },
+        "task": { "de": "Spiele Pfeil 1 und direkt danach Pfeil 2", "en": "Play arrow 1 and right after it arrow 2" }
+      },
+      "melody": {
+        "title": { "de": "Melodien bauen", "en": "Building melodies" },
+        "lines": {
+          "de": [
+            "Schöne Melodien gehen meist in kleinen Schritten (Nachbarspalten der Familie) oder machen schöne Sprünge:",
+            "Terz, Quarte, Quinte, Oktave. Sehr wilde Sprünge und der Tritonus (6 Spalten) klingen unruhig.",
+            "Rezept zum Anfangen: Auf der „1“ (goldener Punkt) einen leuchtenden Ton spielen, dann pro Schlag",
+            "eine Spalte nach links oder rechts gehen, und auf der nächsten „1“ wieder auf einem leuchtenden Ton landen.",
+            "Die Ringe helfen dir weiterhin. Achte auf den Resonanz-Balken oben – er zeigt, wie gut es klingt."
+          ],
+          "en": [
+            "Nice melodies mostly move in small steps (neighboring family notes) or make pleasant leaps:",
+            "third, fourth, fifth, octave. Very wild leaps and the tritone (6 lanes) sound restless.",
+            "Recipe to get started: on the “1” (golden dot) play a glowing note, then move one lane",
+            "left or right per beat, and on the next “1” land on a glowing note again.",
+            "The rings keep helping you. Watch the resonance bar at the top – it shows how good it sounds."
+          ]
+        },
+        "task": { "de": "Bring die Resonanz (Balken oben) über 70", "en": "Get the resonance (bar at the top) above 70" }
+      },
+      "specials": {
+        "title": { "de": "Spezial-Moves", "en": "Special moves" },
+        "lines": {
+          "de": [
+            "Schild: Spiel die drei Pfeile „Akkord 1, 2, 3“ schnell hintereinander (innerhalb eines Schlags).",
+            "→ Die drei Töne des Akkords zusammen ergeben den Akkord selbst – ein Schild schützt dich vor einem Treffer.",
+            "Doppelsprung: Spiel „Akkord 1“ und direkt danach „Oktave“ – derselbe Ton, 12 Spalten höher.",
+            "→ Dein Läufer bekommt Flügel und kann in der Luft noch einmal springen.",
+            "Tastatur: Taste drücken, ↑ (Oktave höher), dieselbe Taste nochmal – zusammen innerhalb eines Schlags."
+          ],
+          "en": [
+            "Shield: play the three arrows “Chord 1, 2, 3” quickly one after another (within one beat).",
+            "→ The chord's three notes together form the chord itself – a shield protects you from one hit.",
+            "Double jump: play “Chord 1” and right after it “Octave” – the same note, 12 lanes higher.",
+            "→ Your runner grows wings and can jump once more in mid-air.",
+            "Keyboard: press a key, ↑ (octave up), the same key again – all within one beat."
+          ]
+        },
+        "task": { "de": "Hol dir Schild und Doppelsprung", "en": "Get a shield and a double jump" }
+      },
+      "obstacles": {
+        "title": { "de": "Jetzt mit Hindernissen", "en": "Now with obstacles" },
+        "lines": {
+          "de": [
+            "Der Läufer springt vor Hindernissen von allein ab. Wie hoch und weit, hängt von der Resonanz ab.",
+            "Also einfach weiter schön spielen: den Ringen folgen oder eigene Melodien aus leuchtenden Tönen.",
+            "Hier im Übungsraum kannst du keine Leben verlieren."
+          ],
+          "en": [
+            "The runner jumps over obstacles on its own. How high and far depends on the resonance.",
+            "So just keep playing nicely: follow the rings or make your own melodies from glowing notes.",
+            "Here in the practice room you can't lose lives."
+          ]
+        },
+        "task": { "de": "Überwinde 4 Hindernisse", "en": "Clear 4 obstacles" }
+      },
+      "done": {
+        "title": { "de": "Geschafft!", "en": "Done!" },
+        "lines": {
+          "de": [
+            "Im echten Spiel wechseln Tonart, Tempo und Takt – die Ansagen sagen dir vorher Bescheid.",
+            "Die Box „Jetzt passt“ rechts oben zeigt dir immer die passenden Töne und Tasten.",
+            "Die Ringe (Taste V) und den Coach (Taste C) kannst du jederzeit ein- und ausschalten."
+          ],
+          "en": [
+            "In the real game the key, tempo and time signature change – announcements warn you ahead of time.",
+            "The “Fits now” box at the top right always shows the matching notes and keys.",
+            "You can switch the rings (key V) and the coach (key C) on and off at any time."
+          ]
+        },
+        "task": { "de": "Drück Enter, um das richtige Spiel zu starten", "en": "Press Enter to start the real game" }
+      }
+    }
+  },
+  "theory": {
+    "title": { "de": "ⓘ Musik verstehen", "en": "ⓘ Understanding music" },
+    "intro": {
+      "de": "Warum klingen manche Töne „richtig“ und andere schief? Hier die Ideen hinter dem Spiel – kurz erklärt, mit Links zum Weiterlesen.",
+      "en": "Why do some notes sound \"right\" and others off? Here are the ideas behind the game – briefly explained, with links to read more."
+    },
+    "close": { "de": "Schließen (Esc / I)", "en": "Close (Esc / I)" },
+    "readMore": { "de": "Weiterlesen:", "en": "Read more:" },
+    "sections": {
+      "sound": {
+        "title": { "de": "1. Töne sind Schwingungen", "en": "1. Notes are vibrations" },
+        "body": {
+          "de": [
+            "Jeder Ton ist eine Schwingung der Luft. Das A über dem mittleren C schwingt 440-mal pro Sekunde (440 Hertz), das A eine Oktave höher genau doppelt so schnell (880 Hz).",
+            "Erklingen zwei Töne gleichzeitig, überlagern sich ihre Schallwellen. Ob das angenehm klingt, hängt vor allem davon ab, in welchem Verhältnis ihre Schwingungen stehen."
+          ],
+          "en": [
+            "Every note is a vibration of the air. The A above middle C vibrates 440 times per second (440 hertz); the A an octave higher vibrates exactly twice as fast (880 Hz).",
+            "When two notes sound together, their sound waves overlap. Whether that sounds pleasant depends mostly on the ratio between their vibrations."
+          ]
+        },
+        "links": {
+          "de": ["Ton (Musik)|https://de.wikipedia.org/wiki/Ton_(Musik)", "Frequenz|https://de.wikipedia.org/wiki/Frequenz"],
+          "en": ["Pitch (music)|https://en.wikipedia.org/wiki/Pitch_(music)", "Frequency|https://en.wikipedia.org/wiki/Frequency"]
+        }
+      },
+      "consonance": {
+        "title": { "de": "2. Warum Akkordtöne passen: einfache Verhältnisse", "en": "2. Why chord tones fit: simple ratios" },
+        "body": {
+          "de": [
+            "Oktave = 2:1, Quinte = 3:2, Quarte = 4:3, große Terz = 5:4, kleine Terz = 6:5. Bei so einfachen Verhältnissen treffen sich die Wellenberge immer wieder im gleichen Takt – das Ohr empfindet das als ruhig und „rund“. Man nennt das Konsonanz.",
+            "Ein Dur-Akkord (z.B. C-E-G) besteht genau aus solchen Abständen: Grundton, große Terz darüber, Quinte darüber. Spielst du einen dieser Töne, bildet dein Ton mit jedem Ton der Band ein einfaches Verhältnis – deshalb leuchten genau diese Spalten."
+          ],
+          "en": [
+            "Octave = 2:1, fifth = 3:2, fourth = 4:3, major third = 5:4, minor third = 6:5. With such simple ratios the wave peaks keep meeting in a regular pattern – the ear hears that as calm and \"smooth\". This is called consonance.",
+            "A major chord (e.g. C-E-G) is built exactly from these distances: root, a major third above, a fifth above. If you play one of these notes, it forms a simple ratio with every note the band plays – that's why exactly these lanes glow."
+          ]
+        },
+        "links": {
+          "de": ["Konsonanz und Dissonanz|https://de.wikipedia.org/wiki/Konsonanz_und_Dissonanz", "Intervall (Musik)|https://de.wikipedia.org/wiki/Intervall_(Musik)", "Dreiklang|https://de.wikipedia.org/wiki/Dreiklang"],
+          "en": ["Consonance and dissonance|https://en.wikipedia.org/wiki/Consonance_and_dissonance", "Interval (music)|https://en.wikipedia.org/wiki/Interval_(music)", "Triad (music)|https://en.wikipedia.org/wiki/Triad_(music)"]
+        }
+      },
+      "scale": {
+        "title": { "de": "3. Tonart & Tonleiter: die „Tonfamilie“", "en": "3. Key & scale: the \"note family\"" },
+        "body": {
+          "de": [
+            "Ein Musikstück benutzt meist nur 7 der 12 Töne einer Oktave – seine Tonleiter. In C-Dur sind das C D E F G A H, also die weißen Tasten.",
+            "Alle Akkorde des Stücks werden aus diesen Tönen gebaut. Ein Ton aus der Familie, der gerade nicht im Akkord ist (z.B. D zum C-Akkord), erzeugt leichte Spannung – gut als Schritt zwischen zwei Akkordtönen."
+          ],
+          "en": [
+            "A piece of music usually uses only 7 of the 12 notes in an octave – its scale. In C major those are C D E F G A B, the white keys.",
+            "All chords of the piece are built from these notes. A family note that isn't in the current chord (e.g. D against a C chord) creates mild tension – a good step between two chord tones."
+          ]
+        },
+        "links": {
+          "de": ["Tonleiter|https://de.wikipedia.org/wiki/Tonleiter", "Tonart|https://de.wikipedia.org/wiki/Tonart"],
+          "en": ["Scale (music)|https://en.wikipedia.org/wiki/Scale_(music)", "Key (music)|https://en.wikipedia.org/wiki/Key_(music)"]
+        }
+      },
+      "dissonance": {
+        "title": { "de": "4. Warum manche Töne schief klingen", "en": "4. Why some notes sound off" },
+        "body": {
+          "de": [
+            "Liegen zwei Töne nur einen Halbton auseinander, ist ihr Verhältnis kompliziert (etwa 16:15). Die Wellen laufen ständig gegeneinander, verstärken und löschen sich abwechselnd – man hört ein Flattern oder Rauen. Das nennt man Schwebung.",
+            "Töne außerhalb der Tonart liegen fast immer einen Halbton neben einem Ton der Band. Deshalb klingen sie „schief“ – nicht falsch an sich, aber sie reiben sich mit dem, was gerade erklingt."
+          ],
+          "en": [
+            "When two notes are just a half step apart, their ratio is complicated (about 16:15). The waves keep working against each other, alternately reinforcing and cancelling – you hear a flutter or roughness. This is called beating.",
+            "Notes outside the key almost always sit a half step from a note the band is playing. That's why they sound \"off\" – not wrong in themselves, but they clash with what is sounding right now."
+          ]
+        },
+        "links": {
+          "de": ["Schwebung|https://de.wikipedia.org/wiki/Schwebung", "Konsonanz und Dissonanz|https://de.wikipedia.org/wiki/Konsonanz_und_Dissonanz"],
+          "en": ["Beat (acoustics)|https://en.wikipedia.org/wiki/Beat_(acoustics)", "Consonance and dissonance|https://en.wikipedia.org/wiki/Consonance_and_dissonance"]
+        }
+      },
+      "passing": {
+        "title": { "de": "5. Spannung & Auflösung: der Durchgangston", "en": "5. Tension & release: the passing tone" },
+        "body": {
+          "de": [
+            "Reibung ist in der Musik nicht verboten – sie ist ein Würzmittel. Ein fremder Ton klingt gewollt, wenn er sofort in einen Akkordton „aufgelöst“ wird: Spannung, dann Entspannung.",
+            "Genau das belohnt das Spiel: Spielst du nach einem schiefen Ton direkt einen Nachbarton aus dem Akkord, wird er zum Durchgangston und zählt nicht mehr als Fehler."
+          ],
+          "en": [
+            "Clashes aren't forbidden in music – they're a spice. A foreign note sounds intentional when it immediately \"resolves\" into a chord tone: tension, then release.",
+            "That's exactly what the game rewards: if you follow an off note with a neighboring chord tone, it becomes a passing tone and no longer counts as a mistake."
+          ]
+        },
+        "links": {
+          "de": ["Durchgangston|https://de.wikipedia.org/wiki/Durchgangston", "Auflösung (Musik)|https://de.wikipedia.org/wiki/Aufl%C3%B6sung_(Musik)"],
+          "en": ["Nonchord tone (passing tone)|https://en.wikipedia.org/wiki/Nonchord_tone#Passing_tone", "Resolution (music)|https://en.wikipedia.org/wiki/Resolution_(music)"]
+        }
+      },
+      "melody": {
+        "title": { "de": "6. Melodien bauen", "en": "6. Building melodies" },
+        "body": {
+          "de": [
+            "Die meisten Melodien bewegen sich in kleinen Schritten (Nachbartöne der Tonleiter) und machen ab und zu einen Sprung – am liebsten Terz, Quarte, Quinte oder Oktave. Sprünge um 6 Halbtöne (Tritonus) klingen unruhig.",
+            "Ein guter Bauplan: auf betonten Schlägen (vor allem der „1“) Akkordtöne, dazwischen Schritte. Bekannte Lieder wie „Ode an die Freude“ sind fast genau so gebaut."
+          ],
+          "en": [
+            "Most melodies move in small steps (neighboring scale notes) and now and then make a leap – preferably a third, fourth, fifth or octave. Leaps of 6 half steps (tritone) sound restless.",
+            "A good blueprint: chord tones on strong beats (especially the \"1\"), steps in between. Well-known songs like \"Ode to Joy\" are built almost exactly like that."
+          ]
+        },
+        "links": {
+          "de": ["Melodie|https://de.wikipedia.org/wiki/Melodie", "Oktave|https://de.wikipedia.org/wiki/Oktave"],
+          "en": ["Melody|https://en.wikipedia.org/wiki/Melody", "Octave|https://en.wikipedia.org/wiki/Octave"]
+        }
+      },
+      "rhythm": {
+        "title": { "de": "7. Takt & Rhythmus", "en": "7. Meter & rhythm" },
+        "body": {
+          "de": [
+            "Musik hat einen gleichmäßigen Puls, den Schlag (Beat). Mehrere Schläge bilden einen Takt – bei 4/4 vier, beim Walzer (3/4) drei. Die „1“ ist am stärksten betont.",
+            "Töne genau auf dem Schlag verschmelzen mit dem Rhythmus der Band. Zwischen den Schlägen (Achtel) geht auch – das bringt Schwung. Ganz zufällig gesetzte Töne klingen dagegen holprig.",
+            "Manche Melodien beginnen schon vor der „1“: Das ist ein Auftakt. Bei „When the Saints“ kommt „Oh when the“ noch im Einzählen, erst „saints“ fällt auf die 1. Die Hilfe-Ringe zeigen den Auftakt deshalb schon während des Einzählens.",
+            "Akkorde wechseln meist am Taktanfang, manchmal aber auch mitten im Takt – dann leuchten mitten im Takt andere Tasten."
+          ],
+          "en": [
+            "Music has an even pulse, the beat. Several beats form a bar – four in 4/4, three in a waltz (3/4). The \"1\" is stressed the most.",
+            "Notes right on the beat blend with the band's rhythm. Between the beats (eighth notes) works too – it adds swing. Notes placed at random, however, sound bumpy.",
+            "Some melodies start before the \"1\": that is a pickup (anacrusis). In \"When the Saints\", \"Oh when the\" comes during the count-in, and only \"saints\" lands on the 1. That's why the guide rings show the pickup during the count-in.",
+            "Chords usually change at the start of a bar, but sometimes in the middle – then different keys light up halfway through the bar."
+          ]
+        },
+        "links": {
+          "de": ["Takt (Musik)|https://de.wikipedia.org/wiki/Takt_(Musik)", "Rhythmus (Musik)|https://de.wikipedia.org/wiki/Rhythmus_(Musik)", "Auftakt|https://de.wikipedia.org/wiki/Auftakt"],
+          "en": ["Bar (music)|https://en.wikipedia.org/wiki/Bar_(music)", "Beat (music)|https://en.wikipedia.org/wiki/Beat_(music)", "Anacrusis (pickup)|https://en.wikipedia.org/wiki/Anacrusis"]
+        }
+      },
+      "secondaryDominants": {
+        "title": { "de": "9. Zwischendominanten: Akkorde mit Sog", "en": "9. Secondary dominants: chords that pull" },
+        "body": {
+          "de": [
+            "In jeder Tonart gibt es einen Akkord mit besonders starkem Zug nach Hause: die Dominante (Stufe V). In C-Dur ist das G7 (G-H-D-F). Die Töne H und F wollen sich auflösen – H einen Halbton hoch zum C, F einen Halbton runter zum E. Deshalb klingt G7 → C wie „angekommen“.",
+            "Eine Zwischendominante leiht sich diesen Sog für einen anderen Akkord: Sie ist der Septakkord, der eine Quinte über ihrem Ziel liegt. A7 (A-C♯-E-G) zieht genauso zu Dm wie G7 zu C. Das C♯ gehört eigentlich nicht zu C-Dur – es ist der „Leitton“ zum D.",
+            "Der Ragtime reiht solche Akkorde aneinander: C – A7 – D7 – G7 – C. Jeder Akkord ist die Dominante des nächsten, die Musik „fällt“ in Quinten zurück nach Hause (Quintfall). Dieselbe Kette lieben Jazz und Swing.",
+            "Zum Spielen: Die leuchtenden Spalten zeigen dir auch hier, was passt – inklusive der „fremden“ Töne wie C♯, die über einer Zwischendominante richtig klingen."
+          ],
+          "en": [
+            "Every key has one chord with a particularly strong pull home: the dominant (degree V). In C major that's G7 (G-B-D-F). B and F want to resolve – B up a half step to C, F down a half step to E. That's why G7 → C sounds like \"arriving\".",
+            "A secondary dominant borrows that pull for a different chord: it's the seventh chord a fifth above its target. A7 (A-C♯-E-G) pulls toward Dm just like G7 pulls toward C. The C♯ isn't really part of C major – it's the \"leading tone\" to D.",
+            "Ragtime chains such chords together: C – A7 – D7 – G7 – C. Each chord is the dominant of the next, and the music \"falls\" in fifths back home (circle of fifths). Jazz and swing love the same chain.",
+            "When playing: the glowing lanes still show you what fits – including \"foreign\" notes like C♯ that sound right over a secondary dominant."
+          ]
+        },
+        "links": {
+          "de": ["Zwischendominante|https://de.wikipedia.org/wiki/Zwischendominante", "Dominante|https://de.wikipedia.org/wiki/Dominante", "Quintfallsequenz|https://de.wikipedia.org/wiki/Quintfallsequenz"],
+          "en": ["Secondary dominant|https://en.wikipedia.org/wiki/Secondary_dominant", "Dominant (music)|https://en.wikipedia.org/wiki/Dominant_(music)", "Circle of fifths|https://en.wikipedia.org/wiki/Circle_of_fifths"]
+        }
+      },
+      "grooves": {
+        "title": { "de": "10. Grooves: wo die Betonung liegt", "en": "10. Grooves: where the accent goes" },
+        "body": {
+          "de": [
+            "Jeder Stil betont andere Stellen im Takt – das ist sein „Groove“. Das Spiel belohnt Töne genau dort:",
+            "Ragtime: Synkopen – wichtige Töne kommen zwischen den Schlägen, über einer gleichmäßigen „Oom-pah“-Begleitung.",
+            "Dixieland: Two-Beat – die Tuba spielt auf Schlag 1 und 3, das Banjo schlägt jeden Schlag. Die Achtel sind nur leicht geswingt. Bei der Kollektivimprovisation erfinden alle Bläser gleichzeitig eigene Stimmen um die Melodie herum.",
+            "Swing & Blues: geswingte Achtel (lang-kurz). Der Ton zwischen zwei Schlägen kommt etwa bei zwei Dritteln statt in der Mitte.",
+            "Rock 'n' Roll: Backbeat – Schlag 2 und 4 knallen (Snare).",
+            "Ska: Offbeat – die Gitarre spielt auf jedem „und“ zwischen den Schlägen. Töne dort zählen am meisten.",
+            "Reggae: One Drop – Bassdrum und Rimshot nur auf Schlag 3, die „1“ bleibt leer. Viel Platz, langsam.",
+            "Funk: „the One“ – alles läuft auf Schlag 1 zu, dazwischen kurze Töne im 16tel-Raster.",
+            "Hip-Hop: Boom-Bap – tiefe Bassdrum, harte Snare auf 2 und 4. Alles ist etwas „laid back“ (lässig spät), und Pausen sind genauso wichtig wie Töne. Der Beat stammt oft aus einem „Breakbeat“: der Stelle einer Platte, an der nur das Schlagzeug spielt.",
+            "House & Techno: Four-on-the-floor – die Bassdrum auf jedem Schlag, die offene Hi-Hat genau dazwischen. Maschinen spielen exakt, ohne Swing; Töne auf dem „und“ zählen am meisten."
+          ],
+          "en": [
+            "Every style stresses different places in the bar – that's its \"groove\". The game rewards notes right there:",
+            "Ragtime: syncopation – important notes land between the beats, over a steady \"oom-pah\" accompaniment.",
+            "Dixieland: two-beat – the tuba plays on beats 1 and 3, the banjo strums every beat. The eighths are only lightly swung. In collective improvisation all the horns invent their own parts around the tune at the same time.",
+            "Swing & blues: swung eighths (long-short). The note between two beats comes at about two thirds instead of halfway.",
+            "Rock 'n' roll: backbeat – beats 2 and 4 crack (snare drum).",
+            "Ska: offbeat – the guitar plays on every \"and\" between the beats. Notes there count the most.",
+            "Reggae: one drop – kick drum and rimshot only on beat 3, the \"1\" stays empty. Lots of space, slow.",
+            "Funk: \"the One\" – everything drives toward beat 1, with short notes on a 16th-note grid in between.",
+            "Hip-hop: boom bap – a deep kick, a hard snare on 2 and 4. Everything is a little \"laid back\" (lazily late), and rests matter as much as notes. The beat often comes from a \"breakbeat\": the part of a record where only the drums play.",
+            "House & techno: four-on-the-floor – the kick on every beat, the open hi-hat right in between. Machines play exactly, without swing; notes on the \"and\" count the most."
+          ]
+        },
+        "links": {
+          "de": ["Synkope|https://de.wikipedia.org/wiki/Synkope_(Musik)", "Dixieland|https://de.wikipedia.org/wiki/Dixieland", "Backbeat|https://de.wikipedia.org/wiki/Backbeat", "Offbeat|https://de.wikipedia.org/wiki/Offbeat", "One Drop|https://de.wikipedia.org/wiki/One_Drop", "Breakbeat|https://de.wikipedia.org/wiki/Breakbeat", "4-to-the-floor|https://de.wikipedia.org/wiki/4-to-the-floor", "Groove|https://de.wikipedia.org/wiki/Groove_(Musik)"],
+          "en": ["Syncopation|https://en.wikipedia.org/wiki/Syncopation", "Dixieland|https://en.wikipedia.org/wiki/Dixieland_jazz", "Backbeat|https://en.wikipedia.org/wiki/Backbeat", "Swing|https://en.wikipedia.org/wiki/Swing_(jazz_performance_style)", "One drop|https://en.wikipedia.org/wiki/One_drop_rhythm", "Breakbeat|https://en.wikipedia.org/wiki/Breakbeat", "Four on the floor|https://en.wikipedia.org/wiki/Four_on_the_floor_(music)", "Groove|https://en.wikipedia.org/wiki/Groove_(music)"]
+        }
+      },
+      "blues": {
+        "title": { "de": "8. Blues: Septakkorde, Blue Notes & Shuffle", "en": "8. Blues: seventh chords, blue notes & shuffle" },
+        "body": {
+          "de": [
+            "Der Blues entstand um 1900 bei Afroamerikanern im Süden der USA. Er folgt fast immer dem 12-Takt-Schema: 4 Takte Grundakkord (I), 2 Takte IV, 2 Takte I, dann V – IV – I – V.",
+            "Alle drei Akkorde sind Septakkorde (z.B. C7 = C-E-G-B♭): zum Dreiklang kommt eine kleine Septime. Das klingt etwas unruhig, „dreckig“ – typisch Blues.",
+            "Blue Notes sind die erniedrigte Terz, Quinte und Septime der Tonart (in C: E♭, G♭, B♭). Sänger und Gitarristen ziehen diese Töne oft zwischen zwei Tonhöhen hin und her. Im Blues-Kapitel zählen sie deshalb als passend.",
+            "Shuffle: Die Achtel sind ungleich lang – lang-kurz, lang-kurz („Ta-ka Ta-ka“). Der Ton zwischen den Schlägen kommt also etwas später als in der Mitte."
+          ],
+          "en": [
+            "The blues emerged around 1900 among African Americans in the southern USA. It almost always follows the 12-bar form: 4 bars of the home chord (I), 2 bars IV, 2 bars I, then V – IV – I – V.",
+            "All three chords are seventh chords (e.g. C7 = C-E-G-B♭): a minor seventh is added to the triad. It sounds a bit restless and \"dirty\" – typical blues.",
+            "Blue notes are the flattened third, fifth and seventh of the key (in C: E♭, G♭, B♭). Singers and guitarists often bend them between two pitches. That's why they count as fitting in the blues chapter.",
+            "Shuffle: the eighth notes are uneven – long-short, long-short (\"da-ga da-ga\"). So the note between two beats comes a little later than exactly halfway."
+          ]
+        },
+        "links": {
+          "de": ["Blues|https://de.wikipedia.org/wiki/Blues", "Bluesschema|https://de.wikipedia.org/wiki/Bluesschema", "Blue Note|https://de.wikipedia.org/wiki/Blue_Note", "Septakkord|https://de.wikipedia.org/wiki/Septakkord"],
+          "en": ["Blues|https://en.wikipedia.org/wiki/Blues", "Twelve-bar blues|https://en.wikipedia.org/wiki/Twelve-bar_blues", "Blue note|https://en.wikipedia.org/wiki/Blue_note", "Swing (shuffle)|https://en.wikipedia.org/wiki/Swing_(jazz_performance_style)"]
+        }
+      }
+    }
+  },
+  "hud": {
+    "pause": { "de": "⏸ Pause (Esc)", "en": "⏸ Pause (Esc)" },
+    "resume": { "de": "▶ Weiter (Esc)", "en": "▶ Resume (Esc)" },
+    "on": { "de": "an", "en": "on" },
+    "off": { "de": "aus", "en": "off" },
+    "toggles": { "de": "V Ringe {guide} · C Coach {coach} · Esc Pause", "en": "V rings {guide} · C coach {coach} · Esc pause" },
+    "shield": { "de": "◈ Schild", "en": "◈ Shield" },
+    "doubleJump": { "de": "⇑ Doppelsprung", "en": "⇑ Double jump" },
+    "resonance": { "de": "Resonanz {n}", "en": "Resonance {n}" },
+    "bar": { "de": "Takt {n}", "en": "Bar {n}" },
+    "keyboard": { "de": "Tastatur: {mode} · Okt. {octave} · Vel {velocity}", "en": "Keyboard: {mode} · oct. {octave} · vel {velocity}" },
+    "modeScale": { "de": "Skala", "en": "scale" },
+    "modePiano": { "de": "Klavier", "en": "piano" },
+    "fitsTitle": { "de": "Jetzt passt: {chord} = {notes}", "en": "Fits now: {chord} = {notes}" },
+    "fitsKeys": { "de": "Maus: die farbig leuchtenden Spalten · Tasten: {keys}", "en": "Mouse: the brightly glowing lanes · keys: {keys}" },
+    "fitsWhy": {
+      "de": "Warum? Die Band spielt gerade den Akkord {chord}, also genau diese Töne. Mit ihnen bildet dein Ton einfache Schwingungsverhältnisse (Oktave 2:1, Quinte 3:2, Terz 5:4) – das klingt rund. Mehr: Taste I.",
+      "en": "Why? The band is playing the chord {chord} – exactly these notes. With them your note forms simple vibration ratios (octave 2:1, fifth 3:2, third 5:4), which sounds smooth. More: press I."
+    },
+    "fitsNoKeys": { "de": "mit ↑/↓ die Oktave wechseln", "en": "change octave with ↑/↓" }
+  },
+  "title": {
+    "name": { "de": "♪ Melody Jump ♪", "en": "♪ Melody Jump ♪" },
+    "tagline": {
+      "de": ["Du steuerst den Läufer nicht direkt – du machst Musik.", "Je besser sie zur Band passt, desto höher und weiter springt er."],
+      "en": ["You don't control the runner directly – you make music.", "The better it fits the band, the higher and farther it jumps."]
+    },
+    "tutorial": { "de": "Tutorial", "en": "Tutorial" },
+    "tutorialHintNew": { "de": "T · empfohlen für den Anfang", "en": "T · recommended to start" },
+    "tutorialHintDone": { "de": "T · nochmal üben", "en": "T · practice again" },
+    "play": { "de": "Endlos", "en": "Endless" },
+    "campaign": { "de": "Kampagne", "en": "Campaign" },
+    "campaignHint": { "de": "K · Musikgeschichte: Klassik, Blues …", "en": "K · music history: classical, blues …" },
+    "playHint": { "de": "Enter · Stil wählen: Blues, Reggae …", "en": "Enter · pick a style: blues, reggae …" },
+    "tempo": { "de": "Tempo:", "en": "Speed:" },
+    "sound": { "de": "Klang:", "en": "Sound:" },
+    "sounds": {
+      "synth": { "de": "🎛 Synthesizer", "en": "🎛 Synthesizer" },
+      "samples": { "de": "🎸 Echte Instrumente", "en": "🎸 Real instruments" }
+    },
+    "soundLoading": { "de": "Samples werden geladen … {percent} %", "en": "Loading samples … {percent}%" },
+    "soundReady": { "de": "✓ Samples bereit – jedes Kapitel hat sein eigenes Instrument", "en": "✓ Samples ready – every chapter has its own instrument" },
+    "soundFailed": { "de": "Samples konnten nicht geladen werden – es wird der Synthesizer benutzt", "en": "Samples could not be loaded – using the synthesizer" },
+    "credits": {
+      "de": "Samples: VCSL (CC0) · FluidR3_GM von Frank Wen u.a., gerendert von midi-js-soundfonts (CC BY 3.0) – klicken für Details",
+      "en": "Samples: VCSL (CC0) · FluidR3_GM by Frank Wen et al., rendered by midi-js-soundfonts (CC BY 3.0) – click for details"
+    },
+    "tempos": {
+      "slow": { "de": "🐢 Langsam", "en": "🐢 Slow" },
+      "medium": { "de": "Mittel", "en": "Medium" },
+      "original": { "de": "Original", "en": "Original" }
+    },
+    "help": {
+      "de": [
+        "Maus: klicken = Ton · links tief, rechts hoch · oben laut, unten leise · halten = Ton halten",
+        "Tastatur: A S D F G H J K L = weiße Tasten · W E T Z U O P = schwarze · ↑/↓ Oktave · 1–5 / Shift = Lautstärke",
+        "Tab Skalenmodus · V Hilfe-Ringe · C Coach · I Musik verstehen · M Begleitung · Esc Pause · F3 Debug · Ü / + Latenz"
+      ],
+      "en": [
+        "Mouse: click = note · left low, right high · top loud, bottom soft · hold = sustain",
+        "Keyboard: A S D F G H J K L = white keys · W E T Y U O P = black keys · ↑/↓ octave · 1–5 / Shift = volume",
+        "Tab scale mode · V guide rings · C coach · I understanding music · M backing band · Esc pause · F3 debug · [ ] latency"
+      ]
+    },
+    "language": { "de": "L · Sprache: {language}", "en": "L · Language: {language}" },
+    "best": { "de": "Bestwert: {n}", "en": "Best: {n}" }
+  },
+  "credits": {
+    "button": { "de": "ⓘ Lizenzen & Quellen", "en": "ⓘ Licenses & sources" },
+    "title": { "de": "Lizenzen & Quellen", "en": "Licenses & sources" },
+    "intro": {
+      "de": "Standardmäßig klingt alles aus dem eingebauten Synthesizer. Wählst du „🎸 Echte Instrumente“, spielt das Spiel aufgenommene Instrumente aus diesen freien Sammlungen. Danke an alle, die sie erstellt haben!",
+      "en": "By default everything comes from the built-in synthesizer. If you choose \"🎸 Real instruments\", the game plays recorded instruments from these free collections. Thanks to everyone who made them!"
+    },
+    "license": { "de": "Lizenz:", "en": "License:" },
+    "sources": {
+      "vcsl": {
+        "name": { "de": "VCSL – Versilian Community Sample Library", "en": "VCSL – Versilian Community Sample Library" },
+        "instruments": {
+          "de": "Klavier und Tenorsaxophon (in mehreren Anschlagstärken), Mundharmonika, Snare, Hi-Hat, Becken, Klatschen",
+          "en": "Piano and tenor sax (in several dynamics), harmonica, snare, hi-hat, cymbal, claps"
+        },
+        "by": { "de": "Von Versilian Studios und der VCSL-Community.", "en": "By Versilian Studios and the VCSL community." },
+        "license": { "de": "CC0 1.0 (gemeinfrei)|https://creativecommons.org/publicdomain/zero/1.0/deed.de", "en": "CC0 1.0 (public domain)|https://creativecommons.org/publicdomain/zero/1.0/" },
+        "source": { "de": "Quelle auf GitHub|https://github.com/sgossner/VCSL", "en": "Source on GitHub|https://github.com/sgossner/VCSL" }
+      },
+      "kick": {
+        "name": { "de": "Bassdrum (Schlagzeug)", "en": "Kick drum (drum set)" },
+        "instruments": { "de": "Die Bassdrum der Bands", "en": "The bands' kick drum" },
+        "by": {
+          "de": "„drum_bass_hard“ von menegass auf freesound.org, aus der Sample-Sammlung von Sonic Pi.",
+          "en": "\"drum_bass_hard\" by menegass on freesound.org, from the Sonic Pi sample collection."
+        },
+        "license": { "de": "CC0 1.0 (gemeinfrei)|https://creativecommons.org/publicdomain/zero/1.0/deed.de", "en": "CC0 1.0 (public domain)|https://creativecommons.org/publicdomain/zero/1.0/" },
+        "source": { "de": "Quelle auf freesound.org|https://freesound.org/people/menegass/sounds/100051/", "en": "Source on freesound.org|https://freesound.org/people/menegass/sounds/100051/" }
+      },
+      "fluid": {
+        "name": { "de": "FluidR3_GM-Soundfont", "en": "FluidR3_GM soundfont" },
+        "instruments": {
+          "de": "E-Gitarre, verzerrte Gitarre, E-Bass, Kontrabass, Orgel, Trompete, Clavinet",
+          "en": "Electric guitar, overdriven guitar, bass guitar, upright bass, organ, trumpet, clavinet"
+        },
+        "by": {
+          "de": "Soundfont von Frank Wen und Mitwirkenden, als MP3 gerendert vom Projekt midi-js-soundfonts (Benjamin Gleitzman).",
+          "en": "Soundfont by Frank Wen and contributors, rendered to MP3 by the midi-js-soundfonts project (Benjamin Gleitzman)."
+        },
+        "license": { "de": "CC BY 3.0 (Namensnennung)|https://creativecommons.org/licenses/by/3.0/deed.de", "en": "CC BY 3.0 (attribution)|https://creativecommons.org/licenses/by/3.0/" },
+        "source": { "de": "Quelle auf GitHub|https://github.com/gleitz/midi-js-soundfonts", "en": "Source on GitHub|https://github.com/gleitz/midi-js-soundfonts" }
+      }
+    },
+    "notes": {
+      "de": [
+        "Änderungen an den Samples: Stille am Anfang entfernt, auf 0,25–3 Sekunden gekürzt und ausgeblendet, in Mono-MP3 umgewandelt. Die Tonhöhen wurden nachgemessen.",
+        "Melodien: gemeinfrei (z.B. Beethoven, Joplin, Foster, Volkslieder) oder eigens für dieses Spiel komponiert."
+      ],
+      "en": [
+        "Changes to the samples: leading silence removed, cut to 0.25–3 seconds with a fade-out, converted to mono MP3. Pitches were verified by measurement.",
+        "Melodies: public domain (e.g. Beethoven, Joplin, Foster, folk songs) or composed for this game."
+      ]
+    }
+  },
+  "endless": {
+    "title": { "de": "Endlos: Zu welcher Musik willst du jammen?", "en": "Endless: what music do you want to jam to?" },
+    "hint": {
+      "de": "Die Band spielt ohne Ende in diesem Stil – du spielst dazu. Es wird mit der Zeit schneller.",
+      "en": "The band plays this style without end – you play along. It gets faster over time."
+    },
+    "back": { "de": "← Zurück (Esc)", "en": "← Back (Esc)" },
+    "keys": {
+      "de": "Klicken oder Zahl (1–9, 0) = los · Pfeiltasten + Enter = wählen · Esc = zurück",
+      "en": "Click or number (1–9, 0) = start · arrow keys + Enter = choose · Esc = back"
+    },
+    "styles": {
+      "mixed": {
+        "name": { "de": "🎲 Gemischt", "en": "🎲 Mixed" },
+        "hint": {
+          "de": "Erst bekannte Melodien, dann wechselt der Stil bei jedem Abschnitt.",
+          "en": "Known tunes first, then the style changes with every section."
+        }
+      },
+      "classic": {
+        "name": { "de": "🎻 Klassik & Volkslied", "en": "🎻 Classical & folk" },
+        "hint": {
+          "de": "Gerade Achtel, Dur und Moll, manchmal Walzer (3/4-Takt).",
+          "en": "Straight eighths, major and minor, sometimes waltz (3/4 time)."
+        }
+      },
+      "ragtime": {
+        "name": { "de": "🎹 Ragtime", "en": "🎹 Ragtime" },
+        "hint": {
+          "de": "Oom-pah-Klavier. Töne zwischen den Schlägen (Synkopen) zählen fast voll.",
+          "en": "Oom-pah piano. Notes between the beats (syncopation) count almost fully."
+        }
+      },
+      "blues": {
+        "name": { "de": "🎷 Blues", "en": "🎷 Blues" },
+        "hint": {
+          "de": "12-Takt-Schema im Shuffle. Blue Notes (b3, b5, b7) sind erwünscht.",
+          "en": "12-bar form with a shuffle. Blue notes (b3, b5, b7) are welcome."
+        }
+      },
+      "dixieland": {
+        "name": { "de": "🎺 Dixieland", "en": "🎺 Dixieland" },
+        "hint": {
+          "de": "Tuba auf 1 und 3 (Two-Beat), Banjo, leicht geswingte Achtel.",
+          "en": "Tuba on 1 and 3 (two-beat), banjo, lightly swung eighths."
+        }
+      },
+      "swing": {
+        "name": { "de": "💃 Swing", "en": "💃 Swing" },
+        "hint": {
+          "de": "Walking Bass, ii – V – I. Schlag 2 und 4 fühlen, Achtel „lang-kurz“.",
+          "en": "Walking bass, ii – V – I. Feel beats 2 and 4, eighths \"long-short\"."
+        }
+      },
+      "rock": {
+        "name": { "de": "🎸 Rock 'n' Roll", "en": "🎸 Rock 'n' roll" },
+        "hint": {
+          "de": "Schnell, 12-Takt-Schema, Backbeat: Schlag 2 und 4 zählen mehr.",
+          "en": "Fast, 12-bar form, backbeat: beats 2 and 4 count more."
+        }
+      },
+      "ska": {
+        "name": { "de": "🕺 Ska", "en": "🕺 Ska" },
+        "hint": {
+          "de": "Die Gitarre spielt auf dem „und“. Offbeats zählen am meisten.",
+          "en": "The guitar plays on the \"and\". Offbeats count the most."
+        }
+      },
+      "reggae": {
+        "name": { "de": "🌴 Reggae", "en": "🌴 Reggae" },
+        "hint": {
+          "de": "Langsam, oft Moll. One Drop: Das Gewicht liegt auf Schlag 3.",
+          "en": "Slow, often minor. One drop: the weight is on beat 3."
+        }
+      },
+      "funk": {
+        "name": { "de": "🪩 Funk & Disco", "en": "🪩 Funk & disco" },
+        "hint": {
+          "de": "Ein Akkord, viel Groove. „The One“ (Schlag 1) und 16tel zählen.",
+          "en": "One chord, lots of groove. \"The One\" (beat 1) and 16ths count."
+        }
+      },
+      "hiphop": {
+        "name": { "de": "🎤 Hip-Hop", "en": "🎤 Hip-hop" },
+        "hint": {
+          "de": "Boom-Bap-Beat, Snare auf 2 und 4, lässig spät. Lass Platz für Pausen.",
+          "en": "Boom-bap beat, snare on 2 and 4, laid back. Leave room for rests."
+        }
+      },
+      "electronic": {
+        "name": { "de": "🎛 House & Techno", "en": "🎛 House & techno" },
+        "hint": {
+          "de": "Bassdrum auf jedem Schlag, Hi-Hat dazwischen: Offbeats zählen am meisten.",
+          "en": "Kick on every beat, hi-hat in between: offbeats count the most."
+        }
+      }
+    }
+  },
+  "campaign": {
+    "title": { "de": "Kampagne: Eine Reise durch die Musikgeschichte", "en": "Campaign: A journey through music history" },
+    "hint": {
+      "de": "Alle verfügbaren Kapitel sind frei wählbar – probier einfach aus, was dich interessiert.",
+      "en": "All available chapters can be played in any order – just try whatever interests you."
+    },
+    "back": { "de": "← Zurück (Esc)", "en": "← Back (Esc)" },
+    "soon": { "de": "bald", "en": "soon" },
+    "soonLong": { "de": "Dieses Kapitel ist in Arbeit und kommt bald.", "en": "This chapter is in the works and coming soon." },
+    "wiki": { "de": "Mehr auf Wikipedia ↗", "en": "More on Wikipedia ↗" },
+    "whatsNew": { "de": "So klingt es / so spielst du:", "en": "How it sounds / how to play:" },
+    "level": { "de": "Level {n}", "en": "Level {n}" },
+    "progress": { "de": "Level {level} · {percent} %", "en": "Level {level} · {percent}%" },
+    "chapters": {
+      "folk": {
+        "name": { "de": "Volkslied & Klassik", "en": "Folk & Classical" },
+        "years": { "de": "bis 19. Jh.", "en": "until 19th c." },
+        "intro": {
+          "de": ["Lieder, die seit Generationen gesungen werden, und Melodien großer Komponisten wie Beethoven.", "Sie sind meist in Dur oder Moll und bauen auf einfachen Dreiklängen auf."],
+          "en": ["Songs sung for generations and melodies by great composers like Beethoven.", "They're usually in major or minor and built on simple triads."]
+        },
+        "play": {
+          "de": ["Folge den Ringen – sie zeigen die bekannte Melodie.", "Gerader Takt, Akkordtöne auf der „1“."],
+          "en": ["Follow the rings – they show the well-known melody.", "Straight rhythm, chord tones on the \"1\"."]
+        },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Volkslied", "en": "https://en.wikipedia.org/wiki/Folk_music" }
+      },
+      "ragtime": {
+        "name": { "de": "Ragtime", "en": "Ragtime" },
+        "years": { "de": "ca. 1895–1918", "en": "c. 1895–1918" },
+        "intro": {
+          "de": ["Klaviermusik aus den USA: links ein gleichmäßiges „Oom-pah“, rechts eine verschobene, „zerrissene“ (ragged) Melodie."],
+          "en": ["Piano music from the USA: a steady \"oom-pah\" in the left hand, a shifted, \"ragged\" melody in the right."]
+        },
+        "play": {
+          "de": ["Synkopen: wichtige Töne kommen zwischen den Schlägen – sie zählen hier fast so viel wie Töne auf dem Schlag.", "Chromatische Vorhalte (D–D♯–E) lösen sich in Akkordtöne auf.", "Level 3: Zwischendominanten C – A7 – D7 – G7 (siehe „Musik verstehen“, Taste I)."],
+          "en": ["Syncopation: important notes land between the beats – they count almost as much as notes on the beat.", "Chromatic approach notes (D–D♯–E) resolve into chord tones.", "Level 3: secondary dominants C – A7 – D7 – G7 (see \"Understanding music\", key I)."]
+        },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Ragtime", "en": "https://en.wikipedia.org/wiki/Ragtime" }
+      },
+      "blues": {
+        "name": { "de": "Blues", "en": "Blues" },
+        "years": { "de": "ab ca. 1900", "en": "from c. 1900" },
+        "intro": {
+          "de": [
+            "Entstanden um 1900 bei Afroamerikanern im Süden der USA – Wurzel von Jazz, Rock und Pop.",
+            "Fast immer im 12-Takt-Schema: I I I I · IV IV I I · V IV I V, alles Septakkorde (z.B. C7)."
+          ],
+          "en": [
+            "Born around 1900 among African Americans in the southern USA – the root of jazz, rock and pop.",
+            "Almost always the 12-bar form: I I I I · IV IV I I · V IV I V, all seventh chords (e.g. C7)."
+          ]
+        },
+        "play": {
+          "de": [
+            "Blue Notes (in C: E♭, G♭, B♭) sind hier erwünscht – sie leuchten blau.",
+            "Shuffle: Töne zwischen den Schlägen etwas später spielen („lang-kurz“).",
+            "Level 3 ist eine Jam-Session ohne Vorlage: improvisiere!"
+          ],
+          "en": [
+            "Blue notes (in C: E♭, G♭, B♭) are welcome here – they glow blue.",
+            "Shuffle: play notes between the beats a little late (\"long-short\").",
+            "Level 3 is a jam session without a tune: improvise!"
+          ]
+        },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Blues", "en": "https://en.wikipedia.org/wiki/Blues" }
+      },
+      "dixieland": {
+        "name": { "de": "Dixieland", "en": "Dixieland" },
+        "years": { "de": "1910er–1920er", "en": "1910s–1920s" },
+        "intro": {
+          "de": [
+            "Der frühe Jazz aus New Orleans: kleine Bands mit Trompete, Klarinette, Posaune, Banjo und Tuba – oft auf der Straße bei Paraden.",
+            "Typisch ist die Kollektivimprovisation: Alle Bläser erfinden gleichzeitig ihre eigene Stimme, die Trompete spielt die Melodie, die anderen umspielen sie."
+          ],
+          "en": [
+            "Early jazz from New Orleans: small bands with trumpet, clarinet, trombone, banjo and tuba – often on the street in parades.",
+            "Typical is collective improvisation: all the horns invent their own part at the same time; the trumpet plays the tune, the others weave around it."
+          ]
+        },
+        "play": {
+          "de": [
+            "Two-Beat: Die Tuba spielt auf Schlag 1 und 3 – Töne dort zählen etwas mehr.",
+            "Achtel nur leicht geswingt: etwas lang-kurz, aber weniger als im Swing.",
+            "Level 1+2: „When the Saints Go Marching In“, der Dixieland-Klassiker.",
+            "Level 3: Jam – spiel wie die Trompete eine eigene Stimme über die Akkorde."
+          ],
+          "en": [
+            "Two-beat: the tuba plays on beats 1 and 3 – notes there count a bit more.",
+            "Eighths only lightly swung: a little long-short, but less than in swing.",
+            "Levels 1+2: \"When the Saints Go Marching In\", the Dixieland classic.",
+            "Level 3: jam – play your own part over the chords, like the trumpet."
+          ]
+        },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Dixieland", "en": "https://en.wikipedia.org/wiki/Dixieland_jazz" }
+      },
+      "swing": {
+        "name": { "de": "Swing", "en": "Swing" },
+        "years": { "de": "1930er–1945", "en": "1930s–1945" },
+        "intro": { "de": ["Jazz für Tanzsäle: Big Bands, Walking Bass und geswingte Achtel. Die Bläser spielen kurze, wiederholte Motive, sogenannte Riffs."], "en": ["Jazz for dance halls: big bands, walking bass and swung eighths. The horns play short repeated phrases called riffs."] },
+        "play": { "de": ["Swing-Feeling: Achtel lang-kurz statt gleichmäßig.", "Schlag 2 und 4 fühlen sich betont an (Hi-Hat).", "Level 1+2: „Swing-Riff“, eine eigene Melodie aus kurzen Riffs.", "Level 3: Jam über ii – V7 – I – VI7, die Lieblingsfolge des Jazz."], "en": ["Swing feel: eighths long-short instead of even.", "Beats 2 and 4 feel accented (hi-hat).", "Levels 1+2: \"Swing Riff\", an original tune made of short riffs.", "Level 3: jam over ii – V7 – I – VI7, jazz's favorite progression."] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Swing_(Musikrichtung)", "en": "https://en.wikipedia.org/wiki/Swing_music" }
+      },
+      "rocknroll": {
+        "name": { "de": "Rock 'n' Roll", "en": "Rock 'n' Roll" },
+        "years": { "de": "ca. 1954–1959", "en": "c. 1954–1959" },
+        "intro": { "de": ["Der Blues wird schnell und laut: E-Gitarre, Kontrabass, harter Backbeat."], "en": ["The blues gets fast and loud: electric guitar, upright bass, hard backbeat."] },
+        "play": { "de": ["Backbeat: Töne auf Schlag 2 und 4 zählen extra.", "Boogie-Riff: Grundton – Terz – Quinte – Sexte, durch das Blues-Schema.", "Schnell! Im Zweifel Tempo „Langsam“ wählen."], "en": ["Backbeat: notes on beats 2 and 4 count extra.", "Boogie riff: root – third – fifth – sixth, through the blues form.", "Fast! If in doubt, pick the \"Slow\" speed."] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Rock_%E2%80%99n%E2%80%99_Roll", "en": "https://en.wikipedia.org/wiki/Rock_and_roll" }
+      },
+      "ska": {
+        "name": { "de": "Ska", "en": "Ska" },
+        "years": { "de": "ca. 1959–1966", "en": "c. 1959–1966" },
+        "intro": { "de": ["Aus Jamaika: Mento, Calypso und amerikanischer R&B verschmelzen – die Gitarre spielt auf jedem „und“."], "en": ["From Jamaica: mento, calypso and American R&B merge – the guitar plays on every \"and\"."] },
+        "play": { "de": ["Offbeat: Töne genau zwischen den Schlägen („und“) zählen am meisten!", "Level 3: Jam – versuch, nur auf den Offbeats zu spielen."], "en": ["Offbeat: notes exactly between the beats (\"and\") count the most!", "Level 3: jam – try playing only on the offbeats."] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Ska", "en": "https://en.wikipedia.org/wiki/Ska" }
+      },
+      "reggae": {
+        "name": { "de": "Rocksteady & Reggae", "en": "Rocksteady & Reggae" },
+        "years": { "de": "1966 → ab 1968", "en": "1966 → from 1968" },
+        "intro": { "de": ["Ska wird langsamer: Rocksteady, dann Reggae mit dem „One Drop“-Schlagzeug."], "en": ["Ska slows down: rocksteady, then reggae with the \"one drop\" drum beat."] },
+        "play": { "de": ["One Drop: Schlag 3 ist der stärkste – Töne dort zählen extra.", "Langsam und mit Pausen spielen, Moll-Tonart."], "en": ["One drop: beat 3 is the strongest – notes there count extra.", "Play slowly and leave gaps, minor key."] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Reggae", "en": "https://en.wikipedia.org/wiki/Reggae" }
+      },
+      "funk": {
+        "name": { "de": "Funk & Disco", "en": "Funk & Disco" },
+        "years": { "de": "ab ca. 1965 → 1970er", "en": "from c. 1965 → 1970s" },
+        "intro": { "de": ["Groove pur: alles dreht sich um „the One“. Funk beginnt schon Mitte der 60er, seinen Höhepunkt hat er mit Disco in den 70ern."], "en": ["Pure groove: everything revolves around \"the One\". Funk starts in the mid-60s and peaks together with disco in the 70s."] },
+        "play": { "de": ["„The One“: Töne auf Schlag 1 zählen stark extra.", "Kurze Töne, auch im 16tel-Raster – Pausen gehören zum Groove.", "Level 3: Jam über einen einzigen Akkord (E7) – nur Groove!"], "en": ["\"The One\": notes on beat 1 count a lot extra.", "Short notes, also on the 16th grid – rests are part of the groove.", "Level 3: jam over a single chord (E7) – pure groove!"] },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Funk_(Musik)", "en": "https://en.wikipedia.org/wiki/Funk" }
+      },
+      "hiphop": {
+        "name": { "de": "Hip-Hop", "en": "Hip-Hop" },
+        "years": { "de": "ab 1973", "en": "from 1973" },
+        "intro": {
+          "de": [
+            "Entstanden 1973 auf Block-Partys in der Bronx (New York): DJs spielten mit zwei Plattenspielern immer wieder die Stelle eines Funk-Stücks, an der nur Schlagzeug läuft – den „Breakbeat“. Darüber sprachen MCs ihre Reime: der Rap.",
+            "Später bauten Produzenten die Beats mit Drumcomputern und „Samples“, also kurzen Ausschnitten aus alten Platten, die in einer Schleife laufen."
+          ],
+          "en": [
+            "Born in 1973 at block parties in the Bronx (New York): DJs used two turntables to repeat the part of a funk record where only the drums play – the \"breakbeat\". MCs spoke their rhymes over it: rap.",
+            "Later, producers built beats with drum machines and \"samples\" – short snippets of old records played in a loop."
+          ]
+        },
+        "play": {
+          "de": [
+            "Boom-Bap: tiefe Bassdrum („boom“), harte Snare auf 2 und 4 („bap“) – Töne auf 2 und 4 zählen extra.",
+            "Lässig („laid back“): Töne zwischen den Schlägen ruhig etwas spät spielen.",
+            "Lass Platz! Pausen gehören zum Hook – nicht jeder Schlag braucht einen Ton.",
+            "Level 3: Jam über eine Moll-Schleife – erfinde deinen eigenen Hook."
+          ],
+          "en": [
+            "Boom bap: a deep kick (\"boom\"), a hard snare on 2 and 4 (\"bap\") – notes on 2 and 4 count extra.",
+            "Laid back: feel free to play notes between the beats a little late.",
+            "Leave space! Rests are part of the hook – not every beat needs a note.",
+            "Level 3: jam over a minor loop – invent your own hook."
+          ]
+        },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/Hip-Hop_(Musik)", "en": "https://en.wikipedia.org/wiki/Hip-hop_music" }
+      },
+      "electronic": {
+        "name": { "de": "House & Techno", "en": "House & Techno" },
+        "years": { "de": "ab ca. 1984", "en": "from c. 1984" },
+        "intro": {
+          "de": [
+            "Mitte der 1980er in Chicago (House) und Detroit (Techno): DJs und Produzenten machen Tanzmusik ganz mit Drumcomputern und Synthesizern – Disco ohne Band.",
+            "Das Herz ist „Four-on-the-floor“: Die Bassdrum schlägt auf jeden Schlag, die offene Hi-Hat zischt genau dazwischen."
+          ],
+          "en": [
+            "In the mid-1980s in Chicago (house) and Detroit (techno): DJs and producers make dance music entirely with drum machines and synthesizers – disco without a band.",
+            "Its heart is \"four-on-the-floor\": the kick drum hits every beat, the open hi-hat hisses right in between."
+          ]
+        },
+        "play": {
+          "de": [
+            "Offbeat: Töne genau zwischen den Kicks („und“) zählen am meisten – dort, wo die Hi-Hat zischt.",
+            "Gerade Achtel, kein Swing: Maschinen spielen exakt.",
+            "Dein Instrument ist der Synthesizer – auch bei „Echte Instrumente“.",
+            "Level 3: Jam in a-Moll, schnell und gleichmäßig wie im Club."
+          ],
+          "en": [
+            "Offbeat: notes exactly between the kicks (\"and\") count the most – where the hi-hat hisses.",
+            "Straight eighths, no swing: machines play exactly.",
+            "Your instrument is the synthesizer – also with \"Real instruments\".",
+            "Level 3: jam in A minor, fast and steady like in a club."
+          ]
+        },
+        "wikiUrl": { "de": "https://de.wikipedia.org/wiki/House-Musik", "en": "https://en.wikipedia.org/wiki/House_music" }
+      }
+    }
+  },
+  "levelComplete": {
+    "title": { "de": "Level geschafft! 🎉", "en": "Level complete! 🎉" },
+    "stats": { "de": "Punkte: {score} · Ø Resonanz: {resonance}", "en": "Score: {score} · avg. resonance: {resonance}" },
+    "starsHint": {
+      "de": "★ geschafft · ★★ Ø Resonanz ab 45 · ★★★ Ø Resonanz ab 65 und höchstens ein Leben verloren",
+      "en": "★ finished · ★★ avg. resonance 45+ · ★★★ avg. resonance 65+ and at most one life lost"
+    },
+    "next": { "de": "Nächstes Level (Enter)", "en": "Next level (Enter)" },
+    "retry": { "de": "Nochmal (R)", "en": "Retry (R)" },
+    "map": { "de": "Zur Karte (M)", "en": "To the map (M)" }
+  },
+  "review": {
+    "stats": { "de": "{notes} Töne · Akkordtöne: {chord} % · im Takt: {grid} %", "en": "{notes} notes · chord tones: {chord}% · in time: {grid}%" },
+    "statsRings": {
+      "de": "{notes} Töne · Akkordtöne: {chord} % · im Takt: {grid} % · Ringe: {hits} von {total}",
+      "en": "{notes} notes · chord tones: {chord}% · in time: {grid}% · rings: {hits} of {total}"
+    },
+    "tip": { "de": "Tipp fürs nächste Mal: {tip}", "en": "Tip for next time: {tip}" }
+  },
+  "gameOver": {
+    "title": { "de": "Verstummt …", "en": "Silenced …" },
+    "stats": { "de": "Punkte: {score}   ·   Takte: {bars}", "en": "Score: {score}   ·   Bars: {bars}" },
+    "best": { "de": "Bestwert: {n}", "en": "Best: {n}" },
+    "retry": { "de": "Klicken oder Enter für neuen Versuch", "en": "Click or press Enter to try again" },
+    "options": { "de": "T = Tutorial · Q = Hauptmenü", "en": "T = tutorial · Q = main menu" },
+    "campaignOptions": { "de": "Enter / R = nochmal · M = Karte · Q = Hauptmenü", "en": "Enter / R = retry · M = map · Q = main menu" }
+  },
+  "pause": {
+    "title": { "de": "Pause", "en": "Paused" },
+    "hint": { "de": "In Ruhe lesen – die Texte bleiben stehen. Weiter mit Esc.", "en": "Read at your own pace – the texts stay on screen. Resume with Esc." },
+    "buttons": {
+      "resume": { "de": "▶ Weiter", "en": "▶ Resume" },
+      "settings": { "de": "⚙ Einstellungen", "en": "⚙ Settings" },
+      "theory": { "de": "📖 Musik verstehen", "en": "📖 Understanding music" },
+      "menu": { "de": "Hauptmenü", "en": "Main menu" }
+    },
+    "settings": {
+      "band": { "de": "Band:", "en": "Band:" },
+      "player": { "de": "Dein Instrument:", "en": "Your instrument:" },
+      "percent": { "de": "{n} %", "en": "{n}%" }
+    }
+  },
+  "announce": {
+    "start": { "de": "Los geht's", "en": "Here we go" },
+    "next": { "de": "Gleich: {name}", "en": "Coming up: {name}" },
+    "faster": { "de": "schneller", "en": "faster" },
+    "slower": { "de": "langsamer", "en": "slower" },
+    "meter": { "de": "{n}/4-Takt", "en": "{n}/4 time" },
+    "newKey": { "de": "neue Tonart", "en": "new key" },
+    "melody": {
+      "de": "♪ Bekannte Melodie – folge den Ringen und spiel sie mit!",
+      "en": "♪ A tune you know – follow the rings and play along!"
+    }
+  },
+  "instruments": {
+    "piano": { "de": "Klavier", "en": "Piano" },
+    "sax": { "de": "Tenorsaxophon", "en": "Tenor sax" },
+    "harmonica": { "de": "Mundharmonika", "en": "Harmonica" },
+    "guitar": { "de": "E-Gitarre", "en": "Electric guitar" },
+    "overdrive": { "de": "Verzerrte Gitarre", "en": "Overdriven guitar" },
+    "bass": { "de": "E-Bass", "en": "Bass guitar" },
+    "uprightBass": { "de": "Kontrabass", "en": "Upright bass" },
+    "organ": { "de": "Orgel", "en": "Organ" },
+    "trumpet": { "de": "Trompete", "en": "Trumpet" },
+    "clavinet": { "de": "Clavinet", "en": "Clavinet" },
+    "synth": { "de": "Synthesizer", "en": "Synthesizer" }
+  },
+  "flash": {
+    "instrument": { "de": "Dein Instrument: {name}", "en": "Your instrument: {name}" },
+    "samplesReady": { "de": "Samples geladen ✓", "en": "Samples loaded ✓" },
+    "samplesFailed": { "de": "Samples nicht verfügbar – Synthesizer", "en": "Samples unavailable – synthesizer" },
+    "latency": { "de": "Latenz-Offset {ms} ms", "en": "Latency offset {ms} ms" },
+    "backingOn": { "de": "Begleitung an", "en": "Backing band on" },
+    "backingOff": { "de": "Begleitung aus", "en": "Backing band off" },
+    "guideOn": { "de": "Hilfe-Ringe an", "en": "Guide rings on" },
+    "guideOff": { "de": "Hilfe-Ringe aus", "en": "Guide rings off" },
+    "coachOn": { "de": "Coach an", "en": "Coach on" },
+    "coachOff": { "de": "Coach aus", "en": "Coach off" },
+    "language": { "de": "Sprache: Deutsch", "en": "Language: English" },
+    "shieldGained": { "de": "Akkord! Schild", "en": "Chord! Shield" },
+    "doubleJumpGained": { "de": "Oktave! Doppelsprung", "en": "Octave! Double jump" },
+    "enemy": { "de": "Misston!", "en": "Sour note!" },
+    "coin": { "de": "♫ +100", "en": "♫ +100" },
+    "regen": { "de": "Harmonie! +1 ♥", "en": "Harmony! +1 ♥" },
+    "hurt": { "de": "−1 ♥", "en": "−1 ♥" },
+    "hurtTutorial": { "de": "Autsch! Mehr Resonanz = höher springen", "en": "Ouch! More resonance = higher jumps" },
+    "shieldHolds": { "de": "Schild hält!", "en": "Shield holds!" },
+    "doubleJump": { "de": "Doppelsprung!", "en": "Double jump!" },
+    "stomp": { "de": "Misston besiegt +50", "en": "Sour note defeated +50" },
+    "monster": { "de": "👾 Pixelmonster! Spring mit Resonanz drüber", "en": "👾 Pixel monster! Jump over it with resonance" },
+    "midi": { "de": "🎹 MIDI-Keyboard: {name}", "en": "🎹 MIDI keyboard: {name}" },
+    "monsterCleared": { "de": "👾 Monster übersprungen +50", "en": "👾 Monster cleared +50" }
+  }
+}

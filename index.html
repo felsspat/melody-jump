@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Melody Jump</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #0d0b1a; overflow: hidden; }
+      canvas { display: block; width: 100vw; height: 100vh; cursor: crosshair; touch-action: none; }
+
+      /* "Understanding music" overlay */
+      .theory-backdrop {
+        position: fixed; inset: 0; background: rgba(8, 6, 20, 0.7);
+        display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 10;
+        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      }
+      .theory-backdrop[hidden] { display: none; }
+      .theory-card {
+        background: #15112b; color: #eee; border: 1.5px solid rgba(255, 215, 90, 0.6); border-radius: 14px;
+        width: min(760px, 100%); max-height: min(86vh, 900px); display: flex; flex-direction: column;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+      .theory-header {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        padding: 16px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .theory-header h2 { margin: 0; font-size: 22px; color: #ffd75a; }
+      .theory-header button {
+        background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px; padding: 8px 14px; font: inherit; cursor: pointer;
+      }
+      .theory-header button:hover { background: rgba(255, 255, 255, 0.16); }
+      .theory-body { overflow-y: auto; padding: 4px 20px 20px; line-height: 1.55; font-size: 15px; }
+      .theory-intro { color: rgba(255, 255, 255, 0.75); }
+      .theory-body section { padding: 10px 14px; margin: 10px -14px; border-radius: 10px; }
+      .theory-body section.focus { background: rgba(255, 215, 90, 0.1); outline: 1.5px solid rgba(255, 215, 90, 0.5); }
+      .theory-body h3 { margin: 4px 0 6px; font-size: 17px; color: #9fd8ff; }
+      .theory-body p { margin: 6px 0; }
+      .theory-links { font-size: 14px; color: rgba(255, 255, 255, 0.6); }
+      .theory-links a { color: #8cdcff; }
+    </style>
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+import { describe, expect, it } from 'vitest';
+import { Song } from '../src/music/Song';
+import { INTRO_SECTIONS, LevelGen, makeRng, makeSectionGenerator } from '../src/world/Level';
+import { MONSTER_GRID, Obstacle, PX_PER_BEAT, canClear, jumpShape, minResonanceFor } from '../src/world/physics';
+import { MONSTER_SHAPES, MONSTER_W, monsterPalette, monsterRows } from '../src/render/sprites';
+
+describe('Jump physics', () => {
+  it('higher resonance = higher, longer jump', () => {
+    expect(jumpShape(100).height).toBeGreaterThan(jumpShape(0).height);
+    expect(jumpShape(100).duration).toBeGreaterThan(jumpShape(0).duration);
+  });
+
+  it('wide gaps need more resonance', () => {
+    const narrow: Obstacle = { kind: 'gap', beat: 10, width: 0.5, height: 0, minResonance: 0 };
+    const wide: Obstacle = { kind: 'gap', beat: 10, width: 2, height: 0, minResonance: 0 };
+    expect(minResonanceFor(wide)).toBeGreaterThan(minResonanceFor(narrow));
+    expect(canClear(wide, minResonanceFor(wide))).toBe(true);
+  });
+
+  it('tall walls need more resonance', () => {
+    const low: Obstacle = { kind: 'wall', beat: 10, width: 0.5, height: 40, minResonance: 0 };
+    const high: Obstacle = { kind: 'wall', beat: 10, width: 0.5, height: 200, minResonance: 0 };
+    expect(minResonanceFor(high)).toBeGreaterThan(minResonanceFor(low));
+  });
+});
+
+describe('Song & Level', () => {
+  it('returns chords and bars correctly', () => {
+    const song = new Song(INTRO_SECTIONS, makeSectionGenerator(makeRng(1)));
+    const p0 = song.positionAt(0);
+    expect(p0.chord.name).toBe('C');
+    expect(song.positionAt(4).chord.name).toBe('F'); // Twinkle: C – F – F – C …
+    expect(song.positionAt(5.5).beatInBar).toBeCloseTo(1.5);
+    // The waltz section is in 3/4 time
+    const waltz = song.sections.find((s) => s.name === 'waltz')!;
+    expect(song.positionAt(waltz.startBeat + 3).barInSection).toBe(1);
+    expect(song.bpmAt(waltz.startBeat)).toBe(waltz.bpm);
+  });
+
+  it('generates sections endlessly', () => {
+    const song = new Song(INTRO_SECTIONS, makeSectionGenerator(makeRng(2)));
+    song.positionAt(2000);
+    expect(song.sections.length).toBeGreaterThan(INTRO_SECTIONS.length);
+  });
+
+  it('obstacles are clearable with reachable resonance and do not overlap', () => {
+    const rnd = makeRng(3);
+    const song = new Song(INTRO_SECTIONS, makeSectionGenerator(rnd));
+    const level = new LevelGen(rnd);
+    song.onAdd((s) => level.addSection(s));
+    song.positionAt(1000);
+    expect(level.obstacles.length).toBeGreaterThan(10);
+    for (const o of level.obstacles) expect(o.minResonance).toBeLessThanOrEqual(100);
+    for (let i = 1; i < level.obstacles.length; i++) {
+      const a = level.obstacles[i - 1];
+      expect(level.obstacles[i].beat).toBeGreaterThan(a.beat + a.width);
+    }
+  });
+});
+
+describe('Pixel monsters', () => {
+  it('sometimes replace obstacles, and every monster can be jumped over', () => {
+    const rnd = makeRng(7);
+    const song = new Song(INTRO_SECTIONS, makeSectionGenerator(rnd));
+    const level = new LevelGen(rnd);
+    song.onAdd((s) => level.addSection(s));
+    song.positionAt(1500);
+    const monsters = level.obstacles.filter((o) => o.monster);
+    expect(monsters.length).toBeGreaterThan(2);
+    expect(monsters.length).toBeLessThan(level.obstacles.length / 2);
+    for (const m of monsters) {
+      expect(m.kind).toBe('wall');
+      expect(m.height).toBe(MONSTER_GRID * m.monster!.scale);
+      expect(m.width).toBeCloseTo(m.height / PX_PER_BEAT);
+      expect(m.minResonance).toBeLessThanOrEqual(100);
+    }
+  });
+
+  it('never appear in the tutorial', () => {
+    const level = new LevelGen(makeRng(8));
+    for (let i = 0; i < 50; i++) level.addObstacleAt(i * 8, 10, 30);
+    expect(level.obstacles.some((o) => o.monster)).toBe(false);
+  });
+
+  it('sprites are 12×12 and use only known colors', () => {
+    for (let shape = 0; shape < MONSTER_SHAPES; shape++) {
+      for (const frame of [0, 1]) {
+        const rows = monsterRows(shape, frame);
+        expect(rows.length).toBe(MONSTER_GRID);
+        const palette = monsterPalette(0);
+        for (const row of rows) {
+          expect(row.length).toBe(MONSTER_W);
+          for (const ch of row) if (ch !== '.') expect(palette[ch], `${shape}/${ch}`).toBeDefined();
+        }
+      }
+    }
+  });
+});

@@ -1,0 +1,3 @@
+# Keep LF everywhere: the project is edited from Windows and from WSL
+* text=auto eol=lf
+*.mp3 binary
