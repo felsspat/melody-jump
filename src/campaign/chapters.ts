@@ -53,8 +53,8 @@ function styleLevels(
 ): LevelDef[] {
   const tune = (bpm: number, difficulty: number, id = melody, k = key): SectionDef => {
     const s = melodySection(id, k, bpm, 1, difficulty);
-    // Short tunes are repeated so every level lasts a while
-    const passes = Math.max(1, Math.round(16 / s.bars));
+    // Short tunes are repeated so every level lasts at least 16 bars (a 12-bar tune is played twice)
+    const passes = Math.max(1, Math.ceil(16 / s.bars));
     return { ...s, bars: s.bars * passes, style };
   };
   return [
