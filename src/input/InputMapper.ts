@@ -6,9 +6,24 @@ import { t } from '../i18n/i18n';
 import { Key, SCALES } from '../music/theory';
 import { MidiNoteEvent } from './MidiInput';
 
-export const LOW_MIDI = 48; // C3
-export const HIGH_MIDI = 84; // C6
-export const LANES = HIGH_MIDI - LOW_MIDI + 1;
+// Note lanes on screen: C3–C6 normally; on narrow screens (phones) only C4–C6,
+// so every lane stays wide enough for a finger. Live bindings: set via setLaneRange().
+export let LOW_MIDI = 48; // C3
+export let HIGH_MIDI = 84; // C6
+export let LANES = HIGH_MIDI - LOW_MIDI + 1;
+
+/** Narrowest lane width (CSS px) before the range shrinks to two octaves. */
+export const MIN_LANE_PX = 20;
+
+/** Picks the lane range for a screen width; returns true if it changed. */
+export function setLaneRange(width: number): boolean {
+  const low = width / 37 >= MIN_LANE_PX ? 48 : 60;
+  if (low === LOW_MIDI) return false;
+  LOW_MIDI = low;
+  HIGH_MIDI = 84;
+  LANES = HIGH_MIDI - LOW_MIDI + 1;
+  return true;
+}
 
 export type NoteSource = 'mouse' | 'keyboard' | 'midi';
 

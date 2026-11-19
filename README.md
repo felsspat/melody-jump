@@ -27,8 +27,9 @@ npm run build     # statischer Build nach dist/
 | `↑` / `↓` | Oktave wechseln |
 | `1`–`5`, `Shift` | Lautstärke / Akzent |
 | `Tab` | Skalenmodus: die Tastenreihe spielt nur Töne der aktuellen Tonart |
-| `V` | Hilfe-Ringe an/aus (Vorschlagsmelodie: welcher Ton, wann) |
-| `C` | Coach an/aus (erklärt jeden Ton und gibt Tipps) |
+| `V` | Hilfe-Ringe an/aus (Vorschlagsmelodie: welcher Ton, wann); auch per Knopf oben rechts |
+| `C` | Coach an/aus (erklärt jeden Ton und gibt Tipps); auch per Knopf oben rechts |
+| Touch (Handy/Tablet) | Alles geht per Knopf. Auf schmalen Bildschirmen gibt es nur zwei Oktaven (C4–C6), damit die Spuren breit genug für Finger sind; hochkant erscheint der Hinweis, das Gerät zu drehen |
 | `T` | im Menü: Tutorial starten · `Enter` im Tutorial: Schritt überspringen |
 | `L` / Flaggen | im Startbildschirm: Sprache wechseln (Deutsch / English) |
 | `Esc` / `Q` | Pause / im Pausenmenü zurück zum Hauptmenü |

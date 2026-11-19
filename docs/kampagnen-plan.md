@@ -136,7 +136,11 @@ Ebenfalls fertig:
 - **MIDI-Keyboard** (`src/input/MidiInput.ts`, Web MIDI): Noten an/aus mit Anschlagstärke, auch später eingesteckte
   Geräte. Zugriff wird beim ersten Spielstart erfragt. Läuft in Chrome/Edge, nicht in Safari.
   **Komplett ungetestet:** Nur das Auslesen der MIDI-Nachrichten hat Unit-Tests; mit einem echten Keyboard wurde es nie ausprobiert.
-- Offen aus der Durchsicht: Touch-Bedienung.
+- **Touch-Bedienung:** Ringe und Coach als Knöpfe oben rechts, Game Over mit Knöpfen (Nochmal, Karte, Hauptmenü;
+  sie reagieren erst nach 0,8 s, damit ein Ton-Tipp nicht sofort neu startet). Unter 740 px Breite nur zwei Oktaven
+  (C4–C6, `setLaneRange()` in `InputMapper.ts`); hochkant ein Hinweis zum Drehen. Ungetestet auf echten Geräten.
+- Nicht lösbar: Ein vor dieser Änderung in der Kampagne entstandener Rekord bleibt stehen (es ist nicht gespeichert,
+  woher er kam).
 
 ## Nächste Schritte (Vorschlag)
 

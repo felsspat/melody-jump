@@ -697,7 +697,12 @@
     "resume": { "de": "▶ Weiter (Esc)", "en": "▶ Resume (Esc)" },
     "on": { "de": "an", "en": "on" },
     "off": { "de": "aus", "en": "off" },
-    "toggles": { "de": "V Ringe {guide} · C Coach {coach} · Esc Pause", "en": "V rings {guide} · C coach {coach} · Esc pause" },
+    "toggleGuide": { "de": "◎ Ringe {state} (V)", "en": "◎ Rings {state} (V)" },
+    "toggleCoach": { "de": "💬 Coach {state} (C)", "en": "💬 Coach {state} (C)" },
+    "rotate": {
+      "de": "📱↻ Dreh dein Gerät quer – dann werden die Tasten breiter und du siehst mehr vom Weg.",
+      "en": "📱↻ Turn your device sideways – the keys get wider and you see more of the path."
+    },
     "shield": { "de": "◈ Schild", "en": "◈ Shield" },
     "doubleJump": { "de": "⇑ Doppelsprung", "en": "⇑ Double jump" },
     "resonance": { "de": "Resonanz {n}", "en": "Resonance {n}" },
@@ -1125,9 +1130,11 @@
     "title": { "de": "Verstummt …", "en": "Silenced …" },
     "stats": { "de": "Punkte: {score}   ·   Takte: {bars}", "en": "Score: {score}   ·   Bars: {bars}" },
     "best": { "de": "Bestwert: {n}", "en": "Best: {n}" },
-    "retry": { "de": "Klicken oder Enter für neuen Versuch", "en": "Click or press Enter to try again" },
-    "options": { "de": "T = Tutorial · Q = Hauptmenü", "en": "T = tutorial · Q = main menu" },
-    "campaignOptions": { "de": "Enter / R = nochmal · M = Karte · Q = Hauptmenü", "en": "Enter / R = retry · M = map · Q = main menu" }
+    "buttons": {
+      "retry": { "de": "↻ Nochmal (Enter)", "en": "↻ Retry (Enter)" },
+      "map": { "de": "Zur Karte (M)", "en": "To the map (M)" },
+      "menu": { "de": "Hauptmenü (Q)", "en": "Main menu (Q)" }
+    }
   },
   "pause": {
     "title": { "de": "Pause", "en": "Paused" },

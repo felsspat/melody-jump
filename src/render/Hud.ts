@@ -49,6 +49,8 @@ export interface HudView {
   coachOn: boolean;
   /** Pause button: false = "pause", true = "resume", undefined = no button (game over, level end) */
   paused?: boolean;
+  /** Phone held upright: show the hint to turn it */
+  portrait?: boolean;
 }
 
 /** Columns of the style grid on the endless screen (12 styles = 3 rows). */
@@ -163,9 +165,10 @@ export class Hud {
     if (v.tutorial) this.tutorialCard(ctx, v);
     if (v.tutorial?.tutorial.reading) this.readingBanner(ctx, v);
     if (v.coach) this.coachPanel(ctx, v);
-    this.toggles(ctx, v);
+    const toggles = this.toggles(ctx, v);
     if (v.debug) this.debugOverlay(ctx, v);
-    return v.paused === undefined ? [] : [this.pauseButton(ctx, v, scoreW)];
+    if (v.portrait) this.rotateHint(ctx, v.width, v.height);
+    return v.paused === undefined ? [] : [this.pauseButton(ctx, v, scoreW), ...toggles];
   }
 
   /** Pause / resume button left of the score, so mouse players can stop and read. */
@@ -187,12 +190,57 @@ export class Hud {
     return b;
   }
 
-  private toggles(ctx: CanvasRenderingContext2D, v: HudView): void {
-    ctx.textAlign = 'right';
-    ctx.font = `500 12px ${FONT}`;
-    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  /**
+   * Small switches for guide rings and coach (also for touch screens, where V and C are missing).
+   * In the tutorial they only show the state: the tutorial decides itself.
+   */
+  private toggles(ctx: CanvasRenderingContext2D, v: HudView): Button[] {
     const on = (b: boolean) => t(b ? 'hud.on' : 'hud.off');
-    ctx.fillText(t('hud.toggles', { guide: on(v.guideOn), coach: on(v.coachOn) }), v.width - 24, 90);
+    const items = [
+      { id: 'toggle:coach', label: t('hud.toggleCoach', { state: on(v.coachOn) }), active: v.coachOn },
+      { id: 'toggle:guide', label: t('hud.toggleGuide', { state: on(v.guideOn) }), active: v.guideOn },
+    ];
+    ctx.font = `600 12px ${FONT}`;
+    ctx.textAlign = 'center';
+    const buttons: Button[] = [];
+    let x = v.width - 16;
+    for (const it of items) {
+      const bw = ctx.measureText(it.label).width + 20;
+      x -= bw;
+      const b: Button = { id: it.id, x, y: 80, w: bw, h: 22 };
+      ctx.fillStyle = it.active ? 'rgba(140,220,255,0.18)' : 'rgba(255,255,255,0.06)';
+      ctx.beginPath();
+      ctx.roundRect(b.x, b.y, b.w, b.h, 11);
+      ctx.fill();
+      ctx.strokeStyle = it.active ? 'rgba(140,220,255,0.6)' : 'rgba(255,255,255,0.3)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.fillStyle = it.active ? '#e6f7ff' : 'rgba(255,255,255,0.55)';
+      ctx.fillText(it.label, b.x + b.w / 2, b.y + 15);
+      if (!v.tutorial) buttons.push(b);
+      x -= 8;
+    }
+    return buttons;
+  }
+
+  /** On a phone held upright the lanes get very narrow: ask to turn it. */
+  rotateHint(ctx: CanvasRenderingContext2D, w: number, h: number): void {
+    if (h <= w) return;
+    ctx.font = `700 14px ${FONT}`;
+    const text = t('hud.rotate');
+    const lines = wrapText(ctx, text, w - 48);
+    const bh = 16 + lines.length * 20;
+    const y = h - bh - 40;
+    ctx.fillStyle = 'rgba(20,16,40,0.92)';
+    ctx.beginPath();
+    ctx.roundRect(16, y, w - 32, bh, 10);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,215,90,0.6)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffd75a';
+    lines.forEach((l, i) => ctx.fillText(l, w / 2, y + 24 + i * 20));
   }
 
   private tutorialCard(ctx: CanvasRenderingContext2D, v: HudView): void {
@@ -1012,7 +1060,7 @@ export class Hud {
     });
   }
 
-  drawGameOver(ctx: CanvasRenderingContext2D, w: number, h: number, now: number, score: number, bars: number, best: number, campaign = false, review: string[] = []): void {
+  drawGameOver(ctx: CanvasRenderingContext2D, w: number, h: number, now: number, score: number, bars: number, best: number, campaign = false, review: string[] = []): Button[] {
     ctx.fillStyle = 'rgba(8,6,20,0.75)';
     ctx.fillRect(0, 0, w, h);
     ctx.textAlign = 'center';
@@ -1026,12 +1074,29 @@ export class Hud {
     ctx.fillStyle = 'rgba(255,255,255,0.6)';
     ctx.fillText(t('gameOver.best', { n: Math.floor(best) }), w / 2, h * 0.35 + 80);
     const reviewH = this.drawReview(ctx, review, w, h * 0.35 + 116);
-    ctx.font = `800 22px ${FONT}`;
-    ctx.fillStyle = `rgba(255,255,255,${0.6 + 0.4 * Math.sin(now * 4)})`;
-    ctx.fillText(t('gameOver.retry'), w / 2, h * 0.35 + 130 + reviewH);
-    ctx.font = `500 14px ${FONT}`;
-    ctx.fillStyle = 'rgba(255,255,255,0.5)';
-    ctx.fillText(t(campaign ? 'gameOver.campaignOptions' : 'gameOver.options'), w / 2, h * 0.35 + 160 + reviewH);
+    // Buttons (with their keys in the label), so touch players can go on as well
+    const ids = campaign ? ['retry', 'map', 'menu'] : ['retry', 'menu'];
+    const gap = 12;
+    const bw = Math.min(200, (w - 32 - gap * (ids.length - 1)) / ids.length);
+    const by = h * 0.35 + 104 + reviewH;
+    const startX = w / 2 - (ids.length * bw + (ids.length - 1) * gap) / 2;
+    return ids.map((id, i) => {
+      const x = startX + i * (bw + gap);
+      const primary = i === 0;
+      const pulse = primary ? 0.22 + 0.1 * Math.sin(now * 4) : 0.08;
+      ctx.fillStyle = primary ? `rgba(255,215,90,${pulse})` : 'rgba(255,255,255,0.08)';
+      ctx.beginPath();
+      ctx.roundRect(x, by, bw, 48, 12);
+      ctx.fill();
+      ctx.strokeStyle = primary ? '#ffd75a' : 'rgba(255,255,255,0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.font = `700 15px ${FONT}`;
+      ctx.fillStyle = '#fff';
+      ctx.textAlign = 'center';
+      ctx.fillText(t(`gameOver.buttons.${id}`), x + bw / 2, by + 30);
+      return { id, x, y: by, w: bw, h: 48 };
+    });
   }
 
   /**

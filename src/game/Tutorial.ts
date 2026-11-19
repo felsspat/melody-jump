@@ -6,6 +6,7 @@
 import { t, tl } from '../i18n/i18n';
 import { JudgeEvent, JudgedNote } from '../music/HarmonyJudge';
 import { SectionDef } from '../music/Song';
+import { HIGH_MIDI, LOW_MIDI } from '../input/InputMapper';
 import { Chord, Key, pitchClass, scalePitchClasses } from '../music/theory';
 
 export const TUTORIAL_SECTION: SectionDef = {
@@ -103,12 +104,13 @@ export const STEPS: TutorialStep[] = [
     goal: 2,
     guide: false,
     markers: (c) => [
-      { midi: rootFrom(c, 48), label: t('tutorial.markers.low') },
-      { midi: rootFrom(c, 74), label: t('tutorial.markers.high') },
+      // Lowest and highest octave on screen (fewer lanes on phones)
+      { midi: rootFrom(c, LOW_MIDI), label: t('tutorial.markers.low') },
+      { midi: rootFrom(c, HIGH_MIDI - 10), label: t('tutorial.markers.high') },
     ],
     onNote: (n, _e, _g, s) => {
-      if (n.midi <= 59) s.seen.add('low');
-      if (n.midi >= 72) s.seen.add('high');
+      if (n.midi <= LOW_MIDI + 11) s.seen.add('low');
+      if (n.midi >= HIGH_MIDI - 12) s.seen.add('high');
       s.progress = s.seen.size;
     },
   },

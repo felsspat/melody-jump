@@ -6,7 +6,7 @@ import { Clock } from '../audio/Clock';
 import { PLAYER_INSTRUMENTS, SampleBank } from '../audio/SampleBank';
 import { Synth } from '../audio/Synth';
 import { LOCALES, Locale, getLocale, setLocale, t } from '../i18n/i18n';
-import { InputMapper, NoteRequest } from '../input/InputMapper';
+import { InputMapper, NoteRequest, setLaneRange } from '../input/InputMapper';
 import { MidiInput } from '../input/MidiInput';
 import { NoteExplanation, diagnose, explainNote, monsterTip, summarize } from '../music/explain';
 import { GUIDE_HIT_BONUS, HarmonyJudge, JudgedNote } from '../music/HarmonyJudge';
@@ -54,6 +54,9 @@ interface PendingGlide {
 }
 
 const MAX_VOLUME = 1.5;
+
+/** Seconds after game over before its buttons react (a tap meant as a note must not restart). */
+const GAME_OVER_CLICK_DELAY = 0.8;
 
 /** The tutorial is always slow and forgiving. */
 const TUTORIAL_TOLERANCE_SEC = 0.12;
@@ -157,6 +160,8 @@ export class Game {
   private titleButtons: Button[] = [];
   /** Clickable buttons during play (pause / resume and the pause banner) */
   private hudButtons: Button[] = [];
+  /** When the game ended (seconds); its buttons ignore taps right after it, which were meant as notes */
+  private gameOverAt = 0;
   /** When the game was paused (seconds); texts like the coach do not fade out while paused */
   private pausedAt = 0;
   // Campaign
@@ -211,6 +216,7 @@ export class Game {
     this.dpr = Math.min(2, window.devicePixelRatio || 1);
     this.width = window.innerWidth;
     this.height = window.innerHeight;
+    if (setLaneRange(this.width)) this.input?.releaseAll();
     this.canvas.width = Math.round(this.width * this.dpr);
     this.canvas.height = Math.round(this.height * this.dpr);
   }
@@ -346,8 +352,14 @@ export class Game {
     } else if (this.state === 'playing' && this.tutorialReading) {
       this.beginTutorialStep();
     } else if (this.state === 'gameover') {
-      this.retry();
+      if (b && this.now - this.gameOverAt > GAME_OVER_CLICK_DELAY) this.gameOverAction(b.id);
     }
+  }
+
+  private gameOverAction(id: string): void {
+    if (id === 'retry') this.retry();
+    else if (id === 'map') this.openMap();
+    else if (id === 'menu') this.toTitle();
   }
 
   /** Buttons of the in-game HUD: pause/resume, and the pause banner. Returns true if one was hit. */
@@ -355,7 +367,9 @@ export class Game {
     if (this.state !== 'playing' && this.state !== 'paused') return false;
     const b = this.hudButtons.find((btn) => x >= btn.x && x <= btn.x + btn.w && y >= btn.y && y <= btn.y + btn.h);
     if (!b) return this.state === 'paused'; // while paused, a click elsewhere does nothing (time to read)
-    if (b.id === 'pause' || b.id === 'pause:resume') this.togglePause();
+    if (b.id === 'toggle:guide') this.toggleGuide();
+    else if (b.id === 'toggle:coach') this.toggleCoach();
+    else if (b.id === 'pause' || b.id === 'pause:resume') this.togglePause();
     else if (b.id === 'pause:settings') this.pauseSettingsOpen = !this.pauseSettingsOpen;
     else if (b.id.startsWith('pause:vol:')) this.changeVolume(b.id.split(':')[2], b.id.endsWith('+') ? 0.1 : -0.1);
     else if (b.id.startsWith('pause:tempo:')) this.changeTempo(b.id.slice(12));
@@ -641,14 +655,10 @@ export class Game {
         this.debug = !this.debug;
         return true;
       case 'KeyV':
-        this.guideOn = !this.guideOn;
-        save('guide', this.guideOn ? '1' : '0');
-        this.flash(t(this.guideOn ? 'flash.guideOn' : 'flash.guideOff'), '#9cf');
+        this.toggleGuide();
         return true;
       case 'KeyC':
-        this.coachOn = !this.coachOn;
-        save('coach', this.coachOn ? '1' : '0');
-        this.flash(t(this.coachOn ? 'flash.coachOn' : 'flash.coachOff'), '#9cf');
+        this.toggleCoach();
         return true;
       case 'BracketLeft':
       case 'BracketRight':
@@ -667,6 +677,18 @@ export class Game {
         return true;
     }
     return false;
+  }
+
+  private toggleGuide(): void {
+    this.guideOn = !this.guideOn;
+    save('guide', this.guideOn ? '1' : '0');
+    this.flash(t(this.guideOn ? 'flash.guideOn' : 'flash.guideOff'), '#9cf');
+  }
+
+  private toggleCoach(): void {
+    this.coachOn = !this.coachOn;
+    save('coach', this.coachOn ? '1' : '0');
+    this.flash(t(this.coachOn ? 'flash.coachOn' : 'flash.coachOff'), '#9cf');
   }
 
   private finishTutorial(): void {
@@ -948,6 +970,7 @@ export class Game {
   private gameOver(): void {
     this.review = this.makeReview();
     this.state = 'gameover';
+    this.gameOverAt = this.now;
     this.clock?.stop();
     this.synth?.allOff();
     this.input.releaseAll();
@@ -1038,6 +1061,7 @@ export class Game {
       return;
     }
     if (this.state === 'title') {
+      this.hud.rotateHint(ctx, this.width, this.height);
       this.titleButtons = this.hud.drawTitle(ctx, this.width, this.height, now, this.best, this.tutorialDone, this.tempo, {
         mode: this.soundMode,
         state: this.sampleBank?.state ?? 'idle',
@@ -1074,6 +1098,7 @@ export class Game {
       octaveBase: this.input.octaveBase,
       velocity: this.input.velocity,
       tutorial: this.mode === 'tutorial' ? { tutorial: this.tutorial, total: STEPS.length } : undefined,
+      portrait: this.height > this.width,
       coach: this.coachActive
         ? { explanation: this.explanation, age: hudNow - this.explainedAt, tip: this.coachTip, fits: this.fitsNow(pos.chord) }
         : undefined,
@@ -1093,7 +1118,17 @@ export class Game {
       this.hudButtons.push(...this.hud.drawPause(ctx, this.width, this.height, settings));
     }
     if (this.state === 'gameover') {
-      this.hud.drawGameOver(ctx, this.width, this.height, now, this.score, Math.max(0, this.lastBar + 1), this.best, this.mode === 'campaign', this.review);
+      this.titleButtons = this.hud.drawGameOver(
+        ctx,
+        this.width,
+        this.height,
+        now,
+        this.score,
+        Math.max(0, this.lastBar + 1),
+        this.best,
+        this.mode === 'campaign',
+        this.review,
+      );
     }
     if (this.state === 'levelComplete') {
       this.titleButtons = this.hud.drawLevelComplete(
