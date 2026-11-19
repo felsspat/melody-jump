@@ -161,12 +161,14 @@ Ebenfalls fertig:
 
 ## Nächste Schritte (Vorschlag)
 
-1. **Im Browser anhören:** neue Bassdrum, leise/laute Klavier- und Saxophon-Töne, Hip-Hop- und House-Band,
-   die fünf neuen Melodien (besonders Maple Leaf Rag, Takte 5–8).
-2. **Maple Leaf Rag originalgetreuer:** Akkorde mit erniedrigter Stufe (z.B. `bVI`) in `chordFromSpec` erlauben; dann
-   passen Takte 5–6 und 11/15 genau zum Original.
-3. **Ab 1.1.2029:** „St. Louis Blues“ (W. C. Handy † 1958) im Blues-Kapitel. Vorher nicht einbauen!
-4. **Optional:** „Frankie and Johnny“, falls sich eine sicher gemeinfreie Fassung findet (z.B. Hughie Cannon,
+Im Browser geprüft (19.11.2026): neue Melodien und Samples sind gut und **bleiben so**; das gilt auch für den
+vereinfachten Maple Leaf Rag (die originalgetreuere Fassung mit `bVI`-Akkorden ist damit verworfen). Die Abgründe sind
+jetzt gut zu erkennen.
+
+1. **Noch ausprobieren:** Geräusche (Lautstärke, passen sie?), Notenblöcke, Gegner in der Kampagne (zu streng für die
+   Sterne?), Gleiten mit der Maus, MIDI-Keyboard und Touch auf echten Geräten.
+2. **Ab 1.1.2029:** „St. Louis Blues“ (W. C. Handy † 1958) im Blues-Kapitel. Vorher nicht einbauen!
+3. **Optional:** „Frankie and Johnny“, falls sich eine sicher gemeinfreie Fassung findet (z.B. Hughie Cannon,
    „He Done Me Wrong“, 1904, Cannon † 1912).
 
 ## Samples: Hintergrund der Entscheidung (umgesetzt, siehe oben)
