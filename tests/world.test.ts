@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { Song } from '../src/music/Song';
 import { BLOCK_HALF_BEATS, INTRO_SECTIONS, LevelGen, NoteBlock, makeRng, makeSectionGenerator } from '../src/world/Level';
 import { Player } from '../src/world/Player';
+import { CoinCounter } from '../src/world/Coins';
+import { melodyTimeline } from '../src/music/melodies';
 import { chordTone } from '../src/audio/Sfx';
 import { diatonicChord } from '../src/music/theory';
 import { MONSTER_GRID, Obstacle, PLAYER_H, PLAYER_W, PX_PER_BEAT, canClear, jumpShape, minResonanceFor } from '../src/world/physics';
@@ -89,7 +91,7 @@ describe('Pixel monsters', () => {
       const song = new Song(INTRO_SECTIONS, makeSectionGenerator(rnd));
       song.onAdd((s) => level.addSection(s));
       song.positionAt(300);
-      const monsters = level.obstacles.filter((o) => o.monster && o.beat < 270);
+      const monsters = level.obstacles.filter((o) => o.monster && !o.monster.spiky && o.beat < 270);
       const player = new Player();
       let stomps = 0;
       for (let beat = 0; beat < 280; beat += 1 / 60) {
@@ -191,5 +193,62 @@ describe('Game sounds', () => {
     expect(chordTone(c, 1, 60)).toBe(71);
     expect(chordTone(c, 2, 60)).toBe(62);
     expect(chordTone(c, 3, 60)).toBe(79);
+  });
+});
+
+describe('More jump & run', () => {
+  const levelFor = (seed: number) => {
+    const rnd = makeRng(seed);
+    const level = new LevelGen(rnd);
+    const song = new Song(INTRO_SECTIONS, makeSectionGenerator(rnd));
+    song.onAdd((s) => level.addSection(s));
+    song.positionAt(300);
+    return { level, song };
+  };
+
+  it('spiky monsters are jumped over, never landed on', () => {
+    let spiky = 0;
+    for (const seed of [3, 4, 5, 6]) {
+      const { level } = levelFor(seed);
+      const player = new Player();
+      for (let beat = 0; beat < 280; beat += 1 / 60) {
+        player.update(beat, beat * 0.5, 100, level);
+        player.lives = 5;
+      }
+      for (const o of level.obstacles.filter((o) => o.monster?.spiky && o.beat < 270)) {
+        spiky++;
+        expect(o.stomped, `spiky monster at ${o.beat}`).toBeFalsy();
+        expect(o.hit, `spiky monster at ${o.beat}`).toBeFalsy();
+        expect(o.minResonance).toBeLessThanOrEqual(100);
+      }
+    }
+    expect(spiky).toBeGreaterThan(3);
+  });
+
+  it('some monsters walk in', () => {
+    const { level } = levelFor(3);
+    expect(level.obstacles.some((o) => o.monster?.walker)).toBe(true);
+  });
+
+  it('melody sections get a note coin for every melody note, collected by playing that note on time', () => {
+    const { level, song } = levelFor(3);
+    const first = song.sections[0];
+    const notes = melodyTimeline(first);
+    const coins = level.noteCoins.filter((c) => c.beat >= first.startBeat - 4 && c.beat < first.startBeat + first.bars * first.beatsPerBar);
+    expect(coins.length).toBe(notes.length);
+    const n = notes[3];
+    const midi = 60 + first.key.tonic + n.offset;
+    expect(level.collectNoteCoin(midi + 1, n.beat, 0.2, 0)).toBeUndefined(); // wrong note
+    expect(level.collectNoteCoin(midi, n.beat + 0.5, 0.2, 0)).toBeUndefined(); // too late
+    expect(level.collectNoteCoin(midi + 12, n.beat + 0.05, 0.2, 0)).toBeDefined(); // any octave counts
+    expect(level.collectNoteCoin(midi, n.beat, 0.2, 0)).toBeUndefined(); // only once
+  });
+
+  it('every 100 coins give an extra life', () => {
+    const c = new CoinCounter();
+    expect(c.add(99)).toBe(0);
+    expect(c.add(1)).toBe(1);
+    expect(c.add(5)).toBe(0);
+    expect(c.count).toBe(105);
   });
 });

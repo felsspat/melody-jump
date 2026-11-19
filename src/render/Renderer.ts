@@ -552,6 +552,44 @@ export class Renderer {
       ctx.globalAlpha = 1;
     }
 
+    // Note coins along the melody: coins whose height follows the pitch, joined by a thin line
+    // (so the coming melody can be read as a curve)
+    let prev: { x: number; y: number; beat: number } | undefined;
+    ctx.strokeStyle = 'rgba(255,215,90,0.35)';
+    ctx.lineWidth = 2;
+    for (const c of v.level.noteCoins) {
+      if (c.taken || c.beat < v.beat - 0.3) {
+        prev = undefined;
+        continue;
+      }
+      const x = this.sx(v, c.beat);
+      const y = gy - c.height;
+      if (prev && c.beat - prev.beat <= 2 && x > -20 && prev.x < v.width + 20) {
+        ctx.beginPath();
+        ctx.moveTo(prev.x, prev.y);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      }
+      prev = { x, y, beat: c.beat };
+    }
+    for (const c of v.level.noteCoins) {
+      const x = this.sx(v, c.beat);
+      if (x < -20 || x > v.width + 20) continue;
+      const age = c.taken ? v.now - c.takenAt : 0;
+      if (c.taken && age > 0.4) continue;
+      const missed = !c.taken && c.beat < v.beat - 0.3;
+      const y = gy - c.height - (c.taken ? 160 * age : 0);
+      ctx.globalAlpha = c.taken ? 1 - age / 0.4 : missed ? 0.25 : 0.95;
+      ctx.fillStyle = missed ? '#9a9aa8' : '#ffd75a';
+      ctx.beginPath();
+      ctx.ellipse(x, y, 7 * Math.max(0.3, Math.abs(Math.cos(v.now * 4 + c.beat))), 9, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = missed ? 'rgba(60,60,70,0.6)' : '#a0701a';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
     // Collectible note coins: spinning golden coins with a note on them
     for (const c of v.level.coins) {
       if (c.taken) continue;
@@ -752,6 +790,8 @@ export class Renderer {
     const hop = Math.round(Math.max(0, Math.sin(phase * Math.PI)) * m.scale * 1.5);
     const img = this.monsterSprite(m.shape, m.color, frame);
     const size = MONSTER_W * m.scale;
+    // Walkers come in from the right and reach their place 4 beats before the runner
+    if (m.walker && !o.broken) x += Math.max(0, o.beat - v.beat - 4) * 0.6 * PX_PER_BEAT;
     if (o.broken) {
       // Squashed flat (stomped, or smashed by the shield), then gone
       const age = v.now - (o.brokenAt ?? -10);
@@ -773,6 +813,24 @@ export class Renderer {
     ctx.imageSmoothingEnabled = false;
     ctx.drawImage(img, Math.round(x), Math.round(gy - size - hop), size, size);
     ctx.imageSmoothingEnabled = true;
+    // Spikes on the head: do not land here
+    if (m.spiky) {
+      const n = Math.max(3, Math.round(size / 10));
+      const sw = size / n;
+      const top = gy - size - hop;
+      ctx.fillStyle = '#e8e8f0';
+      ctx.strokeStyle = 'rgba(40,30,50,0.9)';
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < n; i++) {
+        ctx.beginPath();
+        ctx.moveTo(x + i * sw, top + 2);
+        ctx.lineTo(x + i * sw + sw / 2, top - sw * 0.9);
+        ctx.lineTo(x + (i + 1) * sw, top + 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      }
+    }
     ctx.globalAlpha = 1;
   }
 

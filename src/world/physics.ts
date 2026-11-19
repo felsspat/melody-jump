@@ -46,7 +46,15 @@ export interface Obstacle {
    * A pixel monster instead of a plain wall. Physically it is a wall (same jump
    * rules), drawn as a creature of 12×12 sprite pixels, each `scale` screen pixels.
    */
-  monster?: { shape: number; color: number; scale: number };
+  monster?: {
+    shape: number;
+    color: number;
+    scale: number;
+    /** Spikes on its head: landing on it hurts, it has to be jumped over */
+    spiky?: boolean;
+    /** Walks in from the right and stops at its place shortly before the runner arrives */
+    walker?: boolean;
+  };
   /** When the shield smashed this wall or the runner stomped this monster (seconds), for the animation */
   brokenAt?: number;
   /** A monster the runner landed on (squashed instead of smashed) */
@@ -78,6 +86,16 @@ export function stompTakeoffBeat(o: Obstacle, shape: JumpShape): number | undefi
   // Fraction of the jump at which the falling runner passes the monster's height
   const u = (1 + Math.sqrt(1 - o.height / shape.height)) / 2;
   return o.beat + Math.min(0.1, o.width / 2) - u * shape.duration;
+}
+
+/** Can the runner land on this obstacle (a pixel monster without spikes)? */
+export function stompable(o: Obstacle): boolean {
+  return !!o.monster && !o.monster.spiky;
+}
+
+/** Where the auto-jump takes off: onto stompable monsters if high enough, otherwise over the obstacle. */
+export function aimTakeoffBeat(o: Obstacle, shape: JumpShape): number {
+  return (stompable(o) ? stompTakeoffBeat(o, shape) : undefined) ?? takeoffBeat(o, shape);
 }
 
 /** How much higher than a monster the jump must go to land on it (px). */

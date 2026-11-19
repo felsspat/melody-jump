@@ -1,10 +1,10 @@
 // Level sections (music) and procedural obstacles/collectibles.
 
-import { MELODIES } from '../music/melodies';
+import { MELODIES, melodyTimeline } from '../music/melodies';
 import { Section, SectionDef } from '../music/Song';
 import { StyleId } from '../music/styles';
 import { ChordSpec, Key } from '../music/theory';
-import { MONSTER_GRID, Obstacle, PLAYER_H, PX_PER_BEAT, TILE, jumpShape, minResonanceFor, stompResonanceFor, stompTakeoffBeat, takeoffBeat } from './physics';
+import { MONSTER_GRID, Obstacle, PLAYER_H, PX_PER_BEAT, TILE, aimTakeoffBeat, jumpShape, minResonanceFor, stompResonanceFor } from './physics';
 
 /** A section that accompanies a well-known melody (chords and length come from the melody). */
 export function melodySection(id: string, key: Key, bpm: number, passes: number, difficulty: number): SectionDef {
@@ -352,6 +352,25 @@ export function endlessIntro(style: EndlessStyle, rnd: () => number): SectionDef
   return [styleSection(style, 0, rnd)];
 }
 
+/**
+ * A small coin for every note of a section's melody, floating at a height that follows the
+ * melody's pitch – so the coming melody can be seen in the world. It is collected by
+ * playing its note at the right time (not by touching it).
+ */
+export interface NoteCoin {
+  beat: number;
+  /** Pitch class of the note to play */
+  pc: number;
+  /** Height above the ground (px), from the pitch */
+  height: number;
+  taken: boolean;
+  takenAt: number;
+}
+
+/** Share of monsters with spikes, and of the others that walk in. */
+export const SPIKY_CHANCE = 0.3;
+export const WALKER_CHANCE = 0.4;
+
 export interface Coin {
   beat: number;
   height: number;
@@ -395,11 +414,13 @@ export class LevelGen {
   readonly obstacles: Obstacle[] = [];
   readonly coins: Coin[] = [];
   readonly blocks: NoteBlock[] = [];
+  readonly noteCoins: NoteCoin[] = [];
 
   constructor(private rnd: () => number) {}
 
   /** Generates obstacles for a section on the bar grid. */
   addSection(s: Section): void {
+    this.addNoteCoins(s);
     const [lo, hi] = resonanceBand(s.difficulty);
     const density = Math.min(0.9, 0.6 + s.difficulty * 0.06);
     // First section: two bars to warm up
@@ -420,7 +441,7 @@ export class LevelGen {
         const r = Math.min(100, o.minResonance + 22 + this.rnd() * 10);
         const shape = jumpShape(r);
         // Same takeoff as the runner: monsters are landed on, everything else jumped over
-        const start = (o.monster && stompTakeoffBeat(o, shape)) ?? takeoffBeat(o, shape);
+        const start = aimTakeoffBeat(o, shape);
         const apex = start + shape.duration / 2;
         if (this.rnd() < BLOCK_CHANCE && r < 100) {
           // The head touches the block's bottom at the top of a jump with resonance r
@@ -465,8 +486,11 @@ export class LevelGen {
    * `minResonance` is what it takes to land on it (stomp), which is what the runner aims for.
    */
   private makeMonster(beat: number): Obstacle {
+    const spiky = this.rnd() < SPIKY_CHANCE;
+    const walker = !spiky && this.rnd() < WALKER_CHANCE;
     const [lo, hi] = MONSTER_SCALES;
-    const scale = lo + Math.floor(this.rnd() * (hi - lo + 1));
+    // Spiky monsters must be jumped over, so they stay a bit smaller
+    const scale = lo + Math.floor(this.rnd() * ((spiky ? hi - 1 : hi) - lo + 1));
     const size = MONSTER_GRID * scale;
     const o: Obstacle = {
       kind: 'wall',
@@ -478,10 +502,42 @@ export class LevelGen {
         shape: Math.floor(this.rnd() * 2),
         color: Math.floor(this.rnd() * 3),
         scale,
+        ...(spiky ? { spiky: true } : {}),
+        ...(walker ? { walker: true } : {}),
       },
     };
-    o.minResonance = stompResonanceFor(o);
+    // What the coach announces: landing on it, or (spikes) jumping over it
+    o.minResonance = spiky ? minResonanceFor(o) : stompResonanceFor(o);
     return o;
+  }
+
+  /** Note coins along the melody of a melody section (low notes low, high notes high). */
+  private addNoteCoins(s: Section): void {
+    if (!s.melody) return;
+    const notes = melodyTimeline(s);
+    if (notes.length === 0) return;
+    const low = Math.min(...notes.map((n) => n.offset));
+    for (const n of notes) {
+      this.noteCoins.push({
+        beat: n.beat,
+        pc: (((s.key.tonic + n.offset) % 12) + 12) % 12,
+        height: Math.min(240, 36 + (n.offset - low) * 10),
+        taken: false,
+        takenAt: 0,
+      });
+    }
+  }
+
+  /** The note coin a played note collects: right pitch class, within `tolBeats` of its beat. */
+  collectNoteCoin(midi: number, beat: number, tolBeats: number, now: number): NoteCoin | undefined {
+    const pc = ((midi % 12) + 12) % 12;
+    for (const c of this.noteCoins) {
+      if (c.taken || c.pc !== pc || Math.abs(c.beat - beat) > tolBeats) continue;
+      c.taken = true;
+      c.takenAt = now;
+      return c;
+    }
+    return undefined;
   }
 
   /** Next obstacle not yet passed, starting at `beat`. */
@@ -501,5 +557,6 @@ export class LevelGen {
     while (this.obstacles.length && this.obstacles[0].beat + this.obstacles[0].width < beat - 16) this.obstacles.shift();
     while (this.coins.length && this.coins[0].beat < beat - 16) this.coins.shift();
     while (this.blocks.length && this.blocks[0].beat < beat - 16) this.blocks.shift();
+    while (this.noteCoins.length && this.noteCoins[0].beat < beat - 16) this.noteCoins.shift();
   }
 }

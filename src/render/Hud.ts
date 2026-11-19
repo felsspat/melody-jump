@@ -26,6 +26,8 @@ export interface HudView {
   resonance: number;
   player: Player;
   score: number;
+  /** Coins collected in this run */
+  coins: number;
   regenProgress: number;
   announcement?: { title: string; detail: string; beatsLeft: number };
   flashes: Flash[];
@@ -370,6 +372,11 @@ export class Hud {
     for (let i = 0; i < p.maxLives; i++) {
       heart(ctx, 28 + i * 30, 18, 22, i < p.lives ? '#ff5a7a' : 'rgba(255,255,255,0.15)');
     }
+    // Coin counter: every 100 give a life
+    ctx.font = `800 18px ${FONT}`;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#ffd75a';
+    ctx.fillText(`♪ × ${v.coins}`, 28 + p.maxLives * 30 + 6, 36);
     let x = 24;
     const y = 58;
     ctx.font = `600 13px ${FONT}`;

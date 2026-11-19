@@ -2,7 +2,7 @@
 // obstacles. How high/far is determined by the resonance of the played melody.
 
 import { LevelGen } from './Level';
-import { JumpShape, Obstacle, PLAYER_W, PX_PER_BEAT, jumpShape, stompTakeoffBeat, takeoffBeat } from './physics';
+import { JumpShape, Obstacle, PLAYER_W, PX_PER_BEAT, aimTakeoffBeat, jumpShape, stompable } from './physics';
 
 export type PlayerState = 'ground' | 'jump' | 'fall';
 export type PlayerEvent = 'jump' | 'doubleJump' | 'land' | 'hurt' | 'shieldBreak' | 'fall' | 'respawn' | 'stomp';
@@ -77,7 +77,7 @@ export class Player {
         if (o.kind !== 'wall' || o.broken) continue;
         if (b + PW_BEATS / 2 <= o.beat || b - PW_BEATS / 2 >= o.beat + o.width) continue;
         if (!enteredAt.has(o)) enteredAt.set(o, y);
-        if (y < o.height) return !(o.monster && enteredAt.get(o)! >= o.height);
+        if (y < o.height) return !(stompable(o) && enteredAt.get(o)! >= o.height);
       }
       if (y <= 0) return !!level.isGapAt(b);
     }
@@ -121,7 +121,7 @@ export class Player {
       } else if (next && !next.hit && !next.broken) {
         const shape = jumpShape(resonance);
         // Monsters: land on them (stomp) if the jump is high enough, otherwise try to clear them
-        const tb = (next.monster && stompTakeoffBeat(next, shape)) ?? takeoffBeat(next, shape);
+        const tb = aimTakeoffBeat(next, shape);
         if (beat >= tb && beat < next.beat + next.width) {
           this.startJump(beat, shape);
           events.push('jump');
@@ -174,7 +174,7 @@ export class Player {
         if (o.beat > beat + 1) break;
         const overlap = beat + PW_BEATS / 2 > o.beat && beat - PW_BEATS / 2 < o.beat + o.width;
         if (overlap && this.y < o.height) {
-          if (o.monster && this.state === 'jump' && prevY >= o.height && this.y < prevY) {
+          if (stompable(o) && this.state === 'jump' && prevY >= o.height && this.y < prevY) {
             // Came down from above: the monster is squashed and the runner bounces off it
             o.broken = true;
             o.stomped = true;

@@ -140,6 +140,16 @@ anzuhören.
   hineinlaufen kostet ein Leben. Nötig ist dafür nur etwa 10–20 Resonanz (`stompResonanceFor()`); die Schwierigkeit
   steckt in Lücken und Mauern. Der Coach sagt vorher, wie viel Resonanz nötig ist (`monsterTip()`). Simulationstests:
   ab 30 Resonanz wird jedes Monster plattgedrückt, ohne Musik läuft man hinein.
+- **Notenmünzen entlang der Melodie** (seit 19.11.2026): In Melodie-Abschnitten schwebt für jeden Ton der Melodie eine
+  kleine Münze, ihre Höhe folgt der Tonhöhe, eine dünne Linie verbindet sie – man sieht die kommende Melodie als Kurve.
+  Gesammelt wird sie, indem man ihren Ton (jede Oktave) zur richtigen Zeit spielt, auch ohne Ringe (`NoteCoin`,
+  `collectNoteCoin()` in `Level.ts`). +10 Punkte; der Coach erklärt sie. Verpasste Münzen werden grau.
+- **Münzzähler** oben links neben den Herzen („♪ × 37“, `CoinCounter` in `src/world/Coins.ts`): Notenmünze 1, schwebende
+  Münze und Notenblock je 5. Alle 100: +1 Leben mit Fanfare, bei vollen Herzen +1000 Punkte.
+- **Gegnerarten** (seit 19.11.2026): Etwa 30 % der Pixelmonster haben **Stacheln** (Draufspringen tut weh, die Läuferin
+  springt drüber, `stompable()`/`aimTakeoffBeat()` in `physics.ts`; Coach-Tipp `spikyTip()` mit der nötigen Resonanz);
+  von den übrigen **laufen** etwa 40 % von rechts heran und bleiben 4 Schläge vor der Läuferin stehen (nur Optik, die
+  Physik nutzt ihre Endposition). Erste Notenmünzen und das erste Stachelmonster werden angesagt.
 - **Misston-Gegner:** erscheinen nach drei schiefen Tönen hintereinander; Draufspringen +50.
 - **Belohnungen über Hindernissen:** sich drehende Notenmünzen (+100) oder **Notenblöcke** (`NoteBlock` in `Level.ts`,
   +100), die man mit dem Kopf anstößt. Beides nur mit höherer Resonanz erreichbar. Beim ersten Notenblock gibt es eine
@@ -186,7 +196,7 @@ anzuhören.
 
 ## Technik und Tests
 
-- 110 Tests (Vitest). Unter anderem:
+- 116 Tests (Vitest). Unter anderem:
   - Jeder Melodie-Level klingt beim perfekten Mitspielen gut, und kein fremder Ton bleibt unaufgelöst.
   - Jede Band spielt einen ganzen Level ohne Fehler (Fake-Audio-Engine).
   - Endlos-Abschnitte je Stil sind gültig, das Tempo steigt.

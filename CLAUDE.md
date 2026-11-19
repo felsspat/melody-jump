@@ -108,10 +108,12 @@ wsl -e bash -lc "source ~/.nvm/nvm.sh && cd /mnt/c/Users/devri/git/melody-jump &
 - **Belohnungen müssen erreichbar sein:** Notenblöcke und Münzen liegen über Hindernissen auf der Bahn eines Sprungs mit
   einer bestimmten Resonanz. Wer an `jumpShape()` oder `takeoffBeat()` dreht, muss die Simulationstests in
   `tests/world.test.ts` grün halten; der Coach nennt die nötige Resonanz.
-- **Monster werden angesprungen, nicht übersprungen:** Für Pixelmonster nimmt die Läuferin `stompTakeoffBeat()` (landet
-  auf der Vorderkante), sonst `takeoffBeat()`. Dieselbe Regel gilt in `Player.update`, beim Platzieren der Belohnungen in
-  `Level.addSection` und in `trajectoryFails()` (von oben auf ein Monster fallen ist kein Fehlschlag). Wer eine Stelle
-  ändert, muss die anderen mitziehen.
+- **Monster werden angesprungen, nicht übersprungen:** `aimTakeoffBeat()` in `physics.ts` ist die eine Regel für den
+  Absprung: auf Monster ohne Stacheln (`stompable()`) landen, alles andere (auch Stachelmonster) überspringen. Sie gilt in
+  `Player.update`, beim Platzieren der Belohnungen in `Level.addSection`, und `trajectoryFails()` nutzt `stompable()`.
+  Neue Hindernisarten dort einordnen, nicht eigene Sonderfälle bauen.
+- **Notenmünzen** werden durch Spielen gesammelt (`collectNoteCoin()` in `Game.judgeNote`), nicht durch Berührung; Tonklasse
+  und Zeit müssen passen.
 - **Notentasten:** Tasten, die Noten spielen (A–L, W–P, Z/Y), dürfen nur in Menüs andere Bedeutungen haben.
   Freie Befehlstasten: C (Coach), V (Ringe), I (Theorie), M (Band stumm), K (Kampagne im Titel),
   T (Tutorial), Q, R, L (Sprache im Titel), F3, `[`, `]`.

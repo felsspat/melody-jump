@@ -9,13 +9,14 @@ import { Synth } from '../audio/Synth';
 import { LOCALES, Locale, getLocale, setLocale, t } from '../i18n/i18n';
 import { InputMapper, NoteRequest, setLaneRange } from '../input/InputMapper';
 import { MidiInput } from '../input/MidiInput';
-import { NoteExplanation, blockTip, diagnose, explainNote, monsterTip, summarize } from '../music/explain';
+import { NoteExplanation, blockTip, diagnose, explainNote, monsterTip, spikyTip, summarize } from '../music/explain';
 import { GUIDE_HIT_BONUS, HarmonyJudge, JudgedNote } from '../music/HarmonyJudge';
 import { Section, SectionDef, Song, describeSection, sectionName } from '../music/Song';
 import { Chord, pcName, pitchClass } from '../music/theory';
 import { Button, Flash, Hud, HudView, STYLE_GRID_COLS } from '../render/Hud';
 import { NoteParticles } from '../render/NoteParticles';
 import { Popup, Renderer, groundY, playerScreenX } from '../render/Renderer';
+import { CoinCounter } from '../world/Coins';
 import { Enemies } from '../world/Enemies';
 import {
   BLOCK_HALF_BEATS,
@@ -163,6 +164,11 @@ export class Game {
   private popups: Popup[] = [];
   /** The first note block of a run is announced */
   private blockSeen = false;
+  /** Note coins and floating coins of this run; every 100 give a life */
+  private coins = new CoinCounter();
+  /** First note coins / first spiky monster of a run are announced */
+  private noteCoinsSeen = false;
+  private spikySeen = false;
   /** The pause banner shows the settings (volume, speed, sound) */
   private pauseSettingsOpen = false;
   /** People who asked their system for less motion get no screen shake */
@@ -279,6 +285,9 @@ export class Game {
     this.obstaclesCleared = 0;
     this.monsterSeen = false;
     this.blockSeen = false;
+    this.noteCoinsSeen = false;
+    this.spikySeen = false;
+    this.coins.reset();
     this.popups = [];
     this.flashes = [];
     this.held.clear();
@@ -826,6 +835,12 @@ export class Game {
     }
 
     const guideHit = this.guideActive ? !!this.guide.tryHit(req.midi, beat, 0.16 / spb, now) : false;
+    // Playing a note of the melody on time collects its note coin (rings on or off)
+    const coinHit = !!this.level.collectNoteCoin(req.midi, beat, 0.16 / spb, now);
+    if (coinHit) {
+      this.score += 10;
+      this.addCoins(1);
+    }
     if (guideHit) {
       this.score += 5;
       this.judge.addBonus(note, GUIDE_HIT_BONUS);
@@ -834,6 +849,7 @@ export class Game {
 
     this.explanation = explainNote(note);
     if (guideHit) this.explanation.details.unshift(t('explain.guideHit'));
+    if (coinHit) this.explanation.details.unshift(t('explain.noteCoin', { n: this.coins.count }));
     this.explainedAt = now;
     this.particles.spawn(id, note, req.x, req.y, now);
     this.lastNoteId = id;
@@ -935,6 +951,7 @@ export class Game {
           this.score += 100;
           this.popup(c.beat, c.height + PLAYER_H, '+100', '#ffd75a');
           this.sfx?.coin(pos.chord);
+          this.addCoins(5);
         }
       }
 
@@ -947,7 +964,19 @@ export class Game {
           this.score += 100;
           this.popup(b.beat, b.bottom + 40, '♪ +100', '#ffd75a');
           this.sfx?.bump(pos.chord);
+          this.addCoins(5);
         }
+      }
+
+      // Announce the first note coins and the first spiky monster of a run
+      const aheadBeats = (this.width - playerScreenX(this.width)) / PX_PER_BEAT;
+      if (!this.noteCoinsSeen && this.mode !== 'tutorial' && this.level.noteCoins.some((c) => c.beat > beat && c.beat - beat < aheadBeats)) {
+        this.noteCoinsSeen = true;
+        this.flash(t('flash.noteCoins'), '#ffd75a');
+      }
+      if (!this.spikySeen && this.level.obstacles.some((o) => o.monster?.spiky && o.beat > beat && o.beat - beat < aheadBeats)) {
+        this.spikySeen = true;
+        this.flash(t('flash.spiky'), '#ff9a9a');
       }
 
       // Announce the first note block of a run
@@ -976,7 +1005,9 @@ export class Game {
         // A pixel monster in the next two bars has priority: how much resonance does the jump need?
         const monster = this.level.obstacles.find((o) => o.monster && !o.hit && o.beat > beat && o.beat - beat < bpb * 2);
         const block = this.level.blocks.find((b) => !b.bumped && b.beat > beat && b.beat - beat < bpb * 2);
-        if (monster && this.mode !== 'tutorial') this.coachTip = monsterTip(monster.minResonance, this.resonance);
+        if (monster && this.mode !== 'tutorial') {
+          this.coachTip = monster.monster?.spiky ? spikyTip(monster.minResonance, this.resonance) : monsterTip(monster.minResonance, this.resonance);
+        }
         else if (block && this.mode !== 'tutorial') this.coachTip = blockTip(block.minResonance, this.resonance);
         else this.coachTip = this.mode !== 'tutorial' && pos.bar >= 1 ? diagnose(this.judge.history, beat, bpb, this.resonance) : undefined;
       }
@@ -1010,6 +1041,20 @@ export class Game {
     const last = this.level.obstacles[this.level.obstacles.length - 1];
     const start = Math.max(beat + 5, last ? last.beat + last.width + 5 : 0);
     this.level.addObstacleAt(Math.ceil(start), 10, 35);
+  }
+
+  /** Counts coins; every 100 give an extra life (or 1000 points with full health). */
+  private addCoins(n: number): void {
+    if (this.coins.add(n) === 0) return;
+    const chord = this.song.positionAt(this.currentBeat()).chord;
+    this.sfx?.fanfare(chord);
+    if (this.player.lives < this.player.maxLives) {
+      this.player.lives++;
+      this.flash(t('flash.oneUp'), '#ff8aa0');
+    } else {
+      this.score += 1000;
+      this.flash(t('flash.coinBonus'), '#ffd75a');
+    }
   }
 
   /** A score number that floats up from a point in the world. */
@@ -1176,6 +1221,7 @@ export class Game {
       resonance: this.resonance,
       player: this.player,
       score: this.score,
+      coins: this.coins.count,
       regenProgress: this.regenBars / 4,
       announcement: this.state === 'playing' || paused ? this.announcement(beat, pos.section) : undefined,
       flashes: this.flashes,

@@ -63,7 +63,11 @@ Pro Ton (`src/music/HarmonyJudge.ts`):
 - **Muster**: 3 verschiedene Akkordtöne in einem Schlag = Schild, Oktavsprung = Doppelsprung,
   3 schiefe Töne hintereinander = ein „Misston“-Gegner taucht auf.
 
-Über manchen Hindernissen schweben **Notenmünzen** oder **Notenblöcke** (♪). Nur wer mit hoher Resonanz springt,
+In Melodie-Abschnitten zeigt eine Kette kleiner **Notenmünzen** die kommende Melodie (Höhe = Tonhöhe). Spielst du einen
+Ton der Melodie zur richtigen Zeit, sammelst du seine Münze; alle 100 Münzen gibt es ein Leben. Pixelmonster springt die
+Läuferin platt – außer **Stachelmonster**, über die muss sie drüber.
+
+Über manchen Hindernissen schweben außerdem große Münzen oder **Notenblöcke** (♪). Nur wer mit hoher Resonanz springt,
 erreicht sie (Notenblöcke stößt man mit dem Kopf an); der Coach sagt vorher, wie viel Resonanz nötig ist.
 
 Die Resonanz (0–100) ist die gewichtete Summe der letzten zwei Takte. Vier Takte mit Resonanz ≥ 70 geben ein Leben zurück.

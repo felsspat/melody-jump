@@ -233,6 +233,12 @@ export function summarize(notes: JudgedNote[], beats: number): RunSummary {
   return { notes: notes.length, chordPct: Math.round(chord * 100), onGridPct: Math.round(onGrid * 100), tip };
 }
 
+/** Coach tip for a spiky monster: it must be jumped over, which takes more resonance than landing on it. */
+export function spikyTip(needed: number, resonance: number): string {
+  const params = { need: Math.ceil(needed), now: Math.round(resonance) };
+  return t(resonance >= needed ? 'explain.spiky.enough' : 'explain.spiky.tooLow', params);
+}
+
 /** Coach tip when a note block is coming: how much resonance the jump needs to bump it with the head. */
 export function blockTip(needed: number, resonance: number): string {
   const params = { need: Math.ceil(needed), now: Math.round(resonance) };

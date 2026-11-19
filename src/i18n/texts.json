@@ -138,6 +138,7 @@
     "grooveCellar": { "de": "Groove-Keller", "en": "Groove Cellar" }
   },
   "explain": {
+    "noteCoin": { "de": "♪ Notenmünze ({n}): richtiger Ton der Melodie zur richtigen Zeit – alle 100 Münzen gibt es ein Leben", "en": "♪ Note coin ({n}): the right note of the melody at the right time – every 100 coins give a life" },
     "monster": {
       "tooLow": {
         "de": "👾 Ein Pixelmonster kommt! Spring ihm auf den Kopf – dafür brauchst du etwa {need} Resonanz, du hast {now}. Spiel Akkordtöne (die leuchtenden Tasten) genau auf dem Schlag – dann steigt die Resonanz und du springst höher. Läufst du seitlich hinein, kostet es ein Leben.",
@@ -146,6 +147,16 @@
       "enough": {
         "de": "👾 Ein Pixelmonster kommt – deine Resonanz ({now}) reicht, um ihm auf den Kopf zu springen (nötig: {need}, +50). Weiter so!",
         "en": "👾 A pixel monster is coming – your resonance ({now}) is enough to land on its head (needed: {need}, +50). Keep it up!"
+      }
+    },
+    "spiky": {
+      "tooLow": {
+        "de": "🦔 Ein Stachelmonster kommt! Draufspringen tut weh – du musst drüber. Dafür brauchst du etwa {need} Resonanz, du hast {now}. Akkordtöne auf dem Schlag lassen sie steigen.",
+        "en": "🦔 A spiky monster is coming! Landing on it hurts – you have to jump over it. That takes about {need} resonance, you have {now}. Chord tones on the beat make it rise."
+      },
+      "enough": {
+        "de": "🦔 Stachelmonster voraus – deine Resonanz ({now}) reicht zum Drüberspringen (nötig: etwa {need}).",
+        "en": "🦔 Spiky monster ahead – your resonance ({now}) is enough to jump over it (needed: about {need})."
       }
     },
     "block": {
@@ -1335,6 +1346,10 @@
     "synth": { "de": "Synthesizer", "en": "Synthesizer" }
   },
   "flash": {
+    "noteCoins": { "de": "♪ Spiel die Melodie – sammle die Notenmünzen!", "en": "♪ Play the melody – collect the note coins!" },
+    "spiky": { "de": "🦔 Stachelmonster! Nicht draufspringen – drüber!", "en": "🦔 Spiky monster! Don't land on it – jump over!" },
+    "oneUp": { "de": "♪ 100 Münzen! +1 ♥", "en": "♪ 100 coins! +1 ♥" },
+    "coinBonus": { "de": "♪ 100 Münzen! +1000", "en": "♪ 100 coins! +1000" },
     "instrument": { "de": "Dein Instrument: {name}", "en": "Your instrument: {name}" },
     "samplesReady": { "de": "Samples geladen ✓", "en": "Samples loaded ✓" },
     "samplesFailed": { "de": "Samples nicht verfügbar – Synthesizer", "en": "Samples unavailable – synthesizer" },
