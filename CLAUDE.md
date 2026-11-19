@@ -118,6 +118,21 @@ wsl -e bash -lc "source ~/.nvm/nvm.sh && cd /mnt/c/Users/devri/git/melody-jump &
   - Melodien nicht aus dem Gedächtnis schreiben, sondern aus einer Notenquelle (ABC, Noten) übertragen und die Quelle im Kommentar nennen.
   - Abgelehnt, weil die EU-Gemeinfreiheit nicht belegt ist: „Frankie and Johnny“ (Fassung der Leightons 1908/12, Todesjahre unbekannt).
 
+## TODO
+
+- **Gitarre/Mikrofon als Eingabe** (Wunsch vom 19.11.2026; der Mensch hat ein Rocksmith-USB-Kabel, „Real Tone Cable“):
+  - Das Kabel ist eine USB-Soundkarte und erscheint als Mikrofon. Zugriff per `getUserMedia` mit
+    `echoCancellation`, `noiseSuppression` und `autoGainControl` auf `false`; Geräteauswahl in den Einstellungen.
+  - Einstimmige Tonhöhenerkennung (z.B. YIN, siehe `scripts/fetch-samples.mjs`), Anschlag über Lautstärkesprung,
+    Lautstärke daraus. Erkannte Töne laufen wie Maus/Tastatur/MIDI über `noteOn`/`noteOff` (eigene Quelle in
+    `InputMapper`). Bends, Slides und Vibrato dürfen keine Ton-Wackler erzeugen.
+  - Keine Akkorde (mehrere Saiten lassen sich nicht sicher trennen). Tiefe Saiten brauchen am längsten zur Erkennung;
+    die Verzögerung über den Latenz-Offset bzw. den Latenz-Hinweis des Coachs ausgleichen.
+  - Hören: wahlweise das Gitarrensignal auf die Lautsprecher leiten (echter Klang, leicht verzögert) oder die erkannten
+    Töne mit einem Spielinstrument spielen. Pegelanzeige zum Einrichten.
+  - Funktioniert dann mit jedem Mikrofon (Singen, Pfeifen, Blockflöte).
+  - Der Mensch kann das mit Kabel und Gitarre selbst testen.
+
 ## Stand und Planung
 
 Stand nach Themen, nächste Schritte, Urheberrecht und entschiedene Fragen stehen in **`docs/kampagnen-plan.md`**.
