@@ -224,6 +224,150 @@
         "81": "clavinet/81.mp3",
         "84": "clavinet/84.mp3"
       }
+    },
+    "harpsichord": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "36": "harpsichord/36.mp3",
+        "39": "harpsichord/39.mp3",
+        "42": "harpsichord/42.mp3",
+        "45": "harpsichord/45.mp3",
+        "48": "harpsichord/48.mp3",
+        "51": "harpsichord/51.mp3",
+        "54": "harpsichord/54.mp3",
+        "57": "harpsichord/57.mp3",
+        "60": "harpsichord/60.mp3",
+        "63": "harpsichord/63.mp3",
+        "66": "harpsichord/66.mp3",
+        "69": "harpsichord/69.mp3",
+        "72": "harpsichord/72.mp3",
+        "75": "harpsichord/75.mp3",
+        "78": "harpsichord/78.mp3",
+        "81": "harpsichord/81.mp3",
+        "84": "harpsichord/84.mp3",
+        "87": "harpsichord/87.mp3",
+        "90": "harpsichord/90.mp3"
+      }
+    },
+    "banjo": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "48": "banjo/48.mp3",
+        "51": "banjo/51.mp3",
+        "54": "banjo/54.mp3",
+        "57": "banjo/57.mp3",
+        "60": "banjo/60.mp3",
+        "63": "banjo/63.mp3",
+        "66": "banjo/66.mp3",
+        "69": "banjo/69.mp3",
+        "72": "banjo/72.mp3",
+        "75": "banjo/75.mp3",
+        "78": "banjo/78.mp3",
+        "81": "banjo/81.mp3",
+        "84": "banjo/84.mp3"
+      }
+    },
+    "fiddle": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "55": "fiddle/55.mp3",
+        "58": "fiddle/58.mp3",
+        "61": "fiddle/61.mp3",
+        "64": "fiddle/64.mp3",
+        "67": "fiddle/67.mp3",
+        "70": "fiddle/70.mp3",
+        "73": "fiddle/73.mp3",
+        "76": "fiddle/76.mp3",
+        "79": "fiddle/79.mp3",
+        "82": "fiddle/82.mp3",
+        "85": "fiddle/85.mp3",
+        "88": "fiddle/88.mp3",
+        "91": "fiddle/91.mp3"
+      }
+    },
+    "steelGuitar": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "40": "steelGuitar/40.mp3",
+        "43": "steelGuitar/43.mp3",
+        "46": "steelGuitar/46.mp3",
+        "49": "steelGuitar/49.mp3",
+        "52": "steelGuitar/52.mp3",
+        "55": "steelGuitar/55.mp3",
+        "58": "steelGuitar/58.mp3",
+        "61": "steelGuitar/61.mp3",
+        "64": "steelGuitar/64.mp3",
+        "67": "steelGuitar/67.mp3",
+        "70": "steelGuitar/70.mp3",
+        "73": "steelGuitar/73.mp3",
+        "76": "steelGuitar/76.mp3",
+        "79": "steelGuitar/79.mp3",
+        "82": "steelGuitar/82.mp3"
+      }
+    },
+    "nylonGuitar": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "40": "nylonGuitar/40.mp3",
+        "43": "nylonGuitar/43.mp3",
+        "46": "nylonGuitar/46.mp3",
+        "49": "nylonGuitar/49.mp3",
+        "52": "nylonGuitar/52.mp3",
+        "55": "nylonGuitar/55.mp3",
+        "58": "nylonGuitar/58.mp3",
+        "61": "nylonGuitar/61.mp3",
+        "64": "nylonGuitar/64.mp3",
+        "67": "nylonGuitar/67.mp3",
+        "70": "nylonGuitar/70.mp3",
+        "73": "nylonGuitar/73.mp3",
+        "76": "nylonGuitar/76.mp3",
+        "79": "nylonGuitar/79.mp3",
+        "82": "nylonGuitar/82.mp3"
+      }
+    },
+    "bandoneon": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "48": "bandoneon/48.mp3",
+        "51": "bandoneon/51.mp3",
+        "54": "bandoneon/54.mp3",
+        "57": "bandoneon/57.mp3",
+        "60": "bandoneon/60.mp3",
+        "63": "bandoneon/63.mp3",
+        "66": "bandoneon/66.mp3",
+        "69": "bandoneon/69.mp3",
+        "72": "bandoneon/72.mp3",
+        "75": "bandoneon/75.mp3",
+        "78": "bandoneon/78.mp3",
+        "81": "bandoneon/81.mp3",
+        "84": "bandoneon/84.mp3",
+        "87": "bandoneon/87.mp3"
+      }
+    },
+    "choir": {
+      "license": "CC BY 3.0",
+      "source": "FluidR3_GM",
+      "notes": {
+        "48": "choir/48.mp3",
+        "51": "choir/51.mp3",
+        "54": "choir/54.mp3",
+        "57": "choir/57.mp3",
+        "60": "choir/60.mp3",
+        "63": "choir/63.mp3",
+        "66": "choir/66.mp3",
+        "69": "choir/69.mp3",
+        "72": "choir/72.mp3",
+        "75": "choir/75.mp3",
+        "78": "choir/78.mp3",
+        "81": "choir/81.mp3",
+        "84": "choir/84.mp3"
+      }
     }
   },
   "drums": {

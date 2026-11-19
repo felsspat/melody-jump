@@ -77,6 +77,14 @@ fluid('uprightBass', 'acoustic_bass', 28, 64, 2.5);
 fluid('organ', 'drawbar_organ', 36, 96, 3);
 fluid('trumpet', 'trumpet', 52, 88, 2.5);
 fluid('clavinet', 'clavinet', 36, 84, 2);
+// Instruments of the later chapters: baroque, gospel, country & bluegrass, latin
+fluid('harpsichord', 'harpsichord', 36, 90, 2.5);
+fluid('banjo', 'banjo', 48, 84, 2);
+fluid('fiddle', 'fiddle', 55, 93, 2.5);
+fluid('steelGuitar', 'acoustic_guitar_steel', 40, 84, 2.5);
+fluid('nylonGuitar', 'acoustic_guitar_nylon', 40, 84, 2.5);
+fluid('bandoneon', 'tango_accordion', 48, 87, 2.5);
+fluid('choir', 'choir_aahs', 48, 84, 3);
 
 /** One-shot drum samples (CC0): id -> [VCSL path or full URL, maxSeconds] */
 const DRUMS = {
