@@ -154,6 +154,8 @@ Ebenfalls fertig:
 - **Geräusche** (`src/audio/Sfx.ts`): Sprung, Doppelsprung, Landung, Münze, Notenblock, Gegner, Mauer, Treffer, Absturz,
   Fanfare. Alle aus Akkordtönen des gerade klingenden Akkords, damit sie zur Musik passen; sie zählen nicht für die
   Resonanz. Eigene Lautstärke „Geräusche“ in den Pause-Einstellungen.
+- **Tasten-Spuren unten durchsichtiger:** Im unteren Bereich (etwa 300 px über dem Boden, wo gesprungen wird) blenden
+  die Tasten aus, damit Landschaft und Welt durchscheinen; oben bleiben sie so deckend wie vorher.
 - **Staubwolken** beim Landen, **Ziel-Tor** mit Notenschlüssel am Ende jedes Kampagnen-Levels.
 - Alles nur mit Tests und Typprüfung abgesichert, nicht angesehen oder angehört.
 

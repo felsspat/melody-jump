@@ -294,13 +294,18 @@ export class Renderer {
     const hoverLane = v.mouseX >= 0 ? Math.floor(v.mouseX / laneW) : -1;
     const isBlack = (midi: number) => BLACK_KEYS.includes(pitchClass(midi));
 
-    // Key bodies (still slightly transparent so the scenery shows through)
+    // Key bodies: solid in the upper part; in the lower part, where the runner jumps,
+    // they fade out so the landscape and the jump & run world come through
+    const fade = (y: number) => Math.max(0, Math.min(1, (y - top) / (gy - top)));
+    const worldTop = fade(Math.max(top + 80, gy - 300));
     const ivory = ctx.createLinearGradient(0, top, 0, gy);
     ivory.addColorStop(0, 'rgba(250,244,228,0.34)');
-    ivory.addColorStop(1, 'rgba(252,248,236,0.60)');
+    ivory.addColorStop(worldTop, 'rgba(252,248,236,0.50)');
+    ivory.addColorStop(1, 'rgba(252,248,236,0.12)');
     const ebony = ctx.createLinearGradient(0, top, 0, gy);
     ebony.addColorStop(0, 'rgba(10,8,14,0.80)');
-    ebony.addColorStop(1, 'rgba(18,16,24,0.92)');
+    ebony.addColorStop(worldTop, 'rgba(18,16,24,0.85)');
+    ebony.addColorStop(1, 'rgba(18,16,24,0.30)');
 
     for (let i = 0; i < LANES; i++) {
       const midi = LOW_MIDI + i;
@@ -333,7 +338,8 @@ export class Renderer {
         const hue = pitchHue(pc);
         const grad = ctx.createLinearGradient(0, top, 0, gy);
         grad.addColorStop(0, `hsla(${hue}, 80%, 60%, 0.10)`);
-        grad.addColorStop(1, `hsla(${hue}, 90%, 62%, ${0.42 + 0.12 * pulse})`);
+        grad.addColorStop(worldTop, `hsla(${hue}, 90%, 62%, ${0.42 + 0.12 * pulse})`);
+        grad.addColorStop(1, `hsla(${hue}, 90%, 62%, ${0.2 + 0.08 * pulse})`);
         ctx.fillStyle = grad;
         ctx.fillRect(x, top, laneW, gy - top);
       }
