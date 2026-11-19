@@ -27,6 +27,8 @@ const sound = opt('sound', 'samples');
 const fill = opt('fill', 'auto');
 const seconds = Number(opt('seconds', endless ? 100 : 600)); // campaign: until the level ends
 const coach = opt('coach', 'off') === 'on';
+// Extra speed for finished levels: normal | fast (+15 %) | faster (+30 %)
+const boost = opt('boost', 'normal');
 const out = opt('out', 'demo.webm');
 const baseUrl = opt('url', 'http://localhost:5173/');
 
@@ -66,19 +68,30 @@ await page.addInitScript(() => {
   };
 });
 
+// The speed boost only applies to finished levels: in this fresh browser profile, mark the level as finished (1 star)
+if (level && boost !== 'normal') {
+  await page.addInitScript((id) => {
+    const key = 'melody-jump-campaign';
+    const p = JSON.parse(localStorage.getItem(key) ?? '{"version":1,"stars":{},"best":{},"speed":{}}');
+    p.stars[id] = Math.max(p.stars[id] ?? 0, 1);
+    localStorage.setItem(key, JSON.stringify(p));
+  }, level);
+}
+
 await page.goto(`${baseUrl}?lang=${lang}`);
 await page.waitForFunction(() => !!window.__melodyJump, null, { timeout: 30000 });
 
 await page.evaluate(
-  ({ tempo, sound, coach }) => {
+  ({ tempo, sound, coach, boost }) => {
     const g = window.__melodyJump;
     g.changeTempo(tempo);
+    g.changeBoost(boost);
     g.changeSound(sound);
     g.coachOn = coach;
     g.guideOn = true;
     g.ensureEngine(); // creates the AudioContext now, so the recorder gets its audio track
   },
-  { tempo, sound, coach },
+  { tempo, sound, coach, boost },
 );
 if (sound === 'samples') {
   await page.waitForFunction(() => ['ready', 'failed'].includes(window.__melodyJump.sampleBank?.state), null, { timeout: 120000 });

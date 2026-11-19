@@ -40,12 +40,15 @@ Options (all optional):
 | `--seconds <n>` | play time; endless runs stop here, campaign levels stop at their end anyway | 100 (endless) |
 | `--lang de\|en` | game language | `en` |
 | `--tempo slow\|medium\|original` | game speed | `original` |
+| `--boost normal\|fast\|faster` | campaign only: extra speed for finished levels (+15 % / +30 %, on top of `--tempo`); the script marks the level as finished in the fresh browser profile so the boost applies. **Highest speed = `--tempo original --boost faster`** | `normal` |
 | `--sound samples\|synth` | real instruments or synthesizer | `samples` |
 | `--fill auto\|none` | `auto`: in sections **without** a melody the bot adds a chord tone on every off-beat (good for reggae/ska); melody levels always get just the melody | `auto` |
 | `--coach on\|off` | coach panel | `off` |
 | `--mp4 <path>` | output file (WSL path; Windows `C:\…` = `/mnt/c/…`) | `~/melody-jump-demo.mp4` |
 
-Example, endless reggae as in the first demo: `run.sh --endless reggae --lang de --seconds 110 --mp4 /mnt/c/Users/devri/Videos/melody-jump-reggae.mp4`
+Examples:
+- Endless reggae as in the first demo: `run.sh --endless reggae --lang de --seconds 110 --mp4 /mnt/c/Users/devri/Videos/melody-jump-reggae.mp4`
+- Blues at the highest speed (level 2 = the blues tune, 80 → 104 BPM): `run.sh --level blues-2 --tempo original --boost faster --mp4 /mnt/c/Users/devri/Videos/melody-jump-blues-fastest.mp4`
 
 ## Check the result before handing it over
 
@@ -53,7 +56,9 @@ Example, endless reggae as in the first demo: `run.sh --endless reggae --lang de
   time and bar numbers that only go up.
 - `samples: ready` must appear when `--sound samples`; otherwise the video silently uses the synthesizer.
 - Look at a few frames, e.g. `ffmpeg -v error -ss 30 -i <mp4> -frames:v 1 -vf scale=640:-1 /tmp/f.png`, then read the PNG.
-- Loudness: `ffmpeg -i <mp4> -af volumedetect -vn -f null - 2>&1 | grep volume` (it was about −25 dB mean, −5 dB max).
+- Loudness: `ffmpeg -i <mp4> -af volumedetect -vn -f null - 2>&1 | grep volume`. `run.sh` normalizes the video's sound
+  to −16 LUFS (`loudnorm`; about −21 dB mean, −2 dB max), because the game mix is quiet, blues even more so
+  (−32 dB mean before normalizing). This changes only the video, not the game.
 - Say honestly that you can see frames but cannot hear the sound.
 
 ## Setup (automatic on first run, no root needed)

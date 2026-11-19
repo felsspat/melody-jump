@@ -32,8 +32,9 @@ fi
 WEBM="$(mktemp --suffix=.webm)"
 node "$SKILL_DIR/record.mjs" --out "$WEBM" "${ARGS[@]}"
 
+# loudnorm: videos get a usual loudness (-16 LUFS) – the game mix itself is quieter, and quiet styles (blues) even more
 ffmpeg -v error -y -i "$WEBM" -vf fps=30 -c:v libx264 -preset slow -crf 19 -pix_fmt yuv420p \
-  -c:a aac -b:a 192k -movflags +faststart "$MP4"
+  -af loudnorm=I=-16:TP=-1.5:LRA=11 -ar 48000 -c:a aac -b:a 192k -movflags +faststart "$MP4"
 rm -f "$WEBM"
 [ -n "$SERVER_PID" ] && kill -- "-$SERVER_PID" 2>/dev/null || true
 ffprobe -v error -show_entries format=duration,size -of compact "$MP4"
